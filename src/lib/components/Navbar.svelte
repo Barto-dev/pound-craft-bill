@@ -1,16 +1,47 @@
-<script>
+<script lang="ts">
   import { page } from '$app/stores';
+  import Close from '$lib/components/Icon/Close.svelte';
+  import Hamburger from '$lib/components/Icon/Hamburger.svelte';
+
+  let isNavShowing = false;
 </script>
 
-<header class="col-span-3 bg-daisyBush text-center">
-  <div>
+<svelte:head>
+  {#if isNavShowing}
+    <style lang="postcss">
+      body {
+        @apply overflow-hidden md:overflow-auto;
+      }
+    </style>
+  {/if}
+</svelte:head>
+
+<!--Mobile nav control-->
+<button
+  class="fixed right-6 top-6 z-navBarToggle md:hidden"
+  on:click={() => (isNavShowing = !isNavShowing)}
+  class:text-goldenFizz={isNavShowing}
+  class:text-daisyBush={!isNavShowing}
+>
+  {#if isNavShowing}
+    <Close width={32} height={32} />
+  {:else}
+    <Hamburger width={32} height={32} />
+  {/if}
+</button>
+
+<header
+  class="fixed top-0 z-navBar col-span-3 h-screen w-full -translate-x-full bg-daisyBush text-center transition-transform md:sticky md:translate-x-0"
+  class:translate-x-0={isNavShowing}
+>
+  <div class="mb-10 mt-10 md:mb-24">
     <a href="/invoices">
       <img src="/images/logo.svg" alt="Pound Bill Craft" class="mx-auto" />
     </a>
   </div>
   <nav aria-label="Main navigation" class="nav">
     <ul class="list-none text-2xl font-bold">
-<!--      TODO add aria current-->
+      <!--      TODO add aria current-->
       <li><a class:active={$page.url.pathname === '/invoices'} href="/invoices">Invoices</a></li>
       <li><a class:active={$page.url.pathname === '/clients'} href="/clients">Clients</a></li>
       <li><a href="/settings">Settings</a></li>

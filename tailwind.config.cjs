@@ -23,7 +23,11 @@ export default {
         silver: '#c0c0c0',
         gallery: '#efeaf2',
         fog: '#decaec',
-      }
+      },
+      zIndex: {
+        navBar: 90,
+        navBarToggle: 91,
+      },
     },
   },
   plugins: []
