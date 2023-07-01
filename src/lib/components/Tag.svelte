@@ -1,10 +1,12 @@
 <script lang="ts">
+  import cn from 'classnames';
   // for props, we always need export
   export let label: 'draft' | 'sent' | 'current' | 'late' | 'paid' = 'draft';
+  export let className = '';
 </script>
 
 <div
-  class="w-20 rounded-full border-1 text-center font-bold capitalize"
+  class={cn('w-20 rounded-full border-1 text-center font-bold capitalize', className)}
   class:inverted={label === 'draft'}
   class:success={label === 'sent' || label === 'current'}
   class:alert={label === 'late'}

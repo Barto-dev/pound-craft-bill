@@ -13,8 +13,8 @@
 }
 
 @layer components {
-  .invoice-table {
-    @apply mb-3 grid grid-cols-invoiceTable gap-4 px-6 w-full;
+  .invoice-item {
+    @apply mb-3 grid grid-cols-invoiceTableMobile lg:grid-cols-invoiceTable gap-x-4 px-4 lg:px-6 w-full;
   }
 }
 
