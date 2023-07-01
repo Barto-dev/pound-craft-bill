@@ -8,6 +8,20 @@ export default {
       handwriting: ['Kalam', 'cursive'],
     },
     extend: {
+      backgroundImage: {
+        circle: "url('/images/circle.svg')"
+      },
+      borderWidth: {
+        '1': '1px'
+      },
+      boxShadow: {
+        colored: '0px 7px 16px 0px rgba(127, 91, 220, 0.002)',
+        coloredHover: '0px 16px 25px 0px rgba(127, 91, 220, 0.3)',
+        tableRow: '0px 0px 6px 0px rgba(0, 0, 0, 0.16)',
+      },
+      gridTemplateColumns: {
+        invoiceTable: '100px 100px 60px 1fr 116px 32px 32px'
+      },
       colors: {
         lavenderIndigo: '#8657e1',
         daisyBush: '#4714a5',
