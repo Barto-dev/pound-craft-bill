@@ -3,8 +3,11 @@
   import ThreeDots from '$lib/components/Icon/ThreeDots.svelte';
   import View from '$lib/components/Icon/View.svelte';
   import type { Invoice } from '../../../global';
+  import { sumLineItems, formatToPoundCurrency } from '$lib/utils/money';
 
   export let invoice: Invoice;
+  const amount = sumLineItems(invoice.lineItems);
+  const formattedAmount = formatToPoundCurrency(amount);
 </script>
 
 <div class="invoice-item invoice-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6">
@@ -13,8 +16,10 @@
   </div>
   <div class="due-date text-sm lg:text-lg">{invoice.dueDate}</div>
   <div class="invoice-number text-sm lg:text-lg">{invoice.invoiceNumber}</div>
-  <div class="client-name text-base font-bold lg:text-xl">{invoice.client.name}</div>
-  <div class="amount text-right font-mono text-sm font-bold lg:text-lg">£504.00</div>
+  <div class="client-name truncate whitespace-nowrap text-base font-bold lg:text-xl">
+    {invoice.client.name}
+  </div>
+  <div class="amount text-right font-mono text-sm font-bold lg:text-lg">{formattedAmount}</div>
   <div class="lg:center view-button hidden lg:block">
     <a class="text-pastelPurple transition-all hover:text-daisyBush" href="/invoices/1">
       <View />
