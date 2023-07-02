@@ -40,6 +40,7 @@ export default {
         fog: '#decaec'
       },
       zIndex: {
+        additionalOptions: 89,
         navBar: 90,
         navBarToggle: 91
       }

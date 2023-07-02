@@ -4,11 +4,15 @@
   import View from '$lib/components/Icon/View.svelte';
   import type { Invoice } from '../../../global';
   import { sumLineItems, formatToPoundCurrency } from '$lib/utils/money';
-  import { convertDate, isLate } from '$lib/utils/date';
-  import { invoices } from '$lib/stores/invoiceStore.js';
+  import { convertDate } from '$lib/utils/date';
   import { getInvoiceLabel } from '$lib/utils/invoice';
+  import AdditionalOptions from '$lib/components/AdditionalOptions/AdditionalOptions.svelte';
+  import Edit from '$lib/components/Icon/Edit.svelte';
+  import Trash from '$lib/components/Icon/Trash.svelte';
+  import Send from '$lib/components/Icon/Send.svelte';
 
   export let invoice: Invoice;
+  let isAdditionalMenuShowing = false;
 
   const invoiceLabel = getInvoiceLabel(invoice.invoiceStatus, invoice.dueDate);
 
@@ -16,6 +20,27 @@
   const formattedAmount = formatToPoundCurrency(amount);
 
   const convertedDate = convertDate(invoice.dueDate);
+
+  const isEditDisabled =
+    invoiceLabel === 'sent' || invoiceLabel === 'late' || invoiceLabel === 'paid';
+  const isSendDisabled =
+    invoiceLabel === 'sent' || invoiceLabel === 'late' || invoiceLabel === 'paid';
+  const handleDelete = () => {
+    console.log('Deleting');
+  };
+
+  const handleEdit = () => {
+    console.log('Editing');
+  };
+
+  const handleSendInvoice = () => {
+    console.log('Sending');
+  };
+  const options = [
+    { label: 'Edit', icon: Edit, onClick: handleEdit, disabled: isEditDisabled },
+    { label: 'Delete', icon: Trash, onClick: handleDelete, disabled: false },
+    { label: 'Send', icon: Send, onClick: handleSendInvoice, disabled: isSendDisabled }
+  ];
 </script>
 
 <div class="invoice-item invoice-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6">
@@ -33,10 +58,16 @@
       <View />
     </a>
   </div>
-  <div class="lg:center more-button hidden lg:block">
-    <button class="text-pastelPurple transition-all hover:text-daisyBush">
+  <div class="lg:center more-button relative hidden lg:block">
+    <button
+      on:click={() => (isAdditionalMenuShowing = !isAdditionalMenuShowing)}
+      class="text-pastelPurple transition-all hover:text-daisyBush"
+    >
       <ThreeDots />
     </button>
+    {#if isAdditionalMenuShowing}
+      <AdditionalOptions {options} />
+    {/if}
   </div>
 </div>
 
