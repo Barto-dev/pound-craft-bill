@@ -5,7 +5,6 @@ interface LineItem {
   description: string;
   id: string;
   quantity: number;
-  unitPrice: string;
 }
 
 interface Client {
@@ -20,7 +19,6 @@ interface Client {
 }
 
 interface Invoice {
-  amount: number;
   client: Client;
   createdAt: string;
   dueDate: string;
