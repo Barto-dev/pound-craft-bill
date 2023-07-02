@@ -4,11 +4,13 @@
   import SearchInput from '$lib/components/SearchInput.svelte';
   import CircledAmount from '$lib/components/CircledAmount.svelte';
   import InvoiceRow from './InvoiceRow.svelte';
+  import { formatToPoundCurrency, sumInvoices } from '$lib/utils/money';
 
   onMount(() => {
     loadInvoices();
-    console.log($invoices);
   });
+  const totalAmount = sumInvoices($invoices);
+  const formattedTotalAmount = formatToPoundCurrency(totalAmount);
 </script>
 
 <svelte:head>
@@ -39,7 +41,8 @@
 {#each $invoices as invoice}
   <InvoiceRow {invoice} />
 {/each}
-<CircledAmount label="Total:" amount="£10,251.00" />
+
+<CircledAmount label="Total:" amount={formattedTotalAmount} />
 
 <style lang="postcss">
   .search {

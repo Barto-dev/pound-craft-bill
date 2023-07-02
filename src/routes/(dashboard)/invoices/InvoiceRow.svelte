@@ -4,17 +4,25 @@
   import View from '$lib/components/Icon/View.svelte';
   import type { Invoice } from '../../../global';
   import { sumLineItems, formatToPoundCurrency } from '$lib/utils/money';
+  import { convertDate, isLate } from '$lib/utils/date';
+  import { invoices } from '$lib/stores/invoiceStore.js';
+  import { getInvoiceLabel } from '$lib/utils/invoice';
 
   export let invoice: Invoice;
+
+  const invoiceLabel = getInvoiceLabel(invoice.invoiceStatus, invoice.dueDate);
+
   const amount = sumLineItems(invoice.lineItems);
   const formattedAmount = formatToPoundCurrency(amount);
+
+  const convertedDate = convertDate(invoice.dueDate);
 </script>
 
 <div class="invoice-item invoice-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6">
   <div class="status">
-    <Tag className="ml-auto lg:ml-0" label={invoice.invoiceStatus} />
+    <Tag className="ml-auto lg:ml-0" label={invoiceLabel} />
   </div>
-  <div class="due-date text-sm lg:text-lg">{invoice.dueDate}</div>
+  <div class="due-date text-sm lg:text-lg">{convertedDate}</div>
   <div class="invoice-number text-sm lg:text-lg">{invoice.invoiceNumber}</div>
   <div class="client-name truncate whitespace-nowrap text-base font-bold lg:text-xl">
     {invoice.client.name}
