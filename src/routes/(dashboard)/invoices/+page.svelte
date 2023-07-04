@@ -5,6 +5,8 @@
   import CircledAmount from '$lib/components/CircledAmount.svelte';
   import InvoiceRow from './InvoiceRow.svelte';
   import { formatToPoundCurrency, sumInvoices } from '$lib/utils/money';
+  import BlankState from './BlankState.svelte';
+  import InvoiceRowHeader from './InvoiceRowHeader.svelte';
 
   onMount(() => {
     loadInvoices();
@@ -18,31 +20,28 @@
 </svelte:head>
 
 <div class="search">
-  <SearchInput />
+  {#if $invoices.length > 0}
+    <SearchInput />
+  {:else}
+    <div />
+  {/if}
   <!--  new invoice button-->
   <div>
     <button class="btn">+ Invoice</button>
   </div>
 </div>
 
-<!--List of invoices-->
-<div>
-  <header class="table-header lg:invoice-item hidden text-daisyBush">
-    <h3>Status</h3>
-    <h3>Due Date</h3>
-    <h3>ID</h3>
-    <h3>Client</h3>
-    <h3 class="text-right">Amount</h3>
-    <div />
-    <div />
-  </header>
-</div>
-
-{#each $invoices as invoice}
-  <InvoiceRow {invoice} />
-{/each}
-
-<CircledAmount label="Total:" amount={formattedTotalAmount} />
+{#if $invoices === null}
+  Loading...
+{:else if $invoices.length === 0}
+  <BlankState />
+{:else}
+  <InvoiceRowHeader className="text-daisyBush" />
+  {#each $invoices as invoice}
+    <InvoiceRow {invoice} />
+  {/each}
+  <CircledAmount label="Total:" amount={formattedTotalAmount} />
+{/if}
 
 <style lang="postcss">
   .search {
@@ -76,9 +75,5 @@
     lg:px-10
     lg:py-3
     lg:text-xl;
-  }
-
-  .table-header h3 {
-    @apply text-xl font-black leading-snug;
   }
 </style>
