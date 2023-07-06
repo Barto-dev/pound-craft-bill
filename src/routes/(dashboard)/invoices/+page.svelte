@@ -7,6 +7,7 @@
   import { formatToPoundCurrency, sumInvoices } from '$lib/utils/money';
   import BlankState from './BlankState.svelte';
   import InvoiceRowHeader from './InvoiceRowHeader.svelte';
+  import Portal from '$lib/components/Portal.svelte';
 
   onMount(() => {
     loadInvoices();
@@ -42,6 +43,8 @@
   {/each}
   <CircledAmount label="Total:" amount={formattedTotalAmount} />
 {/if}
+
+<Portal />
 
 <style lang="postcss">
   .search {
