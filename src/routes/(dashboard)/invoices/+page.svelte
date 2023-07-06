@@ -8,13 +8,16 @@
   import BlankState from './BlankState.svelte';
   import InvoiceRowHeader from './InvoiceRowHeader.svelte';
   import Button from '$lib/components/Button.svelte';
+  import SlidePanel from '$lib/components/SlidePanel.svelte';
+
+  let isInvoiceCreateShowing = false;
 
   onMount(() => {
     loadInvoices();
   });
 
-  $:totalAmount = sumInvoices($invoices);
-  $:formattedTotalAmount = formatToPoundCurrency(totalAmount);
+  $: totalAmount = sumInvoices($invoices);
+  $: formattedTotalAmount = formatToPoundCurrency(totalAmount);
 </script>
 
 <svelte:head>
@@ -29,9 +32,7 @@
   {/if}
   <!--  new invoice button-->
   <div>
-    <Button
-      isAnimated={true}
-      onClick={() => console.log('adding')}>+ Invoice</Button>
+    <Button isAnimated={true} onClick={() => (isInvoiceCreateShowing = true)}>+ Invoice</Button>
   </div>
 </div>
 
@@ -45,6 +46,10 @@
     <InvoiceRow {invoice} />
   {/each}
   <CircledAmount label="Total:" amount={formattedTotalAmount} />
+{/if}
+
+{#if isInvoiceCreateShowing}
+  <SlidePanel on:closePanel={() => isInvoiceCreateShowing = false}>Test</SlidePanel>
 {/if}
 
 <style lang="postcss">

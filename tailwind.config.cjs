@@ -19,6 +19,7 @@ export default {
       boxShadow: {
         colored: '0px 7px 16px 0px rgba(127, 91, 220, 0.002)',
         coloredHover: '0px 16px 25px 0px rgba(127, 91, 220, 0.3)',
+        slidePanel: '-4px 0px 44px 0px rgba(0, 0, 0, 0.25);',
         tableRow: '0px 0px 6px 0px rgba(0, 0, 0, 0.16)'
       },
       gridTemplateColumns: {
@@ -44,6 +45,7 @@ export default {
       },
       zIndex: {
         modal: 100,
+        slidePanel: 96,
         overlay: 95,
         navBarToggle: 91,
         navBar: 90,
