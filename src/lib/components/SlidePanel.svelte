@@ -16,7 +16,7 @@
 />
 
 <Portal>
-  <Overlay />
+  <Overlay onClick={() => dispatch('closePanel')} />
   <div
     class="fixed right-0 top-0 z-slidePanel h-screen w-3/4 bg-white p-20 px-32 shadow-slidePanel"
   >

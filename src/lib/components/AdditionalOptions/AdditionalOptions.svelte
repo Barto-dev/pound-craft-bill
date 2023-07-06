@@ -5,7 +5,7 @@
 
 <ul class="absolute left-0 top-4 z-additionalOptions rounded-lg bg-white shadow-lg">
   {#each options as option}
-    {#if !option.isDisabled}
+    {#if !option.disabled}
       <li>
         <button
           on:click={option.onClick}
