@@ -10,6 +10,8 @@
   import Edit from '$lib/components/Icon/Edit.svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
   import Send from '$lib/components/Icon/Send.svelte';
+  import Modal from '$lib/components/Modal.svelte';
+  import { tr } from 'date-fns/locale';
 
   export let invoice: Invoice;
   let isAdditionalMenuShowing = false;
@@ -25,8 +27,10 @@
     invoiceLabel === 'sent' || invoiceLabel === 'late' || invoiceLabel === 'paid';
   const isSendDisabled =
     invoiceLabel === 'sent' || invoiceLabel === 'late' || invoiceLabel === 'paid';
+
+  let isModalShowing = false;
   const handleDelete = () => {
-    console.log('Deleting');
+    isModalShowing = true;
   };
 
   const handleEdit = () => {
@@ -70,6 +74,8 @@
     {/if}
   </div>
 </div>
+
+<Modal isVisible={isModalShowing} on:close={() => isModalShowing = false} />
 
 <style lang="postcss">
   .invoice-row {

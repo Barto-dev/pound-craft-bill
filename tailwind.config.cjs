@@ -43,9 +43,11 @@ export default {
         whisper: '#f9f4f9'
       },
       zIndex: {
-        additionalOptions: 89,
+        modal: 100,
+        overlay: 95,
+        navBarToggle: 91,
         navBar: 90,
-        navBarToggle: 91
+        additionalOptions: 89,
       }
     }
   },
