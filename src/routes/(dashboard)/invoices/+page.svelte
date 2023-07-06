@@ -49,7 +49,7 @@
 {/if}
 
 {#if isInvoiceCreateShowing}
-  <SlidePanel on:closePanel={() => isInvoiceCreateShowing = false}>Test</SlidePanel>
+  <SlidePanel on:closePanel={() => (isInvoiceCreateShowing = false)}>Test</SlidePanel>
 {/if}
 
 <style lang="postcss">

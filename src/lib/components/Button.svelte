@@ -35,7 +35,7 @@
   }
 
   .isAnimated {
-    @apply hover:-translate-y-0.5 translate-y-0 hover:shadow-coloredHover;
+    @apply translate-y-0 hover:-translate-y-0.5 hover:shadow-coloredHover;
   }
 
   .primary {

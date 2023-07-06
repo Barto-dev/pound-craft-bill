@@ -15,7 +15,7 @@
 
     update();
 
-    return {update, destroy}
+    return { update, destroy };
   }
 </script>
 

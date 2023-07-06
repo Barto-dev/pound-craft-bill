@@ -49,7 +49,7 @@ export default {
         overlay: 95,
         navBarToggle: 91,
         navBar: 90,
-        additionalOptions: 89,
+        additionalOptions: 89
       }
     }
   },
