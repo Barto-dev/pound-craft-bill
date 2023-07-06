@@ -11,7 +11,8 @@
   import Trash from '$lib/components/Icon/Trash.svelte';
   import Send from '$lib/components/Icon/Send.svelte';
   import Modal from '$lib/components/Modal.svelte';
-  import { tr } from 'date-fns/locale';
+  import Button from '$lib/components/Button.svelte';
+  import { deleteInvoice } from '$lib/stores/invoiceStore';
 
   export let invoice: Invoice;
   let isAdditionalMenuShowing = false;
@@ -31,6 +32,7 @@
   let isModalShowing = false;
   const handleDelete = () => {
     isModalShowing = true;
+    isAdditionalMenuShowing = false;
   };
 
   const handleEdit = () => {
@@ -45,6 +47,11 @@
     { label: 'Delete', icon: Trash, onClick: handleDelete, disabled: false },
     { label: 'Send', icon: Send, onClick: handleSendInvoice, disabled: isSendDisabled }
   ];
+
+  const handleSubmitInvoiceDelete = () => {
+    isModalShowing = false;
+    deleteInvoice(invoice);
+  };
 </script>
 
 <div class="invoice-item invoice-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6">
@@ -75,7 +82,19 @@
   </div>
 </div>
 
-<Modal isVisible={isModalShowing} on:close={() => isModalShowing = false} />
+<Modal isVisible={isModalShowing} on:close={() => (isModalShowing = false)}>
+  <div class="flex h-full min-h-[175px] flex-col items-center justify-between gap-6">
+    <p class="text-center text-xl font-bold text-daisyBush">
+      Are you sure you want to delete this invoice to
+      <span class="text-scarlet">{invoice.client.name}</span>
+      for <span class="text-scarlet">{formattedAmount}</span>
+    </p>
+    <div class="flex gap-4">
+      <Button variant="secondary" onClick={() => (isModalShowing = false)}>Cancel</Button>
+      <Button variant="danger" onClick={handleSubmitInvoiceDelete}>Yes, Delete It</Button>
+    </div>
+  </div>
+</Modal>
 
 <style lang="postcss">
   .invoice-row {
