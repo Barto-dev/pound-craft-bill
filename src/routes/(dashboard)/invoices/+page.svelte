@@ -9,6 +9,7 @@
   import InvoiceRowHeader from './InvoiceRowHeader.svelte';
   import Button from '$lib/components/Button.svelte';
   import SlidePanel from '$lib/components/SlidePanel.svelte';
+  import InvoiceForm from './InvoiceForm.svelte';
 
   let isInvoiceCreateShowing = false;
 
@@ -49,7 +50,9 @@
 {/if}
 
 {#if isInvoiceCreateShowing}
-  <SlidePanel on:closePanel={() => (isInvoiceCreateShowing = false)}>Test</SlidePanel>
+  <SlidePanel on:closePanel={() => (isInvoiceCreateShowing = false)}>
+    <InvoiceForm />
+  </SlidePanel>
 {/if}
 
 <style lang="postcss">
