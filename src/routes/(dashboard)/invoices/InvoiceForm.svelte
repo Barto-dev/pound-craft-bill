@@ -1,48 +1,71 @@
 <script>
   import Button from '$lib/components/Button.svelte';
+  import Trash from '$lib/components/Icon/Trash.svelte';
 </script>
 
 <h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Add an invoice</h2>
 <form class="grid grid-cols-6 gap-x-5">
   <div class="field col-span-2">
     <label for="client">Client</label>
-    <select name="client" id="client">
+    <select class="select" name="client" id="client">
       <option value="1">Client 1</option>
       <option value="2">Client 2</option>
       <option value="3">Client 3</option>
     </select>
   </div>
-  <div class="field col-span-3 flex items-end">
+
+  <div class="field gap-x-5 col-span-2 flex items-end">
     <div class="text-base font-bold text-monsoon leading-[3.5rem]">or</div>
-    <Button onClick={() => {}}>+ Client</Button>
+    <Button variant="outline" onClick={() => {}}>+ Client</Button>
   </div>
-  <div>
+
+  <div class="field col-span-2">
     <label for="invoiceId">Invoice ID</label>
-    <input type="text" name="invoiceId" id="invoiceId">
+    <input class="input" type="text" name="invoiceId" id="invoiceId">
   </div>
-  <div>
+
+  <div class="field col-span-2">
     <label for="dueDate">Due date</label>
-    <input type="date" name="dueDate" id="dueDate">
+    <input class="input" type="date" name="dueDate" id="dueDate">
   </div>
-  <div>
+
+  <div class="field col-span-2 col-start-5">
     <label for="issueDate">Issue date</label>
-    <input type="date" name="issueDate" id="issueDate">
+    <input class="input" type="date" name="issueDate" id="issueDate">
   </div>
-  <div>
+
+  <div class="field col-span-6">
     <label for="subject">Subject</label>
-    <input type="text" name="subject" id="subject">
+    <input class="input" type="text" name="subject" id="subject">
   </div>
-<!--  line items-->
-  <div>
-    <label for="notes">Notes <span>(optional, displayed on invoice)</span></label>
-    <textarea name="notes" id="notes"></textarea>
+
+  <div class="field col-span-6">
+    Line items
   </div>
-  <div>
-    <label for="terms">Terms <span>(optional, enter your terms and conditions)</span></label>
-    <textarea name="terms" id="terms"></textarea>
+
+  <div class="field col-span-6">
+    <label for="notes">Notes <span class="font-normal">(optional, displayed on invoice)</span></label>
+    <textarea class="textarea" name="notes" id="notes"></textarea>
+    <div class="text-xs text-gray-400">
+      Formatting tips: <strong>*bold*</strong>, <em>_italics_</em>.
+    </div>
   </div>
-  <div>
-    <button>Cancel</button>
-    <button>Save</button>
+
+  <div class="field col-span-6">
+    <label for="terms">Terms <span class="font-normal">(optional, enter your terms and conditions)</span></label>
+    <textarea class="textarea" name="terms" id="terms"></textarea>
+    <div class="text-xs text-gray-400">
+      Formatting tips: <strong>*bold*</strong>, <em>_italics_</em>.
+    </div>
   </div>
+
+  <div class="field col-span-2">
+    <Button variant="text" iconLeft={Trash}>Delete</Button>
+  </div>
+
+  <div class="field gap-x-5 col-span-4 flex justify-end">
+    <Button variant="secondary">Cancel</Button>
+    <Button>Save</Button>
+  </div>
+
 </form>
