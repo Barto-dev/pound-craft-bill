@@ -12,7 +12,7 @@
   }
 
   label {
-    @apply block font-sansSerif
+    @apply block font-sansSerif;
   }
 }
 
@@ -30,7 +30,7 @@
   }
 
   .select {
-    @apply h-14 w-full rounded-lg border-2 border-silver p-4 font-sansSerif text-base appearance-none bg-chevronDown bg-no-repeat bg-right-center;
+    @apply h-14 w-full appearance-none rounded-lg border-2 border-silver bg-chevronDown bg-right-center bg-no-repeat p-4 font-sansSerif text-base;
   }
 
   .textarea {
@@ -40,7 +40,7 @@
   .input:focus,
   .select:focus,
   .textarea:focus {
-    @apply outline-none border-lavenderIndigo border-2;
+    @apply border-2 border-lavenderIndigo outline-none;
   }
 }
 
