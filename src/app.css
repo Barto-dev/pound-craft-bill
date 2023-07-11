@@ -4,17 +4,43 @@
 
 @layer base {
   body {
-    @apply font-sansSerif;
+    @apply font-sansSerif text-base font-bold text-monsoon;
   }
 
   svg {
     @apply fill-current;
+  }
+
+  label {
+    @apply block font-sansSerif
   }
 }
 
 @layer components {
   .invoice-item {
     @apply mb-3 grid w-full grid-cols-invoiceTableMobile gap-x-4 px-4 lg:grid-cols-invoiceTable lg:px-6;
+  }
+
+  .field {
+    @apply mb-6;
+  }
+
+  .input {
+    @apply h-14 w-full rounded-lg border-2 border-silver px-4 font-sansSerif text-base;
+  }
+
+  .select {
+    @apply h-14 w-full rounded-lg border-2 border-silver p-4 font-sansSerif text-base appearance-none bg-chevronDown bg-no-repeat bg-right-center;
+  }
+
+  .textarea {
+    @apply h-32 w-full rounded-lg border-2 border-silver p-4 font-sansSerif text-base;
+  }
+
+  .input:focus,
+  .select:focus,
+  .textarea:focus {
+    @apply outline-none border-lavenderIndigo border-2;
   }
 }
 

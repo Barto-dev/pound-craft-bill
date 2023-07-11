@@ -4,12 +4,12 @@
 
 <div class="relative flex w-full items-center">
   <div class="mr-2 text-pastelPurple"><Search /></div>
-  <input type="search" name="search" placeholder="Search by keyword" class="input" />
+  <input type="search" name="search" placeholder="Search by keyword" class="search-input" />
   <button class="font-sansSerif text-lg font-black text-pastelPurple lg:text-xl">Search</button>
 </div>
 
 <style lang="postcss">
-  .input {
+  .search-input {
     @apply w-full
     border-b-2
     border-dashed
