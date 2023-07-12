@@ -21,6 +21,10 @@
     @apply mb-3 grid w-full grid-cols-invoiceTableMobile gap-x-4 px-4 lg:grid-cols-invoiceTable lg:px-6;
   }
 
+  .invoice-line-item {
+    @apply grid grid-cols-invoiceLineItem gap-x-5;
+  }
+
   .field {
     @apply mb-6;
   }

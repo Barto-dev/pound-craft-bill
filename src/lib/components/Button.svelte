@@ -4,6 +4,7 @@
 
   export let onClick: () => void;
   export let variant: 'primary' | 'secondary' | 'danger' | 'outline' | 'text' = 'primary';
+  export let color: 'error' | 'primary' = 'primary';
   export let isAnimated = false;
   export let iconLeft: (new (...args: any[]) => SvelteComponent) | null = null;
   export let iconRight: (new (...args: any[]) => SvelteComponent) | null = null;
@@ -17,6 +18,8 @@
   class:danger={variant === 'danger'}
   class:outline={variant === 'outline'}
   class:text={variant === 'text'}
+  class:errorText={color === 'error'}
+  class:primaryText={color === 'primary'}
   on:click|preventDefault={onClick}
 >
   {#if iconLeft}
@@ -72,6 +75,14 @@
   }
 
   .text {
-    @apply bg-transparent px-0 text-scarlet underline hover:no-underline;
+    @apply bg-transparent px-0 underline hover:no-underline;
+  }
+
+  .text.errorText {
+    @apply text-scarlet;
+  }
+
+  .text.primaryText {
+    @apply text-lavenderIndigo;
   }
 </style>

@@ -1,4 +1,4 @@
-import type { Invoice, LineItem } from '../../global';
+import type { Invoice, ILineItem } from '../../global';
 
 // Transforms pennies to pounds, since we receive all amounts in pennies
 export const penniesToPounds = (coins: number) => {
@@ -6,7 +6,7 @@ export const penniesToPounds = (coins: number) => {
 };
 
 // Takes all the line items and adds them up
-export const sumLineItems = (lineItems: LineItem[] | undefined): number => {
+export const sumLineItems = (lineItems: ILineItem[] | undefined): number => {
   if (!lineItems) {
     return 0;
   }

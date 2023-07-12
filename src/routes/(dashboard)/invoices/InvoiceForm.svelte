@@ -1,6 +1,15 @@
 <script>
   import Button from '$lib/components/Button.svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
+  import LineItemRows from './LineItemRows.svelte';
+
+  const blankLineItems = [
+    { id: '1', description: '', quantity: '', amount: '' },
+    { id: '2', description: '', quantity: '', amount: '' },
+    { id: '3', description: '', quantity: '', amount: '' },
+    { id: '4', description: '', quantity: '', amount: '' },
+    { id: '5', description: '', quantity: '', amount: '' }
+  ];
 </script>
 
 <h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Add an invoice</h2>
@@ -39,7 +48,9 @@
     <input class="input" type="text" name="subject" id="subject" />
   </div>
 
-  <div class="field col-span-6">Line items</div>
+  <div class="field col-span-6">
+    <LineItemRows lineItems={blankLineItems} />
+  </div>
 
   <div class="field col-span-6">
     <label for="notes"
@@ -62,7 +73,7 @@
   </div>
 
   <div class="field col-span-2">
-    <Button variant="text" iconLeft={Trash}>Delete</Button>
+    <Button color="error" variant="text" iconLeft={Trash}>Delete</Button>
   </div>
 
   <div class="field col-span-4 flex justify-end gap-x-5">

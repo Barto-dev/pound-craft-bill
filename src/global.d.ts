@@ -1,6 +1,6 @@
 import type { InvoiceStatus, ClientStatus } from './enums';
 
-interface LineItem {
+interface ILineItem {
   amount: number;
   description: string;
   id: string;
@@ -26,7 +26,7 @@ interface Invoice {
   invoiceNumber: string;
   invoiceStatus: InvoiceStatus;
   issueDate: string;
-  lineItems?: LineItem[];
+  lineItems?: ILineItem[];
   notes?: string;
   subject?: string;
   terms?: string;

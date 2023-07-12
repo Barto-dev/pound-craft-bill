@@ -82,19 +82,21 @@
   </div>
 </div>
 
-<Modal isVisible={isModalShowing} on:close={() => (isModalShowing = false)}>
-  <div class="flex h-full min-h-[175px] flex-col items-center justify-between gap-6">
-    <p class="text-center text-xl font-bold text-daisyBush">
-      Are you sure you want to delete this invoice to
-      <span class="text-scarlet">{invoice.client.name}</span>
-      for <span class="text-scarlet">{formattedAmount}</span>
-    </p>
-    <div class="flex gap-4">
-      <Button variant="secondary" onClick={() => (isModalShowing = false)}>Cancel</Button>
-      <Button variant="danger" onClick={handleSubmitInvoiceDelete}>Yes, Delete It</Button>
+{#if isModalShowing}
+  <Modal isVisible={isModalShowing} on:close={() => (isModalShowing = false)}>
+    <div class="flex h-full min-h-[175px] flex-col items-center justify-between gap-6">
+      <p class="text-center text-xl font-bold text-daisyBush">
+        Are you sure you want to delete this invoice to
+        <span class="text-scarlet">{invoice.client.name}</span>
+        for <span class="text-scarlet">{formattedAmount}</span>
+      </p>
+      <div class="flex gap-4">
+        <Button variant="secondary" onClick={() => (isModalShowing = false)}>Cancel</Button>
+        <Button variant="danger" onClick={handleSubmitInvoiceDelete}>Yes, Delete It</Button>
+      </div>
     </div>
-  </div>
-</Modal>
+  </Modal>
+{/if}
 
 <style lang="postcss">
   .invoice-row {
