@@ -18,7 +18,7 @@
 
 {#if lineItems}
   {#each lineItems as lineItem}
-    <LineItem {lineItem} on:removeLineItem />
+    <LineItem {lineItem} on:removeLineItem canDelete={lineItems.length > 1} />
   {/each}
 {/if}
 

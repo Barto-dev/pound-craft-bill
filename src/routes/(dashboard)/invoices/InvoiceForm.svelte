@@ -5,15 +5,18 @@
   import LineItemRows from './LineItemRows.svelte';
   import LineItem from './LineItem.svelte';
 
-  const blankLineItem = { id: nanoid(), description: '', quantity: '', amount: '' };
+  const blankLineItem = { description: '', quantity: 10, amount: 0 };
 
-  export let lineItems: LineItem[] = [blankLineItem];
+  export let lineItems: LineItem[] = [{...blankLineItem, id: nanoid()}];
 
   const addLineItem = () => {
     lineItems = [...lineItems, {...blankLineItem, id: nanoid()}];
   }
 
   const removeLineItem = (event) => {
+    if (lineItems.length === 1) {
+      return;
+    }
     lineItems = lineItems.filter((lineItem) => lineItem.id !== event.detail);
   }
 </script>
