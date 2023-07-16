@@ -1,15 +1,21 @@
-<script>
+<script lang="ts">
+  import { nanoid } from 'nanoid';
   import Button from '$lib/components/Button.svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
   import LineItemRows from './LineItemRows.svelte';
+  import LineItem from './LineItem.svelte';
 
-  const blankLineItems = [
-    { id: '1', description: '', quantity: '', amount: '' },
-    { id: '2', description: '', quantity: '', amount: '' },
-    { id: '3', description: '', quantity: '', amount: '' },
-    { id: '4', description: '', quantity: '', amount: '' },
-    { id: '5', description: '', quantity: '', amount: '' }
-  ];
+  const blankLineItem = { id: nanoid(), description: '', quantity: '', amount: '' };
+
+  export let lineItems: LineItem[] = [blankLineItem];
+
+  const addLineItem = () => {
+    lineItems = [...lineItems, {...blankLineItem, id: nanoid()}];
+  }
+
+  const removeLineItem = (event) => {
+    lineItems = lineItems.filter((lineItem) => lineItem.id !== event.detail);
+  }
 </script>
 
 <h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Add an invoice</h2>
@@ -49,7 +55,7 @@
   </div>
 
   <div class="field col-span-6">
-    <LineItemRows lineItems={blankLineItems} />
+    <LineItemRows on:addLineItem={addLineItem} on:removeLineItem={removeLineItem} lineItems={lineItems} />
   </div>
 
   <div class="field col-span-6">
