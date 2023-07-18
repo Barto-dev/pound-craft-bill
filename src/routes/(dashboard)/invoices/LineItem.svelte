@@ -12,14 +12,15 @@
   export let canDelete: boolean = false;
   let unitPrice: string = formatToPoundCurrency(lineItem.amount / lineItem.quantity);
   let amount: string = formatToPoundCurrency(lineItem.amount);
+  const dispatch = createEventDispatcher();
 
   // TODO update parse mechanism
   const handleUnitPriceChange = (evt: Event) => {
     const target = evt.target as HTMLInputElement;
     const unitPriceNumberRepresentation = convertToNumericCurrency(target.value);
     unitPrice = formatToPoundCurrency(unitPriceNumberRepresentation);
+    dispatch('updateLineItem');
   };
-  const dispatch = createEventDispatcher();
 
   // something like useEffect in React
   $: {
@@ -58,6 +59,7 @@
       name="quantity"
       min="0"
       bind:value={lineItem.quantity}
+      on:input={() => dispatch('updateLineItem')}
     />
   </div>
   <div>

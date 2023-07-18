@@ -7,17 +7,21 @@
 
   const blankLineItem = { description: '', quantity: 10, amount: 0 };
 
-  export let lineItems: LineItem[] = [{...blankLineItem, id: nanoid()}];
+  export let lineItems: LineItem[] = [{ ...blankLineItem, id: nanoid() }];
 
   const addLineItem = () => {
-    lineItems = [...lineItems, {...blankLineItem, id: nanoid()}];
-  }
+    lineItems = [...lineItems, { ...blankLineItem, id: nanoid() }];
+  };
 
   const removeLineItem = (event) => {
     if (lineItems.length === 1) {
       return;
     }
     lineItems = lineItems.filter((lineItem) => lineItem.id !== event.detail);
+  };
+
+  const updateLineItem = () => {
+    lineItems = [...lineItems];
   }
 </script>
 
@@ -58,7 +62,12 @@
   </div>
 
   <div class="field col-span-6">
-    <LineItemRows on:addLineItem={addLineItem} on:removeLineItem={removeLineItem} lineItems={lineItems} />
+    <LineItemRows
+      on:addLineItem={addLineItem}
+      on:removeLineItem={removeLineItem}
+      on:updateLineItem={updateLineItem}
+      {lineItems}
+    />
   </div>
 
   <div class="field col-span-6">
