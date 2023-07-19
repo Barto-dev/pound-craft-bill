@@ -5,6 +5,7 @@
   import Trash from '$lib/components/Icon/Trash.svelte';
   import LineItemRows from './LineItemRows.svelte';
   import LineItem from './LineItem.svelte';
+  import { counties } from '$lib/utils/counties';
 
   const blankLineItem = { description: '', quantity: 10, amount: 0 };
 
@@ -77,9 +78,10 @@
       <div class="field col-span-2">
         <label for="county">County</label>
         <select class="select" name="county" id="county">
-          <option value="1">County 1</option>
-          <option value="2">County 2</option>
-          <option value="3">County 3</option>
+          <option value="">Select a county</option>
+          {#each counties as county}
+            <option value={county.value}>{county.label}</option>
+          {/each}
         </select>
       </div>
 
