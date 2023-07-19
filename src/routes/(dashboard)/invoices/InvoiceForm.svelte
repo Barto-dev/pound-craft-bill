@@ -1,5 +1,6 @@
 <script lang="ts">
   import { nanoid } from 'nanoid';
+  import { slide } from 'svelte/transition';
   import Button from '$lib/components/Button.svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
   import LineItemRows from './LineItemRows.svelte';
@@ -8,6 +9,7 @@
   const blankLineItem = { description: '', quantity: 10, amount: 0 };
 
   export let lineItems: LineItem[] = [{ ...blankLineItem, id: nanoid() }];
+  let isNewClient = false;
 
   const addLineItem = () => {
     lineItems = [...lineItems, { ...blankLineItem, id: nanoid() }];
@@ -22,29 +24,71 @@
 
   const updateLineItem = () => {
     lineItems = [...lineItems];
-  }
+  };
 </script>
 
 <h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Add an invoice</h2>
 <form class="grid grid-cols-6 gap-x-5">
-  <div class="field col-span-2">
-    <label for="client">Client</label>
-    <select class="select" name="client" id="client">
-      <option value="1">Client 1</option>
-      <option value="2">Client 2</option>
-      <option value="3">Client 3</option>
-    </select>
-  </div>
-
-  <div class="field col-span-2 flex items-end gap-x-5">
-    <div class="text-base font-bold leading-[3.5rem] text-monsoon">or</div>
-    <Button variant="outline" onClick={() => {}}>+ Client</Button>
+  <div class="field col-span-4">
+    {#if !isNewClient}
+      <label for="client">Client</label>
+      <div class="flex items-end gap-x-5">
+        <select class="select" name="client" id="client">
+          <option value="1">Client 1</option>
+          <option value="2">Client 2</option>
+          <option value="3">Client 3</option>
+        </select>
+        <div class="text-base font-bold leading-[3.5rem] text-monsoon">or</div>
+        <Button variant="outline" onClick={() => (isNewClient = true)}>+ Client</Button>
+      </div>
+    {:else}
+      <label for="newClient">New Client</label>
+      <div class="flex items-end gap-x-5">
+        <input class="input" type="text" name="newClient" id="newClient" />
+        <div class="text-base font-bold leading-[3.5rem] text-monsoon">or</div>
+        <Button variant="outline" onClick={() => (isNewClient = false)}>Existing Client</Button>
+      </div>
+    {/if}
   </div>
 
   <div class="field col-span-2">
     <label for="invoiceId">Invoice ID</label>
     <input class="input" type="text" name="invoiceId" id="invoiceId" />
   </div>
+
+  <!--  New client info-->
+  {#if isNewClient}
+    <div class="field col-span-6 grid gap-x-5" transition:slide>
+      <div class="field col-span-6">
+        <label for="email">Name</label>
+        <input class="input" type="text" name="email" id="email" />
+      </div>
+
+      <div class="field col-span-6">
+        <label for="street">Street</label>
+        <input class="input" autocomplete="address-line1" type="text" name="street" id="street" />
+      </div>
+
+      <div class="field col-span-2">
+        <label for="city">City</label>
+        <input class="input" autocomplete="address-level2" type="text" name="city" id="city" />
+      </div>
+
+      <div class="field col-span-2">
+        <label for="county">County</label>
+        <select class="select" name="county" id="county">
+          <option value="1">County 1</option>
+          <option value="2">County 2</option>
+          <option value="3">County 3</option>
+        </select>
+      </div>
+
+      <div class="field col-span-2">
+        <label for="postcode">Postcode</label>
+        <input class="input" autocomplete="postal-code" type="text" name="postcode" id="postcode" />
+      </div>
+    </div>
+  {/if}
 
   <div class="field col-span-2">
     <label for="dueDate">Due date</label>
@@ -72,8 +116,9 @@
 
   <div class="field col-span-6">
     <label for="notes"
-      >Notes <span class="font-normal">(optional, displayed on invoice)</span></label
-    >
+      >Notes
+      <span class="font-normal">(optional, displayed on invoice)</span>
+    </label>
     <textarea class="textarea" name="notes" id="notes" />
     <div class="text-xs text-gray-400">
       Formatting tips: <strong>*bold*</strong>, <em>_italics_</em>.
@@ -82,8 +127,9 @@
 
   <div class="field col-span-6">
     <label for="terms"
-      >Terms <span class="font-normal">(optional, enter your terms and conditions)</span></label
-    >
+      >Terms
+      <span class="font-normal">(optional, enter your terms and conditions)</span>
+    </label>
     <textarea class="textarea" name="terms" id="terms" />
     <div class="text-xs text-gray-400">
       Formatting tips: <strong>*bold*</strong>, <em>_italics_</em>.
