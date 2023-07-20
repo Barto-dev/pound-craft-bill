@@ -1,6 +1,6 @@
 <script lang="ts">
   import cn from 'classnames';
-  import { SvelteComponent } from 'svelte';
+  import type { SvelteComponent } from 'svelte';
 
   export let onClick: () => void;
   export let variant: 'primary' | 'secondary' | 'danger' | 'outline' | 'text' = 'primary';

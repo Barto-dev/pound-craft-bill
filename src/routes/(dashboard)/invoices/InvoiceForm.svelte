@@ -5,20 +5,20 @@
   import Button from '$lib/components/Button.svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
   import LineItemRows from './LineItemRows.svelte';
-  import LineItem from './LineItem.svelte';
   import { counties } from '$lib/utils/counties';
   import { onMount } from 'svelte';
+  import type { ILineItem } from '../../../global';
 
   const blankLineItem = { description: '', quantity: 10, amount: 0 };
 
-  export let lineItems: LineItem[] = [{ ...blankLineItem, id: nanoid() }];
+  export let lineItems: ILineItem[] = [{ ...blankLineItem, id: nanoid() }];
   let isNewClient = false;
 
   const addLineItem = () => {
     lineItems = [...lineItems, { ...blankLineItem, id: nanoid() }];
   };
 
-  const removeLineItem = (event) => {
+  const removeLineItem = (event: CustomEvent<any>) => {
     if (lineItems.length === 1) {
       return;
     }
@@ -145,11 +145,11 @@
   </div>
 
   <div class="field col-span-2">
-    <Button onClick={() =>{}} color="error" variant="text" iconLeft={Trash}>Delete</Button>
+    <Button onClick={() => {}} color="error" variant="text" iconLeft={Trash}>Delete</Button>
   </div>
 
   <div class="field col-span-4 flex justify-end gap-x-5">
-    <Button onClick={() =>{}} variant="secondary">Cancel</Button>
-    <Button onClick={() =>{}}>Save</Button>
+    <Button onClick={() => {}} variant="secondary">Cancel</Button>
+    <Button onClick={() => {}}>Save</Button>
   </div>
 </form>

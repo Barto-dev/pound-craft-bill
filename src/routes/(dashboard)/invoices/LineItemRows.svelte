@@ -15,10 +15,10 @@
   let total = 0;
 
   $: if (sumLineItems(lineItems) > 0) {
-    subtotal = formatToPoundCurrency(sumLineItems(lineItems))
+    subtotal = formatToPoundCurrency(sumLineItems(lineItems));
   }
   $: if (subtotal && discount) {
-    discountedAmount = formatToPoundCurrency((discount / 100) * sumLineItems(lineItems));
+    discountedAmount = formatToPoundCurrency((Number(discount) / 100) * sumLineItems(lineItems));
   }
 
   $: total = convertToNumericCurrency(subtotal) - convertToNumericCurrency(discountedAmount);
@@ -31,7 +31,6 @@
       discount = target.value;
     }
   };
-
 </script>
 
 <section class="invoice-line-item border-b-2 border-daisyBush pb-2">
