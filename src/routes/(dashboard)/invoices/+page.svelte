@@ -51,7 +51,7 @@
 
 {#if isInvoiceCreateShowing}
   <SlidePanel on:closePanel={() => (isInvoiceCreateShowing = false)}>
-    <InvoiceForm />
+    <InvoiceForm closePanel={() => (isInvoiceCreateShowing = false)} />
   </SlidePanel>
 {/if}
 

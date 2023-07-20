@@ -10,7 +10,7 @@
   export let lineItems: ILineItem[] | undefined = undefined;
   let dispatch = createEventDispatcher();
   let subtotal = formatToPoundCurrency(0);
-  let discount = '0';
+  export let discount = '0';
   let discountedAmount = '0';
   let total = 0;
 

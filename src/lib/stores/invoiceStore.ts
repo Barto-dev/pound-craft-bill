@@ -9,6 +9,13 @@ export const loadInvoices = () => {
   // invoices.set([]);
 };
 
+export const addInvoice = (invoice: Invoice) => {
+  invoices.update((prev) => {
+    return [...prev, invoice];
+  });
+  return invoice;
+}
+
 export const deleteInvoice = (invoiceToDelete: Invoice) => {
   invoices.update((prev) => {
     return prev.filter((invoice) => invoice.id !== invoiceToDelete.id);
