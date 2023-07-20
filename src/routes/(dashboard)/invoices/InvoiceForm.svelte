@@ -1,11 +1,13 @@
 <script lang="ts">
   import { nanoid } from 'nanoid';
+  import { clients, loadClients } from '$lib/stores/clientStore';
   import { slide } from 'svelte/transition';
   import Button from '$lib/components/Button.svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
   import LineItemRows from './LineItemRows.svelte';
   import LineItem from './LineItem.svelte';
   import { counties } from '$lib/utils/counties';
+  import { onMount } from 'svelte';
 
   const blankLineItem = { description: '', quantity: 10, amount: 0 };
 
@@ -26,6 +28,10 @@
   const updateLineItem = () => {
     lineItems = [...lineItems];
   };
+
+  onMount(() => {
+    loadClients();
+  });
 </script>
 
 <h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Add an invoice</h2>
@@ -35,9 +41,9 @@
       <label for="client">Client</label>
       <div class="flex items-end gap-x-5">
         <select class="select" name="client" id="client">
-          <option value="1">Client 1</option>
-          <option value="2">Client 2</option>
-          <option value="3">Client 3</option>
+          {#each $clients as client}
+            <option value={client.id}>{client.name}</option>
+          {/each}
         </select>
         <div class="text-base font-bold leading-[3.5rem] text-monsoon">or</div>
         <Button variant="outline" onClick={() => (isNewClient = true)}>+ Client</Button>
@@ -139,11 +145,11 @@
   </div>
 
   <div class="field col-span-2">
-    <Button color="error" variant="text" iconLeft={Trash}>Delete</Button>
+    <Button onClick={() =>{}} color="error" variant="text" iconLeft={Trash}>Delete</Button>
   </div>
 
   <div class="field col-span-4 flex justify-end gap-x-5">
-    <Button variant="secondary">Cancel</Button>
-    <Button>Save</Button>
+    <Button onClick={() =>{}} variant="secondary">Cancel</Button>
+    <Button onClick={() =>{}}>Save</Button>
   </div>
 </form>

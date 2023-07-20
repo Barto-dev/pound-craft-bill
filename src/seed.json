@@ -152,5 +152,55 @@
       ],
       "subject": "Website"
     }
+  ],
+  "clients": [
+    {
+      "id": "1",
+      "city": "Southampton",
+      "email": "binarihelix@email.com",
+      "name": "Binary Helix",
+      "state" : "HAM",
+      "zip" : "SO15 1GG"
+    },
+    {
+      "id": "2",
+      "city": "London",
+      "email": "info@example.com",
+      "name": "Example Corp",
+      "state": "LON",
+      "zip": "SW1A 0AA"
+    },
+    {
+      "id": "3",
+      "city": "Manchester",
+      "email": "contact@company.com",
+      "name": "Company Inc",
+      "state": "MAN",
+      "zip": "M1 1DN"
+    },
+    {
+      "id": "4",
+      "city": "Birmingham",
+      "email": "hello@paris.com",
+      "name": "Paris Agency",
+      "state": "BIR",
+      "zip": "B1 1BB"
+    },
+    {
+      "id": "5",
+      "city": "Glasgow",
+      "email": "info@berlin.co",
+      "name": "Berlin Solutions",
+      "state": "GLA",
+      "zip": "G1 1XX"
+    },
+    {
+      "id": "6",
+      "city": "Edinburgh",
+      "email": "client@example.com",
+      "name": "Example Ltd",
+      "state": "EDB",
+      "zip": "EH1 1YY"
+    }
   ]
 }
