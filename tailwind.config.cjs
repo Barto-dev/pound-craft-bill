@@ -15,7 +15,7 @@ export default {
         chevronDown: "url('/images/chevron-down.svg')"
       },
       backgroundPosition: {
-        'right-center': '90% center'
+        'right-center': '90% 40%'
       },
       borderWidth: {
         1: '1px'
