@@ -3,6 +3,7 @@
   import type { SvelteComponent } from 'svelte';
 
   export let onClick: () => void;
+  export let type: 'button' | 'submit' | 'reset' = 'button';
   export let variant: 'primary' | 'secondary' | 'danger' | 'outline' | 'text' = 'primary';
   export let color: 'error' | 'primary' = 'primary';
   export let isAnimated = false;
@@ -12,6 +13,7 @@
 
 <button
   class={cn('btn')}
+  type={type}
   class:isAnimated
   class:primary={variant === 'primary'}
   class:secondary={variant === 'secondary'}
@@ -20,7 +22,7 @@
   class:text={variant === 'text'}
   class:errorText={color === 'error'}
   class:primaryText={color === 'primary'}
-  on:click|preventDefault={onClick}
+  on:click={onClick}
 >
   {#if iconLeft}
     <span class="mr-2">

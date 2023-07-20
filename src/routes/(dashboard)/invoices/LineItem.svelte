@@ -9,7 +9,8 @@
   } from '$lib/utils/money';
 
   export let lineItem: ILineItem;
-  export let canDelete: boolean = false;
+  export let canDelete = false;
+  export let isRequired = false;
   let unitPrice: string = formatToPoundCurrency(lineItem.amount / lineItem.quantity);
   let amount: string = formatToPoundCurrency(lineItem.amount);
   const dispatch = createEventDispatcher();
@@ -36,6 +37,7 @@
       class="line-item-input text text-black"
       type="text"
       name="description"
+      required={isRequired}
       bind:value={lineItem.description}
     />
   </div>
@@ -47,6 +49,7 @@
       name="unitPrice"
       step="0.01"
       min="0"
+      required={isRequired}
       bind:value={unitPrice}
       on:input={handleUnitPriceChange}
     />
@@ -58,6 +61,7 @@
       inputmode="numeric"
       name="quantity"
       min="0"
+      required={isRequired}
       bind:value={lineItem.quantity}
       on:input={() => dispatch('updateLineItem')}
     />

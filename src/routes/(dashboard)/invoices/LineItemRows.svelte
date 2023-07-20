@@ -41,8 +41,14 @@
 </section>
 
 {#if lineItems}
-  {#each lineItems as lineItem}
-    <LineItem {lineItem} on:removeLineItem canDelete={lineItems.length > 1} on:updateLineItem />
+  {#each lineItems as lineItem, index}
+    <LineItem
+      {lineItem}
+      on:removeLineItem
+      canDelete={lineItems.length > 1}
+      isRequired={index === 0}
+      on:updateLineItem
+    />
   {/each}
 {/if}
 

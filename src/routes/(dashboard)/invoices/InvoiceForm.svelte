@@ -8,6 +8,7 @@
   import { counties } from '$lib/utils/counties';
   import { onMount } from 'svelte';
   import type { ILineItem } from '../../../global';
+  import { today } from '$lib/utils/date';
 
   const blankLineItem = { description: '', quantity: 10, amount: 0 };
 
@@ -59,15 +60,15 @@
   </div>
 
   <div class="field col-span-2">
-    <label for="invoiceId">Invoice ID</label>
-    <input class="input" type="text" name="invoiceId" id="invoiceId" />
+    <label for="invoiceNumber">Invoice ID</label>
+    <input class="input" type="text" name="invoiceNumber" id="invoiceNumber" required />
   </div>
 
   <!--  New client info-->
   {#if isNewClient}
     <div class="field col-span-6 grid gap-x-5" transition:slide>
       <div class="field col-span-6">
-        <label for="email">Name</label>
+        <label for="email">Client's email</label>
         <input class="input" type="text" name="email" id="email" />
       </div>
 
@@ -100,12 +101,25 @@
 
   <div class="field col-span-2">
     <label for="dueDate">Due date</label>
-    <input class="input" type="date" name="dueDate" id="dueDate" />
+    <input
+      class="input"
+      type="date"
+      name="dueDate"
+      id="dueDate"
+      min={today}
+      required
+    />
   </div>
 
   <div class="field col-span-2 col-start-5">
     <label for="issueDate">Issue date</label>
-    <input class="input" type="date" name="issueDate" id="issueDate" />
+    <input
+      class="input"
+      type="date"
+      name="issueDate"
+      id="issueDate"
+      min={today}
+    />
   </div>
 
   <div class="field col-span-6">
@@ -150,6 +164,6 @@
 
   <div class="field col-span-4 flex justify-end gap-x-5">
     <Button onClick={() => {}} variant="secondary">Cancel</Button>
-    <Button onClick={() => {}}>Save</Button>
+    <Button onClick={() => {}} type="submit">Save</Button>
   </div>
 </form>
