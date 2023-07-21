@@ -22,7 +22,37 @@
   }
 
   .invoice-line-item {
-    @apply grid grid-cols-invoiceLineItem gap-x-5;
+    @apply grid sm:grid-cols-invoiceLineItem gap-5 relative;
+    grid-template-areas: "description description description"
+    "unitPrice quantity amount";
+  ;
+  }
+
+  .invoice-line-item .description {
+    grid-area: description;
+  }
+
+  .invoice-line-item .unitPrice {
+    grid-area: unitPrice;
+  }
+
+  .invoice-line-item .quantity {
+    grid-area: quantity;
+  }
+
+  .invoice-line-item .amount {
+    grid-area: amount;
+  }
+
+  .invoice-line-item .trash {
+    @apply absolute top-0 right-0 sm:relative;
+    grid-area: trash;
+  }
+
+  @media (min-width: 640px) {
+    .invoice-line-item {
+      grid-template-areas: "description unitPrice quantity amount trash";
+    }
   }
 
   .field {

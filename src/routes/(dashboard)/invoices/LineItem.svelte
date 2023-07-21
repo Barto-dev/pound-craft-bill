@@ -32,9 +32,11 @@
   }
 </script>
 
-<div class="invoice-line-item border-b-2 border-fog py-2">
-  <div>
+<div class="invoice-line-item border-b-2 border-fog py-4 sm:py-2">
+  <div class="description">
+    <label for="description" class="line-item-label text-right">Description</label>
     <input
+      id="description"
       class="line-item-input text text-black"
       type="text"
       name="description"
@@ -42,7 +44,8 @@
       bind:value={lineItem.description}
     />
   </div>
-  <div>
+  <div class="unitPrice">
+    <label for="unitPrice" class="line-item-label text-right">Unit Price</label>
     <input
       class="line-item-input number text-right"
       type="text"
@@ -50,29 +53,34 @@
       name="unitPrice"
       step="0.01"
       min="0"
+      id="unitPrice"
       required={isRequired}
       bind:value={unitPrice}
       on:input={handleUnitPriceChange}
     />
   </div>
-  <div>
+  <div class="quantity">
+    <label for="quantity" class="line-item-label text-center">Quantity</label>
     <input
       class="line-item-input number text-center"
       type="text"
       inputmode="numeric"
       name="quantity"
       min="0"
+      id="quantity"
       required={isRequired}
       bind:value={lineItem.quantity}
       on:input={() => dispatch('updateLineItem')}
     />
   </div>
-  <div>
+  <div class="amount">
+    <label for="amount" class="line-item-label text-right">Amount</label>
     <input
       class="line-item-input number text-right"
       type="text"
       inputmode="numeric"
       name="amount"
+      id="amount"
       step="0.01"
       bind:value={amount}
       disabled
@@ -80,7 +88,7 @@
   </div>
 
   {#if canDelete}
-    <div>
+    <div class="trash">
       <button
         type="button"
         on:click={() => dispatch('removeLineItem', lineItem.id)}
@@ -111,5 +119,9 @@
 
   .number.line-item-input {
     @apply font-mono text-base font-normal;
+  }
+
+  .line-item-label {
+    @apply block sm:hidden;
   }
 </style>

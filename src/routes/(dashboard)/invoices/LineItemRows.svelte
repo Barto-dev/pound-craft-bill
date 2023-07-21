@@ -53,15 +53,15 @@
 {/if}
 
 <div class="invoice-line-item">
-  <div class="col-span-2">
+  <div class="col-span-1 sm:col-span-2">
     <Button variant="text" onClick={() => dispatch('addLineItem')}>+ Line item</Button>
   </div>
-  <div class="py-5 text-right font-bold text-monsoon">Subtotal</div>
-  <div class="py-5 text-right font-mono">{subtotal}</div>
+  <div class="py-3 sm:py-5 text-right font-bold text-monsoon">Subtotal</div>
+  <div class="py-3 sm:py-5 text-right font-mono">{subtotal}</div>
 </div>
 
 <div class="invoice-line-item">
-  <div class="col-span-2 py-5 text-right font-bold text-monsoon">Discount</div>
+  <div class="col-span-1 sm:col-span-2 py-3 sm:py-5 text-right font-bold text-monsoon">Discount</div>
 
   <div class="relative">
     <input
@@ -77,17 +77,17 @@
     />
     <span class="absolute right-0 top-2 font-mono">%</span>
   </div>
-  <div class="py-5 text-right font-mono">{discountedAmount}</div>
+  <div class="py-3 sm:py-5 text-right font-mono">{discountedAmount}</div>
 </div>
 
 <div class="invoice-line-item">
-  <div class="col-span-6">
+  <div class="col-span-3 sm:col-span-6">
     <CircledAmount label="Total:" amount={formatToPoundCurrency(total)} />
   </div>
 </div>
 
 <style lang="postcss">
   .table-header {
-    @apply text-sm font-bold text-daisyBush;
+    @apply hidden sm:block text-sm font-bold text-daisyBush;
   }
 </style>
