@@ -17,9 +17,7 @@
 
 <Portal>
   <Overlay onClick={() => dispatch('closePanel')} />
-  <div
-    class="fixed right-0 top-0 z-slidePanel h-screen w-3/4 overflow-y-auto bg-white p-20 px-32 shadow-slidePanel"
-  >
+  <div class="container">
     <button
       on:click={() => dispatch('closePanel')}
       class="absolute left-5 top-7 text-pastelPurple hover:text-daisyBush"
@@ -29,3 +27,22 @@
     <slot />
   </div>
 </Portal>
+
+<style lang="postcss">
+  .container {
+    @apply fixed
+    right-0
+    top-0
+    z-slidePanel
+    h-screen
+    w-full
+    overflow-y-auto
+    bg-white
+      px-5
+      py-16
+    shadow-slidePanel
+    lg:w-3/4
+    lg:p-20
+    lg:px-32;
+  }
+</style>

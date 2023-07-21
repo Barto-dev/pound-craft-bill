@@ -90,12 +90,12 @@
   {/if}
 </h2>
 <form class="grid grid-cols-6 gap-x-5" on:submit|preventDefault={handleSubmitFunction}>
-  <div class="field col-span-4">
+  <div class="field col-span-6 md:col-span-4">
     {#if !isNewClient}
       <label for="client">Client</label>
-      <div class="flex items-end gap-x-5">
+      <div class="flex items-end gap-x-2 sm:gap-x-5 flex-wrap sm:flex-nowrap">
         <select
-          class="select"
+          class="select mb-2 sm:mb-0"
           name="client"
           id="client"
           required={!isNewClient}
@@ -107,27 +107,27 @@
             <option value={client.id}>{client.name}</option>
           {/each}
         </select>
-        <div class="text-base font-bold leading-[3.5rem] text-monsoon">or</div>
+        <div class="text-base font-bold leading-[2.5rem] lg:leading-[3.5rem] text-monsoon">or</div>
         <Button variant="outline" onClick={handleAddNewClient}>+ Client</Button>
       </div>
     {:else}
       <label for="newClient">New Client</label>
-      <div class="flex items-end gap-x-5">
+      <div class="flex items-end gap-x-2 sm:gap-x-5 flex-wrap sm:flex-nowrap">
         <input
-          class="input"
+          class="input mb-2 sm:mb-0"
           type="text"
           name="newClient"
           id="newClient"
           required={isNewClient}
           bind:value={newClient.name}
         />
-        <div class="text-base font-bold leading-[3.5rem] text-monsoon">or</div>
+        <div class="text-base font-bold leading-[2.5rem] lg:leading-[3.5rem] text-monsoon">or</div>
         <Button variant="outline" onClick={handleAddExistingClient}>Existing Client</Button>
       </div>
     {/if}
   </div>
 
-  <div class="field col-span-2">
+  <div class="field md:col-span-2 col-span-6 row-start-1 md:row-start-auto">
     <label for="invoiceNumber">Invoice ID</label>
     <input
       class="input"
@@ -202,7 +202,7 @@
     </div>
   {/if}
 
-  <div class="field col-span-2">
+  <div class="field sm:col-span-2 col-span-3">
     <label for="dueDate">Due date</label>
     <input
       class="input"
@@ -215,7 +215,7 @@
     />
   </div>
 
-  <div class="field col-span-2 col-start-5">
+  <div class="field col-span-3 sm:col-span-2 md:col-start-5">
     <label for="issueDate">Issue date</label>
     <input
       class="input"
