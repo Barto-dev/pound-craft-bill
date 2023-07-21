@@ -32,3 +32,11 @@ interface Invoice {
   subject?: string;
   terms?: string;
 }
+
+type NotificationType = 'success' | 'error' | 'warning' | 'info';
+
+interface ISnackbar {
+  id: string;
+  message: string;
+  type: NotificationType;
+}

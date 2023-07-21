@@ -49,6 +49,7 @@ export default {
         whisper: '#f9f4f9'
       },
       zIndex: {
+        snackBar: 101,
         modal: 100,
         modalOverlay: 99,
         slidePanel: 96,
