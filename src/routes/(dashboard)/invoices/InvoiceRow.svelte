@@ -13,13 +13,14 @@
   import InvoiceForm from './InvoiceForm.svelte';
   import SlidePanel from '$lib/components/SlidePanel.svelte';
   import ConfirmDelete from './ConfirmDelete.svelte';
+  import { invoiceTotal } from '$lib/utils/money.js';
 
   export let invoice: Invoice;
   let isAdditionalMenuShowing = false;
 
   const invoiceLabel = getInvoiceLabel(invoice.invoiceStatus, invoice.dueDate);
 
-  const amount = sumLineItems(invoice.lineItems);
+  const amount = invoiceTotal(invoice.lineItems, Number(invoice.discount));
   const formattedAmount = formatToPoundCurrency(amount);
 
   const convertedDate = convertDate(invoice.dueDate);

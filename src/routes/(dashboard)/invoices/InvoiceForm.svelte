@@ -18,6 +18,7 @@
 
   let isNewClient = false;
   let isDeleteModalShowing = false;
+
   export let invoice: Invoice = {
     client: {} as Client,
     lineItems: [{ ...blankLineItem, id: nanoid() }]
@@ -25,6 +26,7 @@
   let newClient: Partial<Client> = {};
 
   export let formState: 'create' | 'edit' = 'create';
+  const initialDiscount = invoice.discount || '0';
 
   const addLineItem = () => {
     invoice.lineItems = [...(invoice?.lineItems as []), { ...blankLineItem, id: nanoid() }];
@@ -40,6 +42,10 @@
   const updateLineItem = () => {
     invoice.lineItems = [...(invoice?.lineItems as [])];
   };
+
+  const updateDiscount = (event: CustomEvent) => {
+    invoice.discount = event.detail.discount;
+  }
 
   const onClientChange = (event: Event) => {
     const target = event.target as HTMLSelectElement;
@@ -231,6 +237,7 @@
       on:addLineItem={addLineItem}
       on:removeLineItem={removeLineItem}
       on:updateLineItem={updateLineItem}
+      on:updateDiscount={updateDiscount}
       lineItems={invoice.lineItems}
       discount={invoice.discount}
     />

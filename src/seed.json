@@ -1,6 +1,7 @@
 {
   "invoices": [
     {
+      "id": "1",
       "client": {
         "city": "Somewhereville",
         "clientStatus": "active",
@@ -13,7 +14,6 @@
       },
       "createdAt": "2023-07-01",
       "dueDate": "2023-07-31",
-      "id": "1",
       "invoiceNumber": "12345",
       "invoiceStatus": "draft",
       "issueDate": "2023-07-01",
@@ -36,6 +36,7 @@
       "terms": "_Pay_ me."
     },
     {
+      "id": "2",
       "client": {
         "city": "Somewhereville",
         "clientStatus": "active",
@@ -48,7 +49,6 @@
       },
       "createdAt": "2023-07-01",
       "dueDate": "2023-07-06",
-      "id": "2",
       "invoiceNumber": "12352",
       "invoiceStatus": "draft",
       "issueDate": "2023-07-08",
@@ -69,6 +69,7 @@
       "subject": "Podcast Episodes"
     },
     {
+      "id": "3",
       "client": {
         "city": "Nowhereville",
         "email": "svelte@example.com",
@@ -80,7 +81,6 @@
       },
       "createdAt": "2023-07-01",
       "dueDate": "2023-10-06",
-      "id": "5",
       "invoiceNumber": "12346",
       "invoiceStatus": "paid",
       "issueDate": "2023-07-01",
@@ -101,6 +101,7 @@
       "subject": "Course Material"
     },
     {
+      "id": "4",
       "client": {
         "city": "Anywhereville",
         "email": "zeal@example.com",
@@ -112,7 +113,6 @@
       },
       "createdAt": "2023-07-01",
       "dueDate": "2023-6-06",
-      "id": "7",
       "invoiceNumber": "12347",
       "invoiceStatus": "sent",
       "issueDate": "2023-07-01",
@@ -127,6 +127,7 @@
       "subject": "Website"
     },
     {
+      "id": "5",
       "client": {
         "city": "Anywhereville",
         "email": "zeal@example.com",
@@ -138,7 +139,6 @@
       },
       "createdAt": "2023-07-06",
       "dueDate": "2023-10-06",
-      "id": "4",
       "invoiceNumber": "12348",
       "invoiceStatus": "sent",
       "issueDate": "2023-07-06",

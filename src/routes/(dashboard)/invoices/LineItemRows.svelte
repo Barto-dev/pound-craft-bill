@@ -72,6 +72,7 @@
       name="discount"
       class="block h-10 w-full border-b-2 border-dashed border-stone-300 pr-4 text-right font-mono font-normal focus:border-solid focus:border-lavenderIndigo focus:outline-none"
       bind:value={discount}
+      on:change={() => dispatch('updateDiscount', { discount })}
       on:input={onDiscountChange}
     />
     <span class="absolute right-0 top-2 font-mono">%</span>

@@ -7,12 +7,13 @@
     formatToPoundCurrency,
     poundsToPennies
   } from '$lib/utils/money';
+  import { penniesToPounds } from '$lib/utils/money.js';
 
   export let lineItem: ILineItem;
   export let canDelete = false;
   export let isRequired = false;
-  let unitPrice: string = formatToPoundCurrency(lineItem.amount / lineItem.quantity);
-  let amount: string = formatToPoundCurrency(lineItem.amount);
+  let unitPrice: string = formatToPoundCurrency(penniesToPounds(lineItem.amount / lineItem.quantity));
+  let amount: string = formatToPoundCurrency(penniesToPounds(lineItem.amount));
   const dispatch = createEventDispatcher();
 
   // TODO update parse mechanism
