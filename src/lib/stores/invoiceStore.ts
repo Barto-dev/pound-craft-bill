@@ -14,7 +14,19 @@ export const addInvoice = (invoice: Invoice) => {
     return [...prev, invoice];
   });
   return invoice;
-}
+};
+
+export const updateInvoice = (invoiceToUpdate: Invoice) => {
+  invoices.update((prev) => {
+    return prev.map((invoice) => {
+      if (invoice.id === invoiceToUpdate.id) {
+        return invoiceToUpdate;
+      }
+      return invoice;
+    });
+  });
+  return invoiceToUpdate;
+};
 
 export const deleteInvoice = (invoiceToDelete: Invoice) => {
   invoices.update((prev) => {

@@ -12,4 +12,4 @@ export const addClient = (client: Client) => {
     return [...prev, client];
   });
   return client;
-}
+};

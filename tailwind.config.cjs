@@ -50,6 +50,7 @@ export default {
       },
       zIndex: {
         modal: 100,
+        modalOverlay: 99,
         slidePanel: 96,
         overlay: 95,
         navBarToggle: 91,

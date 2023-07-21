@@ -9,18 +9,22 @@
   import { onMount } from 'svelte';
   import type { Client, Invoice } from '../../../global';
   import { today } from '$lib/utils/date';
-  import { addInvoice } from '$lib/stores/invoiceStore';
+  import { addInvoice, updateInvoice } from '$lib/stores/invoiceStore';
+  import ConfirmDelete from './ConfirmDelete.svelte';
 
   export let closePanel: () => void;
 
   const blankLineItem = { description: '', quantity: 10, amount: 0 };
 
   let isNewClient = false;
-  let invoice: Invoice = {
+  let isDeleteModalShowing = false;
+  export let invoice: Invoice = {
     client: {} as Client,
     lineItems: [{ ...blankLineItem, id: nanoid() }]
   } as Invoice;
   let newClient: Partial<Client> = {};
+
+  export let formState: 'create' | 'edit' = 'create';
 
   const addLineItem = () => {
     invoice.lineItems = [...(invoice?.lineItems as []), { ...blankLineItem, id: nanoid() }];
@@ -44,11 +48,15 @@
   };
 
   const handleSubmitFunction = () => {
-    addInvoice(invoice);
     // add client if it is not empty object
     if (isNewClient && Object.keys(newClient).length !== 0) {
       invoice.client = newClient as Client;
       addClient(newClient as Client);
+    }
+    if (formState === 'edit') {
+      updateInvoice(invoice);
+    } else {
+      addInvoice(invoice);
     }
     closePanel();
   };
@@ -56,19 +64,25 @@
   const handleAddNewClient = () => {
     isNewClient = true;
     newClient = {} as Client;
-  }
+  };
 
   const handleAddExistingClient = () => {
     isNewClient = false;
     invoice.client = {} as Client;
-  }
+  };
 
   onMount(() => {
     loadClients();
   });
 </script>
 
-<h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Add an invoice</h2>
+<h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">
+  {#if formState === 'edit'}
+    Edit an invoice
+  {:else}
+    Add an invoice
+  {/if}
+</h2>
 <form class="grid grid-cols-6 gap-x-5" on:submit|preventDefault={handleSubmitFunction}>
   <div class="field col-span-4">
     {#if !isNewClient}
@@ -245,11 +259,32 @@
   </div>
 
   <div class="field col-span-2">
-    <Button onClick={() => {}} color="error" variant="text" iconLeft={Trash}>Delete</Button>
+    {#if formState === 'edit'}
+      <Button
+        onClick={() => (isDeleteModalShowing = true)}
+        color="error"
+        variant="text"
+        iconLeft={Trash}
+      >
+        Delete
+      </Button>
+    {/if}
   </div>
 
   <div class="field col-span-4 flex justify-end gap-x-5">
     <Button onClick={closePanel} variant="secondary">Cancel</Button>
-    <Button onClick={() => {}} type="submit">Save</Button>
+    <Button type="submit">Save</Button>
   </div>
 </form>
+
+{#if formState === 'edit'}
+  <ConfirmDelete
+    amount=""
+    {invoice}
+    isModalShowing={isDeleteModalShowing}
+    on:close={() => {
+      isDeleteModalShowing = false;
+      closePanel();
+    }}
+  />
+{/if}

@@ -2,7 +2,7 @@
   import cn from 'classnames';
   import type { SvelteComponent } from 'svelte';
 
-  export let onClick: () => void;
+  export let onClick: () => void = () => {};
   export let type: 'button' | 'submit' | 'reset' = 'button';
   export let variant: 'primary' | 'secondary' | 'danger' | 'outline' | 'text' = 'primary';
   export let color: 'error' | 'primary' = 'primary';
@@ -13,7 +13,7 @@
 
 <button
   class={cn('btn')}
-  type={type}
+  {type}
   class:isAnimated
   class:primary={variant === 'primary'}
   class:secondary={variant === 'secondary'}

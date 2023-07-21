@@ -10,9 +10,9 @@
   import Edit from '$lib/components/Icon/Edit.svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
   import Send from '$lib/components/Icon/Send.svelte';
-  import Modal from '$lib/components/Modal.svelte';
-  import Button from '$lib/components/Button.svelte';
-  import { deleteInvoice } from '$lib/stores/invoiceStore';
+  import InvoiceForm from './InvoiceForm.svelte';
+  import SlidePanel from '$lib/components/SlidePanel.svelte';
+  import ConfirmDelete from './ConfirmDelete.svelte';
 
   export let invoice: Invoice;
   let isAdditionalMenuShowing = false;
@@ -30,13 +30,15 @@
     invoiceLabel === 'sent' || invoiceLabel === 'late' || invoiceLabel === 'paid';
 
   let isModalShowing = false;
+  let isInvoiceEditShowing = false;
   const handleDelete = () => {
     isModalShowing = true;
     isAdditionalMenuShowing = false;
   };
 
   const handleEdit = () => {
-    console.log('Editing');
+    isInvoiceEditShowing = true;
+    isAdditionalMenuShowing = false;
   };
 
   const handleSendInvoice = () => {
@@ -47,11 +49,6 @@
     { label: 'Delete', icon: Trash, onClick: handleDelete, disabled: false },
     { label: 'Send', icon: Send, onClick: handleSendInvoice, disabled: isSendDisabled }
   ];
-
-  const handleSubmitInvoiceDelete = () => {
-    isModalShowing = false;
-    deleteInvoice(invoice);
-  };
 </script>
 
 <div class="invoice-item invoice-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6">
@@ -82,21 +79,18 @@
   </div>
 </div>
 
-{#if isModalShowing}
-  <Modal isVisible={isModalShowing} on:close={() => (isModalShowing = false)}>
-    <div class="flex h-full min-h-[175px] flex-col items-center justify-between gap-6">
-      <p class="text-center text-xl font-bold text-daisyBush">
-        Are you sure you want to delete this invoice to
-        <span class="text-scarlet">{invoice.client.name}</span>
-        for <span class="text-scarlet">{formattedAmount}</span>
-      </p>
-      <div class="flex gap-4">
-        <Button variant="secondary" onClick={() => (isModalShowing = false)}>Cancel</Button>
-        <Button variant="danger" onClick={handleSubmitInvoiceDelete}>Yes, Delete It</Button>
-      </div>
-    </div>
-  </Modal>
+{#if isInvoiceEditShowing}
+  <SlidePanel on:closePanel={() => (isInvoiceEditShowing = false)}>
+    <InvoiceForm {invoice} formState="edit" closePanel={() => (isInvoiceEditShowing = false)} />
+  </SlidePanel>
 {/if}
+
+<ConfirmDelete
+  amount={formattedAmount}
+  {invoice}
+  {isModalShowing}
+  on:close={() => (isModalShowing = false)}
+/>
 
 <style lang="postcss">
   .invoice-row {
