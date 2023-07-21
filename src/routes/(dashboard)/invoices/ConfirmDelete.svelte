@@ -4,6 +4,7 @@
   import { createEventDispatcher } from 'svelte';
   import type { Invoice } from '../../../global';
   import { deleteInvoice } from '$lib/stores/invoiceStore';
+  import { snackBar } from '$lib/stores/snackBarStore';
 
   const dispatch = createEventDispatcher();
   export let isModalShowing = false;
@@ -13,6 +14,7 @@
   const handleDeleteButtonClick = () => {
     deleteInvoice(invoice);
     dispatch('close');
+    snackBar.send({message: 'Your invoice was successfully deleted', type: 'success'});
   };
 </script>
 

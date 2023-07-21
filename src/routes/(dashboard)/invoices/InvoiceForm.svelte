@@ -11,6 +11,7 @@
   import { today } from '$lib/utils/date';
   import { addInvoice, updateInvoice } from '$lib/stores/invoiceStore';
   import ConfirmDelete from './ConfirmDelete.svelte';
+  import { snackBar } from '$lib/stores/snackBarStore';
 
   export let closePanel: () => void;
 
@@ -61,8 +62,10 @@
     }
     if (formState === 'edit') {
       updateInvoice(invoice);
+      snackBar.send({message: 'Your invoice was successfully updated', type: 'success'});
     } else {
       addInvoice(invoice);
+      snackBar.send({message: 'Your invoice was successfully created', type: 'success'});
     }
     closePanel();
   };
