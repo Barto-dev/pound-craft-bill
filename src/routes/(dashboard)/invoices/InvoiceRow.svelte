@@ -63,7 +63,7 @@
   </div>
   <div class="amount text-right font-mono text-sm font-bold lg:text-lg">{formattedAmount}</div>
   <div class="lg:center view-button hidden">
-    <a class="text-pastelPurple transition-all hover:text-daisyBush" href="/invoices/1">
+    <a href={`/invoices/${invoice.id}`} class="text-pastelPurple transition-all hover:text-daisyBush">
       <View />
     </a>
   </div>
