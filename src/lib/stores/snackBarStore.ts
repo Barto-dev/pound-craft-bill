@@ -13,7 +13,7 @@ const newSnackBar = () => {
   function remove(id?: string) {
     update((snackBars) => {
       if (id) {
-        return snackBars.filter((snackBar) => snackBar.id !== id)
+        return snackBars.filter((snackBar) => snackBar.id !== id);
       }
       // If no id is passed, remove the first snackBar
       return snackBars.slice(1);

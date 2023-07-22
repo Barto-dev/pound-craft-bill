@@ -86,7 +86,7 @@
   }
 
   .medium {
-    @apply px-5 py-2 lg:px-10 lg:py-3 text-base lg:text-xl;
+    @apply px-5 py-2 text-base lg:px-10 lg:py-3 lg:text-xl;
   }
 
   .small {

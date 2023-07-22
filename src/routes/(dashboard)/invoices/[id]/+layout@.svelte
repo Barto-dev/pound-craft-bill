@@ -5,12 +5,15 @@
   let previousPage: string | undefined = undefined;
   afterNavigate((navigation) => {
     previousPage = navigation.from?.url?.pathname;
-  })
+  });
 </script>
 
-<div class="bg-whisper h-full min-h-screen pt-12 pb-32">
+<div class="h-full min-h-screen bg-whisper pb-32 pt-12">
   <main class="mx-auto min-h-screen max-w-screen-lg">
-    <a href={previousPage ? previousPage : '/invoices '} class="fixed top-7 left-7 text-pastelPurple"><ArrowLeft /></a>
+    <a
+      href={previousPage ? previousPage : '/invoices '}
+      class="fixed left-7 top-7 text-pastelPurple"><ArrowLeft /></a
+    >
     <slot />
   </main>
 </div>

@@ -25,7 +25,7 @@ export default {
         coloredHover: '0px 16px 25px 0px rgba(127, 91, 220, 0.3)',
         slidePanel: '-4px 0px 44px 0px rgba(0, 0, 0, 0.25);',
         tableRow: '0px 0px 6px 0px rgba(0, 0, 0, 0.16)',
-        invoice: '-4px 0px 44px 0px rgba(0, 0, 0, 0.25);',
+        invoice: '-4px 0px 44px 0px rgba(0, 0, 0, 0.25);'
       },
       gridTemplateColumns: {
         invoiceTable: '100px 100px 60px 1fr 116px 32px 32px',

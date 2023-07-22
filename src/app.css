@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply font-sansSerif text-base font-bold text-monsoon;
+    @apply font-sansSerif;
   }
 
   svg {
@@ -12,7 +12,7 @@
   }
 
   label {
-    @apply block font-sansSerif;
+    @apply block font-sansSerif font-bold text-monsoon;
   }
 }
 
@@ -22,10 +22,10 @@
   }
 
   .invoice-line-item {
-    @apply grid sm:grid-cols-invoiceLineItem gap-5 relative;
-    grid-template-areas: "description description description"
-    "unitPrice quantity amount";
-  ;
+    @apply relative grid gap-5 sm:grid-cols-invoiceLineItem;
+    grid-template-areas:
+      'description description description'
+      'unitPrice quantity amount';
   }
 
   .invoice-line-item .description {
@@ -45,13 +45,13 @@
   }
 
   .invoice-line-item .trash {
-    @apply absolute top-0 right-0 sm:relative;
+    @apply absolute right-0 top-0 sm:relative;
     grid-area: trash;
   }
 
   @media (min-width: 640px) {
     .invoice-line-item {
-      grid-template-areas: "description unitPrice quantity amount trash";
+      grid-template-areas: 'description unitPrice quantity amount trash';
     }
   }
 
@@ -69,6 +69,10 @@
     font-sansSerif
     text-base
     lg:h-14;
+  }
+
+  .input:disabled {
+    @apply appearance-none bg-transparent;
   }
 
   .select {

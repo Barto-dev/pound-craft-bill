@@ -46,11 +46,14 @@ export const sumInvoices = (invoices: Invoice[] | undefined): number => {
 };
 
 // discount and determines the invoice total
-export const invoiceTotal = (lineItems: ILineItem[] | undefined, discount: number | undefined): number => {
+export const invoiceTotal = (
+  lineItems: ILineItem[] | undefined,
+  discount: number | undefined
+): number => {
   const invoiceSum = sumLineItems(lineItems);
   if (discount) {
     const invoiceDiscount = invoiceSum * (discount / 100);
     return invoiceSum - invoiceDiscount;
   }
   return invoiceSum;
-}
+};

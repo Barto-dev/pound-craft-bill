@@ -6,7 +6,7 @@
 
   onMount(async () => {
     await progress.set(0);
-    snackBar.remove()
+    snackBar.remove();
   });
 </script>
 

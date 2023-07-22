@@ -10,9 +10,12 @@
   import { penniesToPounds } from '$lib/utils/money.js';
 
   export let lineItem: ILineItem;
+  export let isEditable = true;
   export let canDelete = false;
   export let isRequired = false;
-  let unitPrice: string = formatToPoundCurrency(penniesToPounds(lineItem.amount / lineItem.quantity));
+  let unitPrice: string = formatToPoundCurrency(
+    penniesToPounds(lineItem.amount / lineItem.quantity)
+  );
   let amount: string = formatToPoundCurrency(penniesToPounds(lineItem.amount));
   const dispatch = createEventDispatcher();
 
@@ -36,6 +39,7 @@
   <div class="description">
     <label for="description" class="line-item-label text-right">Description</label>
     <input
+      disabled={!isEditable}
       id="description"
       class="line-item-input text text-black"
       type="text"
@@ -47,6 +51,7 @@
   <div class="unitPrice">
     <label for="unitPrice" class="line-item-label text-right">Unit Price</label>
     <input
+      disabled={!isEditable}
       class="line-item-input number text-right"
       type="text"
       inputmode="decimal"
@@ -62,6 +67,7 @@
   <div class="quantity">
     <label for="quantity" class="line-item-label text-center">Quantity</label>
     <input
+      disabled={!isEditable}
       class="line-item-input number text-center"
       type="text"
       inputmode="numeric"
@@ -87,7 +93,7 @@
     />
   </div>
 
-  {#if canDelete}
+  {#if canDelete && isEditable}
     <div class="trash">
       <button
         type="button"

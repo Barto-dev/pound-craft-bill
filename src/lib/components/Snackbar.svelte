@@ -1,6 +1,6 @@
 <script lang="ts">
-  import {fly, fade} from 'svelte/transition';
-  import {flip} from 'svelte/animate';
+  import { fly, fade } from 'svelte/transition';
+  import { flip } from 'svelte/animate';
   import Portal from '$lib/components/Portal.svelte';
   import Cancel from '$lib/components/Icon/Cancel.svelte';
   import SnackbarMessage from '$lib/components/SnackbarMessage.svelte';
@@ -8,11 +8,11 @@
 </script>
 
 <Portal>
-  <div class="fixed top-5 left-1/2 -translate-x-1/2 z-snackBar">
+  <div class="fixed left-1/2 top-5 z-snackBar -translate-x-1/2">
     {#each $snackBar as content (content.id)}
-      <div in:fly={{opacity: 0, y: 100}} out:fade={{duration: 300}} animate:flip>
+      <div in:fly={{ opacity: 0, y: 100 }} out:fade={{ duration: 300 }} animate:flip>
         <div
-          class="inline-block rounded-lg px-5 py-3 text-lg font-bold mb-2"
+          class="mb-2 inline-block rounded-lg px-5 py-3 text-lg font-bold"
           class:info={content.type === 'info'}
           class:success={content.type === 'success'}
           class:warning={content.type === 'warning'}

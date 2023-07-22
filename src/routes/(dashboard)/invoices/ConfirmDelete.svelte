@@ -14,7 +14,7 @@
   const handleDeleteButtonClick = () => {
     deleteInvoice(invoice);
     dispatch('close');
-    snackBar.send({message: 'Your invoice was successfully deleted', type: 'success'});
+    snackBar.send({ message: 'Your invoice was successfully deleted', type: 'success' });
   };
 </script>
 

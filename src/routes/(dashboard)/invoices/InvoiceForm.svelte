@@ -46,7 +46,7 @@
 
   const updateDiscount = (event: CustomEvent) => {
     invoice.discount = event.detail.discount;
-  }
+  };
 
   const onClientChange = (event: Event) => {
     const target = event.target as HTMLSelectElement;
@@ -62,10 +62,10 @@
     }
     if (formState === 'edit') {
       updateInvoice(invoice);
-      snackBar.send({message: 'Your invoice was successfully updated', type: 'success'});
+      snackBar.send({ message: 'Your invoice was successfully updated', type: 'success' });
     } else {
       addInvoice(invoice);
-      snackBar.send({message: 'Your invoice was successfully created', type: 'success'});
+      snackBar.send({ message: 'Your invoice was successfully created', type: 'success' });
     }
     closePanel();
   };
@@ -96,7 +96,7 @@
   <div class="field col-span-6 md:col-span-4">
     {#if !isNewClient}
       <label for="client">Client</label>
-      <div class="flex items-end gap-x-2 sm:gap-x-5 flex-wrap sm:flex-nowrap">
+      <div class="flex flex-wrap items-end gap-x-2 sm:flex-nowrap sm:gap-x-5">
         <select
           class="select mb-2 sm:mb-0"
           name="client"
@@ -110,12 +110,12 @@
             <option value={client.id}>{client.name}</option>
           {/each}
         </select>
-        <div class="text-base font-bold leading-[2.5rem] lg:leading-[3.5rem] text-monsoon">or</div>
+        <div class="text-base font-bold leading-[2.5rem] text-monsoon lg:leading-[3.5rem]">or</div>
         <Button variant="outline" onClick={handleAddNewClient}>+ Client</Button>
       </div>
     {:else}
       <label for="newClient">New Client</label>
-      <div class="flex items-end gap-x-2 sm:gap-x-5 flex-wrap sm:flex-nowrap">
+      <div class="flex flex-wrap items-end gap-x-2 sm:flex-nowrap sm:gap-x-5">
         <input
           class="input mb-2 sm:mb-0"
           type="text"
@@ -124,13 +124,13 @@
           required={isNewClient}
           bind:value={newClient.name}
         />
-        <div class="text-base font-bold leading-[2.5rem] lg:leading-[3.5rem] text-monsoon">or</div>
+        <div class="text-base font-bold leading-[2.5rem] text-monsoon lg:leading-[3.5rem]">or</div>
         <Button variant="outline" onClick={handleAddExistingClient}>Existing Client</Button>
       </div>
     {/if}
   </div>
 
-  <div class="field md:col-span-2 col-span-6 row-start-1 md:row-start-auto">
+  <div class="field col-span-6 row-start-1 md:col-span-2 md:row-start-auto">
     <label for="invoiceNumber">Invoice ID</label>
     <input
       class="input"
@@ -205,7 +205,7 @@
     </div>
   {/if}
 
-  <div class="field sm:col-span-2 col-span-3">
+  <div class="field col-span-3 sm:col-span-2">
     <label for="dueDate">Due date</label>
     <input
       class="input"
