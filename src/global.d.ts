@@ -33,6 +33,15 @@ interface Invoice {
   terms?: string;
 }
 
+interface ISettings {
+  myName: string;
+  email: string;
+  street: string;
+  city: string;
+  county: string;
+  zip: string;
+}
+
 type NotificationType = 'success' | 'error' | 'warning' | 'info';
 
 interface ISnackbar {

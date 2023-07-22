@@ -202,5 +202,13 @@
       "state": "EDB",
       "zip": "EH1 1YY"
     }
-  ]
+  ],
+  "settings": {
+    "myName": "John Doe",
+    "email": "example@mail.com",
+    "street": "123 Main Street",
+    "city": "Somewhereville",
+    "county": "TN",
+    "zip": "12345"
+  }
 }

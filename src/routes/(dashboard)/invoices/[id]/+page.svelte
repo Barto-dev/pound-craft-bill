@@ -3,6 +3,9 @@
   import type { Invoice } from '../../../../global';
   import { convertDate } from '$lib/utils/date.js';
   import LineItemRows from '../LineItemRows.svelte';
+  import { onMount } from 'svelte';
+  import { loadSettings, settings } from '$lib/stores/settingsStore';
+  import SvelteMarkdown from 'svelte-markdown';
 
   export let data: { invoice: Invoice };
   const invoice = data.invoice;
@@ -22,6 +25,10 @@
   const sendInvoice = () => {
     console.log('send invoice');
   };
+
+  onMount(() => {
+    loadSettings();
+  });
 </script>
 
 <header
@@ -42,12 +49,20 @@
   </div>
 
   <div class="col-span-2 col-start-5 pt-4">
-    <p class="label">From</p>
-    <p>
-      Illia Meln <br />
-      123D Awesome Street <br />
-      Hampshire S012 3AB
-    </p>
+    {#if $settings && $settings.myName}
+      <p class="label">From</p>
+      <p>
+        {$settings.myName}<br />
+        {$settings.street}<br />
+        {#if $settings.city && $settings.county && $settings.zip}
+          {$settings.city}, {$settings.county} {$settings.zip}
+        {/if}
+      </p>
+    {:else}
+      <div class="center min-h-[68px] rounded bg-gallery">
+        <a href="#" class="text-stone-600 underline hover:no-underline">Add your contact information</a>
+      </div>
+    {/if}
   </div>
 
   <div class="col-span-3">
@@ -89,14 +104,14 @@
   {#if invoice.notes}
     <div class="col-span-6">
       <p class="label">Notes</p>
-      <p>{invoice.notes}</p>
+      <SvelteMarkdown source={invoice.notes} />
     </div>
   {/if}
 
   {#if invoice.terms}
     <div class="col-span-6">
       <p class="label">Terms</p>
-      <p>{invoice.terms}</p>
+      <SvelteMarkdown source={invoice.terms} />
     </div>
   {/if}
 </div>
