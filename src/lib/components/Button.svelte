@@ -6,6 +6,7 @@
   export let type: 'button' | 'submit' | 'reset' = 'button';
   export let variant: 'primary' | 'secondary' | 'danger' | 'outline' | 'text' = 'primary';
   export let color: 'error' | 'primary' = 'primary';
+  export let size: 'small' | 'medium' = 'medium';
   export let isAnimated = false;
   export let iconLeft: (new (...args: any[]) => SvelteComponent) | null = null;
   export let iconRight: (new (...args: any[]) => SvelteComponent) | null = null;
@@ -22,6 +23,8 @@
   class:text={variant === 'text'}
   class:errorText={color === 'error'}
   class:primaryText={color === 'primary'}
+  class:small={size === 'small'}
+  class:medium={size === 'medium'}
   on:click={onClick}
 >
   {#if iconLeft}
@@ -44,16 +47,10 @@
     items-center
     whitespace-nowrap
     rounded-lg
-    px-5
-    py-2
     font-sansSerif
-    text-base
     font-black
     shadow-colored
-    transition-all
-    lg:px-10
-    lg:py-3
-    lg:text-xl;
+    transition-all;
   }
 
   .isAnimated {
@@ -86,5 +83,13 @@
 
   .text.primaryText {
     @apply text-lavenderIndigo;
+  }
+
+  .medium {
+    @apply px-5 py-2 lg:px-10 lg:py-3 text-base lg:text-xl;
+  }
+
+  .small {
+    @apply px-4 py-1 text-base;
   }
 </style>
