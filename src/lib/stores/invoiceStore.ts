@@ -1,22 +1,27 @@
 import { writable } from 'svelte/store';
 import type { Invoice } from '../../global';
 import data from '../../seed.json';
+import { loadAllInvoices } from '$lib/utils/supabase';
+import type { InvoiceType } from '$lib/utils/supabase';
 
-export const invoices = writable<Invoice[]>([]);
+export const invoices = writable<InvoiceType[]>([]);
 
-export const loadInvoices = () => {
-  invoices.set(data.invoices as Invoice[]);
-  // invoices.set([]);
+export const loadInvoices = async () => {
+  const data = await loadAllInvoices();
+  console.log(data);
+  if (data) {
+    invoices.set(data);
+  }
 };
 
-export const addInvoice = (invoice: Invoice) => {
+export const addInvoice = (invoice: InvoiceType) => {
   invoices.update((prev) => {
     return [...prev, invoice];
   });
   return invoice;
 };
 
-export const updateInvoice = (invoiceToUpdate: Invoice) => {
+export const updateInvoice = (invoiceToUpdate: InvoiceType) => {
   invoices.update((prev) => {
     return prev.map((invoice) => {
       if (invoice.id === invoiceToUpdate.id) {

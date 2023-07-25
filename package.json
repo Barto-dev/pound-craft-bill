@@ -11,7 +11,8 @@
     "test:unit": "vitest",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write .",
-    "seedDb": "node ./seedDb.js"
+    "seedDb": "node ./seedDb.js",
+    "generate": "npx supabase gen types typescript --project-id \"egbvgajydccnsrnoyhei\" --schema public > src/types/supabase.ts"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^2.0.0",
