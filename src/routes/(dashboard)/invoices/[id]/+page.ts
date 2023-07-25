@@ -6,9 +6,9 @@ interface Props {
     id: string;
   };
 }
-export function load({ params }: Props) {
+export async function load({ params }: Props) {
   // we use id because we have [id] in the folder name
   const id = params?.id;
-  const invoice = getInvoiceById(id);
+  const invoice = await getInvoiceById(id);
   return { invoice };
 }

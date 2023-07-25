@@ -1,14 +1,11 @@
 import { writable } from 'svelte/store';
-import type { Invoice } from '../../global';
-import data from '../../seed.json';
-import { loadAllInvoices } from '$lib/utils/supabase';
-import type { InvoiceType } from '$lib/utils/supabase';
+import { loadAllInvoices, loadInvoiceById } from '$lib/utils/supabase';
+import type { InvoiceType } from '../../types/DTM';
 
 export const invoices = writable<InvoiceType[]>([]);
 
 export const loadInvoices = async () => {
   const data = await loadAllInvoices();
-  console.log(data);
   if (data) {
     invoices.set(data);
   }
@@ -33,7 +30,7 @@ export const updateInvoice = (invoiceToUpdate: InvoiceType) => {
   return invoiceToUpdate;
 };
 
-export const deleteInvoice = (invoiceToDelete: Invoice) => {
+export const deleteInvoice = (invoiceToDelete: InvoiceType) => {
   invoices.update((prev) => {
     return prev.filter((invoice) => invoice.id !== invoiceToDelete.id);
   });
@@ -41,6 +38,9 @@ export const deleteInvoice = (invoiceToDelete: Invoice) => {
   return invoiceToDelete;
 };
 
-export const getInvoiceById = (id: string) => {
-  return data.invoices.find((invoice) => invoice.id === id);
+export const getInvoiceById = async (id: string) => {
+  const data = await loadInvoiceById(id);
+  if (data) {
+    return data;
+  }
 };

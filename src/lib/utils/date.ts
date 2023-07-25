@@ -2,7 +2,10 @@ import format from 'date-fns/format';
 import isBefore from 'date-fns/isBefore';
 
 // Takes a date yyyy-mm-dd and returns d-m-yyyy
-export const convertDate = (date: Date | string): string => {
+export const convertDate = (date: string | null): string => {
+  if (!date) {
+    return '';
+  }
   const parsedDate = new Date(date);
   return format(parsedDate, 'd/M/yyyy');
 };

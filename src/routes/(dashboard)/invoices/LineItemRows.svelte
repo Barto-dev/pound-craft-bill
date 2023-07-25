@@ -1,13 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import type { ILineItem } from '../../../global';
   import LineItem from './LineItem.svelte';
   import Button from '$lib/components/Button.svelte';
   import CircledAmount from '$lib/components/CircledAmount.svelte';
   import { sumLineItems } from '$lib/utils/money';
   import { convertToNumericCurrency, formatToPoundCurrency } from '$lib/utils/money.js';
+  import type { LineItemType } from '../../../types/DTM';
 
-  export let lineItems: ILineItem[] | undefined = undefined;
+  export let lineItems: LineItemType[] | undefined = undefined;
   export let isEditable = true;
   let dispatch = createEventDispatcher();
   let subtotal = formatToPoundCurrency(0);

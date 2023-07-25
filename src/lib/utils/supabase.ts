@@ -21,4 +21,17 @@ export const loadAllInvoices = async () => {
   return data;
 };
 
-export type InvoiceType = Database['public']['Tables']['invoice']['Row'];
+export const loadInvoiceById = async (id: string) => {
+  const { data, error } = await supabase
+    .from('invoice')
+    .select('*, client(id, name), lineItems(*)')
+    .eq('id', id)
+  if (error) {
+    console.error(error);
+    return;
+  }
+  if (data?.length) {
+    return data[0];
+  }
+  console.warn('cannot find invoice with id', id);
+};

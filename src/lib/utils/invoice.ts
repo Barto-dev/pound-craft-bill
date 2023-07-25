@@ -1,6 +1,9 @@
 import { isLate } from '$lib/utils/date';
 
-export const getInvoiceLabel = (invoiceStatus: string, dueDate: string) => {
+export const getInvoiceLabel = (invoiceStatus: string | null, dueDate: string | null) => {
+  if (!invoiceStatus || !dueDate) {
+    return 'draft';
+  }
   if (invoiceStatus === 'draft') {
     return 'draft';
   }

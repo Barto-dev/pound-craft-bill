@@ -1,4 +1,4 @@
-import type { Invoice, ILineItem } from '../../global';
+import type { LineItemType, InvoiceType } from '../../types/DTM';
 
 // Transforms pennies to pounds, since we receive all amounts in pennies
 export const penniesToPounds = (coins: number) => {
@@ -10,7 +10,7 @@ export const poundsToPennies = (pounds: number) => {
 };
 
 // Takes all the line items and adds them up
-export const sumLineItems = (lineItems: ILineItem[] | undefined): number => {
+export const sumLineItems = (lineItems: LineItemType[] | undefined): number => {
   if (!lineItems) {
     return 0;
   }
@@ -35,7 +35,7 @@ export const convertToNumericCurrency = (amount: string) => {
 };
 
 // Takes all the invoices and finds the total
-export const sumInvoices = (invoices: Invoice[] | undefined): number => {
+export const sumInvoices = (invoices: InvoiceType[] | undefined): number => {
   if (!invoices) {
     return 0;
   }
@@ -47,7 +47,7 @@ export const sumInvoices = (invoices: Invoice[] | undefined): number => {
 
 // discount and determines the invoice total
 export const invoiceTotal = (
-  lineItems: ILineItem[] | undefined,
+  lineItems: LineItemType[] | undefined,
   discount: number | undefined
 ): number => {
   const invoiceSum = sumLineItems(lineItems);

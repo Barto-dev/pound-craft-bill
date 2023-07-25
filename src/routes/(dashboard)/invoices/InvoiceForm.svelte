@@ -7,11 +7,12 @@
   import LineItemRows from './LineItemRows.svelte';
   import { counties } from '$lib/utils/counties';
   import { onMount } from 'svelte';
-  import type { Client, Invoice } from '../../../global';
+  import type { Client } from '../../../global';
   import { today } from '$lib/utils/date';
   import { addInvoice, updateInvoice } from '$lib/stores/invoiceStore';
   import ConfirmDelete from './ConfirmDelete.svelte';
   import { snackBar } from '$lib/stores/snackBarStore';
+  import type { InvoiceType } from '../../../types/DTM';
 
   export let closePanel: () => void;
 
@@ -20,10 +21,10 @@
   let isNewClient = false;
   let isDeleteModalShowing = false;
 
-  export let invoice: Invoice = {
+  export let invoice: InvoiceType = {
     client: {} as Client,
     lineItems: [{ ...blankLineItem, id: nanoid() }]
-  } as Invoice;
+  } as InvoiceType;
   let newClient: Partial<Client> = {};
 
   export let formState: 'create' | 'edit' = 'create';

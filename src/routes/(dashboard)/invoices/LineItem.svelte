@@ -1,15 +1,15 @@
 <script lang="ts">
   import Trash from '$lib/components/Icon/Trash.svelte';
   import { createEventDispatcher } from 'svelte';
-  import type { ILineItem } from '../../../global';
   import {
     convertToNumericCurrency,
     formatToPoundCurrency,
     poundsToPennies
   } from '$lib/utils/money';
   import { penniesToPounds } from '$lib/utils/money.js';
+  import type { LineItemType } from '../../../types/DTM';
 
-  export let lineItem: ILineItem;
+  export let lineItem: LineItemType;
   export let isEditable = true;
   export let canDelete = false;
   export let isRequired = false;

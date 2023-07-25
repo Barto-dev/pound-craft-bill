@@ -2,7 +2,6 @@
   import Tag from '$lib/components/Tag.svelte';
   import ThreeDots from '$lib/components/Icon/ThreeDots.svelte';
   import View from '$lib/components/Icon/View.svelte';
-  import type { Invoice } from '../../../global';
   import { sumLineItems, formatToPoundCurrency } from '$lib/utils/money';
   import { convertDate } from '$lib/utils/date';
   import { getInvoiceLabel } from '$lib/utils/invoice';
@@ -14,8 +13,9 @@
   import SlidePanel from '$lib/components/SlidePanel.svelte';
   import ConfirmDelete from './ConfirmDelete.svelte';
   import { invoiceTotal } from '$lib/utils/money.js';
+  import type { InvoiceType } from '../../../types/DTM';
 
-  export let invoice: Invoice;
+  export let invoice: InvoiceType;
   let isAdditionalMenuShowing = false;
 
   const invoiceLabel = getInvoiceLabel(invoice.invoiceStatus, invoice.dueDate);
@@ -59,7 +59,7 @@
   <div class="due-date text-sm lg:text-lg">{convertedDate}</div>
   <div class="invoice-number text-sm lg:text-lg">{invoice.invoiceNumber}</div>
   <div class="client-name truncate whitespace-nowrap text-base font-bold lg:text-xl">
-    {invoice.client.name}
+    {invoice?.client?.name}
   </div>
   <div class="amount text-right font-mono text-sm font-bold lg:text-lg">{formattedAmount}</div>
   <div class="lg:center view-button hidden">

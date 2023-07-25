@@ -1,11 +1,4 @@
-import type { InvoiceStatus, ClientStatus } from './enums';
-
-interface ILineItem {
-  amount: number;
-  description: string;
-  id: string;
-  quantity: number;
-}
+import type { ClientStatus } from './enums';
 
 interface Client {
   city?: string;
@@ -16,21 +9,6 @@ interface Client {
   state?: string;
   street?: string;
   zip?: string;
-}
-
-interface Invoice {
-  client: Client;
-  createdAt: string;
-  discount?: string;
-  dueDate: string;
-  id: string;
-  invoiceNumber: string;
-  invoiceStatus: InvoiceStatus;
-  issueDate: string;
-  lineItems?: ILineItem[];
-  notes?: string;
-  subject?: string;
-  terms?: string;
 }
 
 interface ISettings {

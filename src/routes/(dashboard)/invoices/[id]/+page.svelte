@@ -1,14 +1,14 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
-  import type { Invoice } from '../../../../global';
   import { convertDate } from '$lib/utils/date.js';
   import LineItemRows from '../LineItemRows.svelte';
   import { onMount } from 'svelte';
   import { loadSettings, settings } from '$lib/stores/settingsStore';
   import SvelteMarkdown from 'svelte-markdown';
   import { page } from '$app/stores';
+  import type { InvoiceType } from '../../../../types/DTM';
 
-  export let data: { invoice: Invoice };
+  export let data: { invoice: InvoiceType };
   let copyLinkLabel = 'Copy link';
   const invoice = data.invoice;
 
@@ -75,12 +75,12 @@
   <div class="col-span-3">
     <p class="label">Bill To:</p>
     <p>
-      <strong>{invoice.client.name}</strong> <br />
-      {invoice.client.email}<br />
+      <strong>{invoice?.client?.name}</strong> <br />
+ <!--     {invoice.client.email}<br />
       {invoice.client.street}<br />
       {invoice.client.city}
       {invoice.client.state}
-      {invoice.client.zip}
+      {invoice.client.zip}-->
     </p>
   </div>
 

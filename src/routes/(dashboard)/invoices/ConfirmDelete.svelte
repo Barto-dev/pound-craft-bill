@@ -2,13 +2,13 @@
   import Button from '$lib/components/Button.svelte';
   import Modal from '$lib/components/Modal.svelte';
   import { createEventDispatcher } from 'svelte';
-  import type { Invoice } from '../../../global';
   import { deleteInvoice } from '$lib/stores/invoiceStore';
   import { snackBar } from '$lib/stores/snackBarStore';
+  import type { InvoiceType } from '../../../types/DTM';
 
   const dispatch = createEventDispatcher();
   export let isModalShowing = false;
-  export let invoice: Invoice;
+  export let invoice: InvoiceType;
   export let amount: string;
 
   const handleDeleteButtonClick = () => {
