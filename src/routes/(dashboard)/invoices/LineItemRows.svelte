@@ -27,9 +27,9 @@
   const onDiscountChange = (evt: Event) => {
     const target = evt.target as HTMLInputElement;
     if (convertToNumericCurrency(target.value) > 100) {
-      discount = '100';
+      discount = 100;
     } else {
-      discount = target.value;
+      discount = Number(target.value);
     }
   };
 </script>

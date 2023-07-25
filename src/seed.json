@@ -73,6 +73,7 @@
       "client": {
         "city": "Nowhereville",
         "email": "svelte@example.com",
+        "clientStatus": "active",
         "id": "2",
         "name": "Medieval Castle",
         "state": "FL",
@@ -105,6 +106,7 @@
       "client": {
         "city": "Anywhereville",
         "email": "zeal@example.com",
+        "clientStatus": "active",
         "id": "3",
         "name": "ZEAL",
         "state": "CA",
@@ -125,32 +127,6 @@
         }
       ],
       "subject": "Website"
-    },
-    {
-      "id": "5",
-      "client": {
-        "city": "Anywhereville",
-        "email": "zeal@example.com",
-        "id": "3",
-        "name": "ZEAL",
-        "state": "CA",
-        "street": "789 Common Drive",
-        "zip": "56789"
-      },
-      "createdAt": "2023-07-06",
-      "dueDate": "2023-10-06",
-      "invoiceNumber": "12348",
-      "invoiceStatus": "sent",
-      "issueDate": "2023-07-06",
-      "lineItems": [
-        {
-          "amount": 1000000,
-          "description": "Website Development",
-          "id": "1",
-          "quantity": 1
-        }
-      ],
-      "subject": "Website"
     }
   ],
   "clients": [
@@ -158,6 +134,7 @@
       "id": "1",
       "city": "Southampton",
       "email": "binarihelix@email.com",
+      "clientStatus": "active",
       "name": "Binary Helix",
       "state": "HAM",
       "zip": "SO15 1GG"
@@ -166,6 +143,7 @@
       "id": "2",
       "city": "London",
       "email": "info@example.com",
+      "clientStatus": "active",
       "name": "Example Corp",
       "state": "LON",
       "zip": "SW1A 0AA"
@@ -174,6 +152,7 @@
       "id": "3",
       "city": "Manchester",
       "email": "contact@company.com",
+      "clientStatus": "active",
       "name": "Company Inc",
       "state": "MAN",
       "zip": "M1 1DN"
@@ -182,6 +161,7 @@
       "id": "4",
       "city": "Birmingham",
       "email": "hello@paris.com",
+      "clientStatus": "active",
       "name": "Paris Agency",
       "state": "BIR",
       "zip": "B1 1BB"
@@ -191,6 +171,7 @@
       "city": "Glasgow",
       "email": "info@berlin.co",
       "name": "Berlin Solutions",
+      "clientStatus": "active",
       "state": "GLA",
       "zip": "G1 1XX"
     },
@@ -198,6 +179,7 @@
       "id": "6",
       "city": "Edinburgh",
       "email": "client@example.com",
+      "clientStatus": "active",
       "name": "Example Ltd",
       "state": "EDB",
       "zip": "EH1 1YY"

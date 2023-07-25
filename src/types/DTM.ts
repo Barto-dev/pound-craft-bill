@@ -13,3 +13,4 @@ export type InvoiceType = Row<'invoice'> & {
 };
 
 export type LineItemType = Row<'lineItems'>;
+export type ClientType = Row<'client'>;

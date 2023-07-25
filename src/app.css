@@ -17,6 +17,10 @@
 }
 
 @layer components {
+  .client-table {
+    @apply mb-3 grid w-full grid-cols-clientTableMobile gap-x-4 px-4 lg:grid-cols-clientTable lg:px-6;
+  }
+
   .invoice-item {
     @apply mb-3 grid w-full grid-cols-invoiceTableMobile gap-x-4 px-4 lg:grid-cols-invoiceTable lg:px-6;
   }

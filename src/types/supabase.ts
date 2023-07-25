@@ -111,34 +111,34 @@ export interface Database {
         Row: {
           amount: number | null;
           createdAt: string | null;
-          decription: string | null;
+          description: string | null;
           id: string;
-          ivnoiceId: string | null;
+          invoiceId: string | null;
           quantity: number | null;
           userId: string;
         };
         Insert: {
           amount?: number | null;
           createdAt?: string | null;
-          decription?: string | null;
+          description?: string | null;
           id?: string;
-          ivnoiceId?: string | null;
+          invoiceId?: string | null;
           quantity?: number | null;
           userId: string;
         };
         Update: {
           amount?: number | null;
           createdAt?: string | null;
-          decription?: string | null;
+          description?: string | null;
           id?: string;
-          ivnoiceId?: string | null;
+          invoiceId?: string | null;
           quantity?: number | null;
           userId?: string;
         };
         Relationships: [
           {
-            foreignKeyName: 'lineItems_ivnoiceId_fkey';
-            columns: ['ivnoiceId'];
+            foreignKeyName: 'lineItems_invoiceId_fkey';
+            columns: ['invoiceId'];
             referencedRelation: 'invoice';
             referencedColumns: ['id'];
           },

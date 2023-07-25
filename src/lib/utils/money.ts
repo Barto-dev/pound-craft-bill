@@ -1,7 +1,10 @@
 import type { LineItemType, InvoiceType } from '../../types/DTM';
 
 // Transforms pennies to pounds, since we receive all amounts in pennies
-export const penniesToPounds = (coins: number) => {
+export const penniesToPounds = (coins: number | null) => {
+  if (!coins) {
+    return 0;
+  }
   return coins / 100;
 };
 
