@@ -15,6 +15,9 @@ export const sumLineItems = (lineItems: LineItemType[] | undefined): number => {
     return 0;
   }
   const amountInCoins = lineItems.reduce((prevValue, currenItem) => {
+    if (!currenItem.amount) {
+      return prevValue;
+    }
     return prevValue + currenItem.amount;
   }, 0);
   return penniesToPounds(amountInCoins);

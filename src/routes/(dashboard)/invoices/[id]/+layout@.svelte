@@ -8,7 +8,7 @@
   });
 </script>
 
-<div class="h-full min-h-screen bg-whisper pb-32 pt-12">
+<div class="h-full min-h-screen bg-whisper pb-32 pt-20 lg:pt-12">
   <main class="mx-auto min-h-screen max-w-screen-lg">
     <a
       href={previousPage ? previousPage : '/invoices '}

@@ -39,10 +39,10 @@
 </script>
 
 <header
-  class="sticky top-6 z-0 -mt-6 mb-16 flex w-full max-w-screen-lg justify-between pl-32 pr-10 print:hidden"
+  class="sticky gap-y-5 top-16 lg:top-6 z-0 -mt-6 mb-16 flex flex-col md:flex-row w-full max-w-screen-lg justify-between pl-8 lg:pl-32 pr-10 print:hidden"
 >
   <h1 class="text-3xl font-bold text-daisyBush">Invoice</h1>
-  <div class="flex items-center gap-4">
+  <div class="flex items-center gap-4 flex-wrap sm:flex-nowrap">
     <Button size="small" variant="outline" onClick={printInvoice}>Print</Button>
     <Button size="small" onClick={copyLink} className="min-w-[120px] justify-center">{copyLinkLabel}</Button>
     <Button size="small" onClick={sendInvoice}>Send</Button>
@@ -50,12 +50,12 @@
   </div>
 </header>
 
-<div class="relative z-10 grid grid-cols-6 gap-x-5 gap-y-8 bg-white px-32 py-16 shadow-invoice">
-  <div class="col-span-3">
+<div class="relative z-10 grid grid-cols-6 gap-x-5 gap-y-8 bg-white px-5 md:px-32 py-8 md:py-16 shadow-invoice">
+  <div class="sm:col-span-3 col-span-6">
     <img src="/images/google-bard.svg" alt="Google Bard logo" />
   </div>
 
-  <div class="col-span-2 col-start-5 pt-4">
+  <div class="sm:col-span-2 sm:col-start-5 pt-4 col-span-6">
     {#if $settings && $settings.myName}
       <p class="label">From</p>
       <p>
@@ -72,7 +72,7 @@
     {/if}
   </div>
 
-  <div class="col-span-3">
+  <div class="sm:col-span-3 col-span-6">
     <p class="label">Bill To:</p>
     <p>
       <strong>{invoice?.client?.name}</strong> <br />
@@ -84,7 +84,7 @@
     </p>
   </div>
 
-  <div class="col-span-2 col-start-5">
+  <div class="col-span-6 sm:col-span-2 sm:col-start-5">
     <p class="label">Invoice ID</p>
     <p>{invoice.invoiceNumber}</p>
   </div>
@@ -94,7 +94,7 @@
     <p>{convertDate(invoice.dueDate)}</p>
   </div>
 
-  <div class="col-span-2 col-start-5">
+  <div class="col-span-3 sm:col-span-2 sm:col-start-5">
     <p class="label">Issue Date</p>
     <p>{convertDate(invoice.issueDate)}</p>
   </div>

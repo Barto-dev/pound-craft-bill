@@ -52,7 +52,9 @@
   const onClientChange = (event: Event) => {
     const target = event.target as HTMLSelectElement;
     const selectedClient = $clients.find((client) => client.id === target.value);
-    invoice.client.name = selectedClient?.name || '';
+    if (invoice.client) {
+      invoice.client.name = selectedClient?.name || '';
+    }
   };
 
   const handleSubmitFunction = () => {
