@@ -105,7 +105,11 @@
   </div>
 
   <div class="col-span-6">
-    <LineItemRows lineItems={invoice.lineItems} isEditable={false} discount={invoice?.discount} />
+    <LineItemRows
+      lineItems={invoice.lineItems}
+      isEditable={false}
+      discount={invoice?.discount || 0}
+    />
   </div>
 
   {#if invoice.notes}

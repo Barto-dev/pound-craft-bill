@@ -245,7 +245,7 @@
       on:updateLineItem={updateLineItem}
       on:updateDiscount={updateDiscount}
       lineItems={invoice.lineItems}
-      discount={invoice.discount}
+      discount={invoice.discount || 0}
     />
   </div>
 

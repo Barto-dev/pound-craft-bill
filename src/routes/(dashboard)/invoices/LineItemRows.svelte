@@ -11,7 +11,7 @@
   export let isEditable = true;
   let dispatch = createEventDispatcher();
   let subtotal = formatToPoundCurrency(0);
-  export let discount = '0';
+  export let discount = 0;
   let discountedAmount = '0';
   let total = 0;
 
