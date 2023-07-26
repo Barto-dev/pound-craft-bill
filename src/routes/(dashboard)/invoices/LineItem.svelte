@@ -14,7 +14,7 @@
   export let canDelete = false;
   export let isRequired = false;
   let unitPrice: string = formatToPoundCurrency(
-    penniesToPounds(lineItem.amount / lineItem.quantity)
+    penniesToPounds(Number(lineItem.amount) / Number(lineItem.quantity))
   );
   let amount: string = formatToPoundCurrency(penniesToPounds(lineItem.amount));
   const dispatch = createEventDispatcher();
@@ -29,7 +29,7 @@
 
   // something like useEffect in React
   $: {
-    const amountInNumericCurrency = lineItem.quantity * convertToNumericCurrency(unitPrice);
+    const amountInNumericCurrency = Number(lineItem.quantity) * convertToNumericCurrency(unitPrice);
     amount = formatToPoundCurrency(amountInNumericCurrency);
     lineItem.amount = poundsToPennies(amountInNumericCurrency);
   }

@@ -1,7 +1,7 @@
 <script lang="ts">
   import cn from 'classnames';
   // for props, we always need export
-  export let label: 'draft' | 'sent' | 'current' | 'late' | 'paid' | 'archive' = 'draft';
+  export let label: 'draft' | 'sent' | 'current' | 'late' | 'paid' | 'archive' | string = 'draft';
   export let className = '';
 </script>
 

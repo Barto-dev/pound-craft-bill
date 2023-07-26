@@ -8,6 +8,7 @@
   import Archive from '$lib/components/Icon/Archive.svelte';
   import Activate from '$lib/components/Icon/Activate.svelte';
   import type { ClientType } from '../../../types/DTM';
+  import type { ClientStatus } from '../../../enums';
 
   export let isAdditionalOptionsOpen = false;
   export let client: ClientType;
@@ -22,11 +23,17 @@
   const onOptionsClick = () => {
     isAdditionalOptionsOpen = !isAdditionalOptionsOpen;
   }
+
+  const clientStatus = client.clientStatus as ClientStatus;
+
 </script>
 
 <div class="client-table rounded-lg bg-white py-3 shadow-tableRow lg:py-6">
   <div>
-    <Tag className="mr-auto" label={client.clientStatus}/>
+    <Tag
+      className="mr-auto"
+      label={clientStatus}
+    />
   </div>
   <div class="truncate whitespace-nowrap text-base lg:text-xl font-bold">{client.name}</div>
   <div class="text-center font-mono text-sm lg:text-lg font-bold">504</div>

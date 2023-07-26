@@ -12,7 +12,7 @@
   import { addInvoice, updateInvoice } from '$lib/stores/invoiceStore';
   import ConfirmDelete from './ConfirmDelete.svelte';
   import { snackBar } from '$lib/stores/snackBarStore';
-  import type { InvoiceType } from '../../../types/DTM';
+  import type { ClientType, InvoiceType, LineItemType } from '../../../types/DTM';
 
   export let closePanel: () => void;
 
@@ -23,15 +23,15 @@
 
   export let invoice: InvoiceType = {
     client: {} as Client,
-    lineItems: [{ ...blankLineItem, id: nanoid() }]
-  } as InvoiceType;
+    lineItems: [{ ...blankLineItem, id: nanoid() }],
+  } as unknown as InvoiceType;
   let newClient: Partial<Client> = {};
 
   export let formState: 'create' | 'edit' = 'create';
   const initialDiscount = invoice.discount || '0';
 
   const addLineItem = () => {
-    invoice.lineItems = [...(invoice?.lineItems as []), { ...blankLineItem, id: nanoid() }];
+    invoice.lineItems = [...(invoice?.lineItems as LineItemType[]), { ...blankLineItem, id: nanoid() } as LineItemType];
   };
 
   const removeLineItem = (event: CustomEvent) => {
@@ -60,8 +60,8 @@
   const handleSubmitFunction = () => {
     // add client if it is not empty object
     if (isNewClient && Object.keys(newClient).length !== 0) {
-      invoice.client = newClient as Client;
-      addClient(newClient as Client);
+      invoice.client = newClient as ClientType;
+      addClient(newClient as ClientType);
     }
     if (formState === 'edit') {
       updateInvoice(invoice);
@@ -100,12 +100,12 @@
     {#if !isNewClient}
       <label for="client">Client</label>
       <div class="flex flex-wrap items-end gap-x-2 sm:flex-nowrap sm:gap-x-5">
+        <!-- TODO -->
         <select
           class="select mb-2 sm:mb-0"
           name="client"
           id="client"
           required={!isNewClient}
-          bind:value={invoice.client.id}
           on:change={onClientChange}
         >
           <option value="">Select a client</option>
