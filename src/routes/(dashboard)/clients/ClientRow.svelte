@@ -9,6 +9,7 @@
   import Activate from '$lib/components/Icon/Activate.svelte';
   import type { ClientType } from '../../../types/DTM';
   import type { ClientStatus } from '../../../enums';
+  import { formatToPoundCurrency, sumInvoices } from '$lib/utils/money';
 
   export let isAdditionalOptionsOpen = false;
   export let client: ClientType;
@@ -26,6 +27,24 @@
 
   const clientStatus = client.clientStatus as ClientStatus;
 
+
+  const receivedInvoices = () => {
+    if (!client.invoice.length) {
+      return 0;
+    }
+    const paidInvoices = client.invoice.filter(invoice => invoice.invoiceStatus === 'paid');
+    return sumInvoices(paidInvoices);
+  }
+
+
+  const balanceInvoices = () => {
+    if (!client.invoice.length) {
+      return 0;
+    }
+    const unpaidInvoices = client.invoice.filter(invoice => invoice.invoiceStatus !== 'paid');
+    return sumInvoices(unpaidInvoices);
+  }
+
 </script>
 
 <div class="client-table client-row rounded-lg bg-white py-3 shadow-tableRow lg:py-6">
@@ -36,8 +55,12 @@
     />
   </div>
   <div class="client-name truncate whitespace-nowrap text-base lg:text-xl font-bold">{client.name}</div>
-  <div class="client-received text-center font-mono text-sm lg:text-lg font-bold">504</div>
-  <div class="client-balance text-center font-mono text-sm lg:text-lg font-bold text-scarlet">240</div>
+  <div class="client-received">
+    {formatToPoundCurrency(receivedInvoices())}
+  </div>
+  <div class="client-balance text-center font-mono text-sm lg:text-lg font-bold text-scarlet">
+    {formatToPoundCurrency(balanceInvoices())}
+  </div>
   <div class="view relative hidden lg:center">
     <a href="/" class="text-pastelPurple hover:text-daisyBush">
       <View />
@@ -76,7 +99,7 @@
   }
 
   .client-received {
-    @apply text-left lg:text-right;
+    @apply text-left lg:text-center font-mono text-sm lg:text-lg font-bold;
     grid-area: received;
   }
 

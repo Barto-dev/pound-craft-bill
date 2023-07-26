@@ -40,17 +40,6 @@ export const convertToNumericCurrency = (amount: string) => {
   return parseFloat(amountWithoutLetters);
 };
 
-// Takes all the invoices and finds the total
-export const sumInvoices = (invoices: InvoiceType[] | undefined): number => {
-  if (!invoices) {
-    return 0;
-  }
-  return invoices.reduce((prevValue, invoice) => {
-    const invoiceSum = sumLineItems(invoice.lineItems);
-    return prevValue + invoiceSum;
-  }, 0);
-};
-
 // discount and determines the invoice total
 export const invoiceTotal = (
   lineItems: LineItemType[] | undefined,
@@ -63,3 +52,16 @@ export const invoiceTotal = (
   }
   return invoiceSum;
 };
+
+// Takes all the invoices and finds the total
+export const sumInvoices = (invoices: InvoiceType[] | undefined): number => {
+  if (!invoices) {
+    return 0;
+  }
+  return invoices.reduce((prevValue, invoice) => {
+    const invoiceSum = invoiceTotal(invoice.lineItems, invoice.discount || 0);
+    return prevValue + invoiceSum;
+  }, 0);
+};
+
+
