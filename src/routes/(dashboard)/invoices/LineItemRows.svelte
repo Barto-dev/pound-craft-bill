@@ -60,12 +60,12 @@
       <Button variant="text" onClick={() => dispatch('addLineItem')}>+ Line item</Button>
     {/if}
   </div>
-  <div class="py-3 text-right font-bold text-monsoon sm:py-5">Subtotal</div>
+  <div class="py-3 text-right font-bold text-monsoon sm:py-5 print:col-span-3">Subtotal</div>
   <div class="py-3 text-right font-mono sm:py-5">{subtotal}</div>
 </div>
 
 <div class="invoice-line-item">
-  <div class="col-span-1 py-3 text-right font-bold text-monsoon sm:col-span-2 sm:py-5">
+  <div class="col-span-1 py-3 text-right font-bold text-monsoon sm:col-span-2 sm:py-5 print:col-span-3">
     Discount
   </div>
 
@@ -88,13 +88,13 @@
 </div>
 
 <div class="invoice-line-item">
-  <div class="col-span-3 sm:col-span-6">
+  <div class="col-span-3 sm:col-span-6 print:col-span-6">
     <CircledAmount label="Total:" amount={formatToPoundCurrency(total)} />
   </div>
 </div>
 
 <style lang="postcss">
   .table-header {
-    @apply hidden text-sm font-bold text-daisyBush sm:block;
+    @apply hidden text-sm font-bold text-daisyBush sm:block print:block;
   }
 </style>

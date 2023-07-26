@@ -59,6 +59,12 @@
     }
   }
 
+  @media print {
+    .invoice-line-item {
+      grid-template-areas: 'description unitPrice quantity amount trash';
+    }
+  }
+
   .field {
     @apply mb-6;
   }

@@ -8,11 +8,11 @@
   });
 </script>
 
-<div class="h-full min-h-screen bg-whisper pb-32 pt-20 lg:pt-12">
+<div class="h-full min-h-screen bg-whisper print:bg-transparent pb-32 pt-20 lg:pt-12 print:pt-0 print:pb-0">
   <main class="mx-auto min-h-screen max-w-screen-lg">
     <a
       href={previousPage ? previousPage : '/invoices '}
-      class="fixed left-7 top-7 text-pastelPurple"><ArrowLeft /></a
+      class="fixed left-7 top-7 text-pastelPurple print:hidden"><ArrowLeft /></a
     >
     <slot />
   </main>

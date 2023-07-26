@@ -50,12 +50,12 @@
   </div>
 </header>
 
-<div class="relative z-10 grid grid-cols-6 gap-x-5 gap-y-8 bg-white px-5 md:px-32 py-8 md:py-16 shadow-invoice">
-  <div class="sm:col-span-3 col-span-6">
+<div class="relative z-10 grid grid-cols-6 gap-x-5 gap-y-8 bg-white px-5 md:px-32 py-8 md:py-16 shadow-invoice print:py-0 print:shadow-none">
+  <div class="sm:col-span-3 col-span-6 print:col-span-3">
     <img src="/images/google-bard.svg" alt="Google Bard logo" />
   </div>
 
-  <div class="sm:col-span-2 sm:col-start-5 pt-4 col-span-6">
+  <div class="sm:col-span-2 sm:col-start-5 pt-4 col-span-6 print:col-span-3">
     {#if $settings && $settings.myName}
       <p class="label">From</p>
       <p>
@@ -72,7 +72,7 @@
     {/if}
   </div>
 
-  <div class="sm:col-span-3 col-span-6">
+  <div class="sm:col-span-3 col-span-6 print:col-span-3">
     <p class="label">Bill To:</p>
     <p>
       <strong>{invoice?.client?.name}</strong> <br />
