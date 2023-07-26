@@ -6,5 +6,3 @@ import type { Database } from '../types/supabase';
 const supabaseUrl = env.PUBLIC_SUPABASE_URL!;
 const supabaseKey = env.PUBLIC_SUPABASE_ANON_KEY!;
 export const supabase = createClient<Database>(supabaseUrl, supabaseKey);
-
-

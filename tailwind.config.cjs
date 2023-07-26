@@ -13,7 +13,7 @@ export default {
         arrowLeftUp: "url('/images/arrow-left-up.svg')",
         circle: "url('/images/circle.svg')",
         chevronDown: "url('/images/chevron-down.svg')",
-        thankYou: "url('/images/bg-thank-you.svg')",
+        thankYou: "url('/images/bg-thank-you.svg')"
       },
       backgroundPosition: {
         'right-center': '90% 40%'

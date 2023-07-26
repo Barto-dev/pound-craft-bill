@@ -8,7 +8,7 @@
   import SlidePanel from '$lib/components/SlidePanel.svelte';
   import ClientForm from './ClientForm.svelte';
 
-  let isAddClientFormOpen = true;
+  let isAddClientFormOpen = false;
 
   const closeAddClientPanel = () => {
     isAddClientFormOpen = false;

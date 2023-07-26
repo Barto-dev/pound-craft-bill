@@ -63,5 +63,3 @@ export const sumInvoices = (invoices: InvoiceType[] | undefined): number => {
     return prevValue + invoiceSum;
   }, 0);
 };
-
-
