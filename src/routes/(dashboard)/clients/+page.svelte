@@ -5,6 +5,18 @@
   import ClientRow from './ClientRow.svelte';
   import {clients, loadClients} from '$lib/stores/clientStore';
   import { onMount } from 'svelte';
+  import SlidePanel from '$lib/components/SlidePanel.svelte';
+  import ClientForm from './ClientForm.svelte';
+
+  let isAddClientFormOpen = true;
+
+  const closeAddClientPanel = () => {
+    isAddClientFormOpen = false;
+  }
+
+  const openAddClientPanel = () => {
+    isAddClientFormOpen = true;
+  }
 
   onMount(() => {
     loadClients();
@@ -18,7 +30,7 @@
 <div class="search">
   <SearchInput />
   <div>
-    <Button isAnimated={true} onClick={() => {}}>+ Client</Button>
+    <Button isAnimated={true} onClick={openAddClientPanel}>+ Client</Button>
   </div>
 </div>
 
@@ -34,6 +46,12 @@
       {/each}
     {/if}
 </div>
+
+{#if isAddClientFormOpen}
+  <SlidePanel on:closePanel={closeAddClientPanel}>
+    <ClientForm {closeAddClientPanel} client={$clients[0]} />
+  </SlidePanel>
+{/if}
 
 <style lang="postcss">
   .search {
