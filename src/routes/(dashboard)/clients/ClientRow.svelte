@@ -28,23 +28,22 @@
 
 </script>
 
-<div class="client-table rounded-lg bg-white py-3 shadow-tableRow lg:py-6">
-  <div>
+<div class="client-table client-row rounded-lg bg-white py-3 shadow-tableRow lg:py-6">
+  <div class="client-status">
     <Tag
       className="mr-auto"
       label={clientStatus}
     />
   </div>
-  <div class="truncate whitespace-nowrap text-base lg:text-xl font-bold">{client.name}</div>
-  <div class="text-center font-mono text-sm lg:text-lg font-bold">504</div>
-  <div class="text-center font-mono text-sm lg:text-lg font-bold text-scarlet">240</div>
-  <div class="relative hidden lg:center">
-
-  <a href="/" class="text-pastelPurple hover:text-daisyBush">
-    <View />
-  </a>
+  <div class="client-name truncate whitespace-nowrap text-base lg:text-xl font-bold">{client.name}</div>
+  <div class="client-received text-center font-mono text-sm lg:text-lg font-bold">504</div>
+  <div class="client-balance text-center font-mono text-sm lg:text-lg font-bold text-scarlet">240</div>
+  <div class="view relative hidden lg:center">
+    <a href="/" class="text-pastelPurple hover:text-daisyBush">
+      <View />
+    </a>
   </div>
-  <div class="relative hidden lg:center">
+  <div class="relative hidden lg:center three-dots">
     <button on:click={onOptionsClick} class="text-pastelPurple hover:text-daisyBush">
       <ThreeDots />
     </button>
@@ -53,3 +52,47 @@
     {/if}
   </div>
 </div>
+
+<style lang="postcss">
+  .client-row {
+    grid-template-areas:
+    'clientName status'
+    'received balance';
+  }
+
+  @media (min-width: 1024px) {
+    .client-row {
+      grid-template-areas:
+      'status clientName received balance view three-dots';
+    }
+  }
+
+  .client-name {
+    grid-area: clientName;
+  }
+
+  .client-status {
+    grid-area: status;
+  }
+
+  .client-received {
+    @apply text-left lg:text-right;
+    grid-area: received;
+  }
+
+  .client-received::before {
+    @apply block lg:hidden font-bold text-xs;
+    content: 'Received';
+  }
+
+  .client-balance {
+    grid-area: balance;
+  }
+
+  .client-balance::before {
+    @apply block lg:hidden font-bold text-xs;
+    content: 'Balance';
+  }
+
+
+</style>
