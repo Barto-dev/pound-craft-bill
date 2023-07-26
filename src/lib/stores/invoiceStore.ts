@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { loadAllInvoices, loadInvoiceById } from '$lib/utils/supabase';
+import { loadAllInvoices, loadInvoiceById } from '../../api/invoice';
 import type { InvoiceType } from '../../types/DTM';
 
 export const invoices = writable<InvoiceType[]>([]);

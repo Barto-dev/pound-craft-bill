@@ -1,3 +1,3 @@
-import { supabase } from '$lib/utils/supabase';
+import { supabase } from '../api/supabase';
 
 console.log(supabase);
