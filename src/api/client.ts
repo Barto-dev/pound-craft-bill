@@ -14,7 +14,7 @@ export const loadAllClients = async () => {
 export const loadClient = async (id: string) => {
   const { data, error } = await supabase
     .from('client')
-    .select('*, invoice(id,invoiceStatus,lineItems(*))')
+    .select('*, invoice(*, client(id, name), lineItems(*))')
     .eq('id', id);
   if (error) {
     console.error(error);

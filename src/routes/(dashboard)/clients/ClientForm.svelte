@@ -5,8 +5,9 @@ import Trash from '$lib/components/Icon/Trash.svelte';
 import Check from '$lib/components/Icon/Check.svelte';
 import type { ClientType } from '../../../types/DTM';
 
-  export let client: ClientType;
+  export let client: ClientType | undefined;
   export let closeAddClientPanel: () => void;
+  export let formStatus: 'edit' | 'create' = 'create';
 
   const handleSubmit = (event: Event) => {
     const form = event.target as HTMLFormElement;

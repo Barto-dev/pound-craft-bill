@@ -7,8 +7,9 @@ export type InsertDto<T extends keyof Database['public']['Tables']> =
 export type UpdateDto<T extends keyof Database['public']['Tables']> =
   Database['public']['Tables'][T]['Update'];
 
-type ClientInvoice = Pick<Row<'invoice'>, 'id' | 'invoiceStatus'> & {
+type ClientInvoice = Row<'invoice'> & {
   lineItems: Row<'lineItems'>[];
+  client: Pick<Row<'client'>, 'name' | 'id'> | null;
 };
 
 export type InvoiceType = Row<'invoice'> & {

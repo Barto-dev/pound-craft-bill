@@ -5,5 +5,5 @@ import type { ISettings } from '../../global';
 export const settings = writable<ISettings>();
 
 export const loadSettings = () => {
-  settings.set(data.settings);
+  // settings.set(data.settings);
 };

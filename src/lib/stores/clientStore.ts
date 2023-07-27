@@ -5,9 +5,8 @@ import type { ClientType } from '../../types/DTM';
 export const clients = writable<ClientType[]>([]);
 export const loadClients = async () => {
   const data = await loadAllClients();
-  console.log(data);
   if (data) {
-    clients.set(data);
+    clients.set(data as ClientType[]);
   }
 };
 
