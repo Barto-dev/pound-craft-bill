@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { loadAllClients } from '../../api/client';
+import { loadAllClients, createClient } from '../../api/client';
 import type { ClientType } from '../../types/DTM';
 
 export const clients = writable<ClientType[]>([]);
@@ -10,9 +10,10 @@ export const loadClients = async () => {
   }
 };
 
-export const addClient = (client: ClientType) => {
-  clients.update((prev) => {
-    return [...prev, client];
-  });
+export const addClient = async (client: ClientType) => {
+  const newClient = await createClient(client);
+  // clients.update((prev) => {
+  //   return [...prev, client];
+  // });
   return client;
 };

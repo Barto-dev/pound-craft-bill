@@ -9,8 +9,10 @@
   import ClientForm from './ClientForm.svelte';
 
   let isAddClientFormOpen = false;
+  let isEditingCurrentClient = false;
 
   const closeAddClientPanel = () => {
+    console.log('1');
     isAddClientFormOpen = false;
   }
 
@@ -49,7 +51,11 @@
 
 {#if isAddClientFormOpen}
   <SlidePanel on:closePanel={closeAddClientPanel}>
-    <ClientForm {closeAddClientPanel} client={$clients[0]} />
+    <ClientForm
+      formStatus={isEditingCurrentClient ? 'edit' : 'create'}
+      {closeAddClientPanel}
+      client={isEditingCurrentClient ? $clients[0] : undefined}
+    />
   </SlidePanel>
 {/if}
 

@@ -14,7 +14,6 @@
   import SlidePanel from '$lib/components/SlidePanel.svelte';
 
   export let data: {client: ClientType};
-  console.log(data);
 
   let isEditingCurrentClient = false;
   let isClientFormShowing = false;

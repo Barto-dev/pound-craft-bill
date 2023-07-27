@@ -21,3 +21,5 @@ export type LineItemType = Row<'lineItems'>;
 export type ClientType = Row<'client'> & {
   invoice: ClientInvoice[];
 };
+
+export type InsertClientType = Omit<InsertDto<'client'>, 'id' | 'clientStatus'>;

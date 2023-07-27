@@ -1,4 +1,6 @@
 import { supabase } from './supabase';
+import type { InsertClientType } from '../types/DTM';
+import { snackBar } from '$lib/stores/snackBarStore';
 
 export const loadAllClients = async () => {
   const { data, error } = await supabase
@@ -23,4 +25,21 @@ export const loadClient = async (id: string) => {
   if (data?.length) {
     return data[0];
   }
+  console.warn('cannot find client with id', id);
 };
+
+export const createClient = async (client: InsertClientType) => {
+  const { data, error } = await supabase
+    .from('client')
+    .insert([client])
+    .select();
+  if (error) {
+    console.error(error);
+    snackBar.send({
+      message: error.message,
+      type: 'error',
+    })
+    return;
+  }
+  return data;
+}
