@@ -7,6 +7,9 @@
   import { onMount } from 'svelte';
   import SlidePanel from '$lib/components/SlidePanel.svelte';
   import ClientForm from './ClientForm.svelte';
+  import type { ClientType } from '../../../types/DTM';
+
+  const emptyClient = {} as ClientType;
 
   let isAddClientFormOpen = false;
   let isEditingCurrentClient = false;
@@ -53,7 +56,7 @@
     <ClientForm
       formStatus={isEditingCurrentClient ? 'edit' : 'create'}
       {closeAddClientPanel}
-      client={isEditingCurrentClient ? $clients[0] : undefined}
+      client={isEditingCurrentClient ? $clients[0] : emptyClient}
     />
   </SlidePanel>
 {/if}

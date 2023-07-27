@@ -6,7 +6,7 @@ import Check from '$lib/components/Icon/Check.svelte';
 import type { ClientType } from '../../../types/DTM';
 import { addClient } from '$lib/stores/clientStore';
 
-  export let client: ClientType = {} as ClientType
+  export let client: ClientType = {} as ClientType;
   export let closeAddClientPanel: () => void;
   export let formStatus: 'edit' | 'create' = 'create';
 

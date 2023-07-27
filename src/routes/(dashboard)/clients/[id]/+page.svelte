@@ -33,6 +33,8 @@
 
   $: totalAmount = sumInvoices(data?.client.invoice);
   $: formattedTotalAmount = formatToPoundCurrency(totalAmount);
+
+  const emptyClient = {} as ClientType;
 </script>
 
 <svelte:head>
@@ -91,7 +93,7 @@
     <ClientForm
       closeAddClientPanel={closePanel}
       formStatus={isEditingCurrentClient ? 'edit' : 'create'}
-      client={isEditingCurrentClient ? data?.client : undefined}
+      client={isEditingCurrentClient ? data?.client : emptyClient}
     />
   </SlidePanel>
 {/if}
