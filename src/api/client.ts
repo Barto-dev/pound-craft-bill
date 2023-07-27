@@ -1,6 +1,7 @@
 import { supabase } from './supabase';
 import type { InsertClientType } from '../types/DTM';
 import { snackBar } from '$lib/stores/snackBarStore';
+import { displayError } from '$lib/utils/handleError';
 
 export const loadAllClients = async () => {
   const { data, error } = await supabase
@@ -34,12 +35,12 @@ export const createClient = async (client: InsertClientType) => {
     .insert([client])
     .select();
   if (error) {
-    console.error(error);
-    snackBar.send({
-      message: error.message,
-      type: 'error',
-    })
+    displayError(error);
     return;
   }
+  snackBar.send({
+    message: 'Your  client was created successfully',
+    type: 'success',
+  });
   return data;
 }

@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { loadAllInvoices, loadInvoiceById } from '../../api/invoice';
+import { insertInvoice, loadAllInvoices, loadInvoiceById } from '../../api/invoice';
 import type { InvoiceType } from '../../types/DTM';
 
 export const invoices = writable<InvoiceType[]>([]);
@@ -11,11 +11,9 @@ export const loadInvoices = async () => {
   }
 };
 
-export const addInvoice = (invoice: InvoiceType) => {
-  invoices.update((prev) => {
-    return [...prev, invoice];
-  });
-  return invoice;
+export const addInvoice = async (invoice: InvoiceType, userId: string = '7c6166b5-6d09-4545-b8fb-8c606c98a6ea') => {
+  await insertInvoice(invoice, userId);
+  await loadInvoices();
 };
 
 export const updateInvoice = (invoiceToUpdate: InvoiceType) => {

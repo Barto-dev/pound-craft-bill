@@ -23,7 +23,7 @@
 
   export let invoice: InvoiceType = {
     client: {} as Client,
-    lineItems: [{ ...blankLineItem, id: nanoid() }],
+    lineItems: [{ ...blankLineItem}],
   } as unknown as InvoiceType;
   let newClient: Partial<Client> = {};
 
@@ -54,21 +54,21 @@
     const selectedClient = $clients.find((client) => client.id === target.value);
     if (invoice.client) {
       invoice.client.name = selectedClient?.name || '';
+      invoice.client.id = selectedClient?.id || '';
     }
   };
 
-  const handleSubmitFunction = () => {
+  const handleSubmitFunction = async () => {
     // add client if it is not empty object
     if (isNewClient && Object.keys(newClient).length !== 0) {
       invoice.client = newClient as ClientType;
-      addClient(newClient as ClientType);
+      await addClient(newClient as ClientType);
     }
     if (formState === 'edit') {
-      updateInvoice(invoice);
+      await updateInvoice(invoice);
       snackBar.send({ message: 'Your invoice was successfully updated', type: 'success' });
     } else {
-      addInvoice(invoice);
-      snackBar.send({ message: 'Your invoice was successfully created', type: 'success' });
+      await addInvoice(invoice);
     }
     closePanel();
   };
@@ -100,7 +100,6 @@
     {#if !isNewClient}
       <label for="client">Client</label>
       <div class="flex flex-wrap items-end gap-x-2 sm:flex-nowrap sm:gap-x-5">
-        <!-- TODO -->
         <select
           class="select mb-2 sm:mb-0"
           name="client"
