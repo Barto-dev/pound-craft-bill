@@ -11,9 +11,7 @@ export const loadClients = async () => {
 };
 
 export const addClient = async (client: ClientType) => {
-  const newClient = await createClient(client);
-  // clients.update((prev) => {
-  //   return [...prev, client];
-  // });
+  await createClient(client);
+  await loadClients();
   return client;
 };

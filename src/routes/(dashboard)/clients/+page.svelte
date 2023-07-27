@@ -12,7 +12,6 @@
   let isEditingCurrentClient = false;
 
   const closeAddClientPanel = () => {
-    console.log('1');
     isAddClientFormOpen = false;
   }
 
