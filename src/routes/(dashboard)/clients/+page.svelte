@@ -8,6 +8,7 @@
   import SlidePanel from '$lib/components/SlidePanel.svelte';
   import ClientForm from './ClientForm.svelte';
   import type { ClientType } from '../../../types/DTM';
+  import BlankState from './BlankState.svelte';
 
   const emptyClient = {} as ClientType;
 
@@ -32,7 +33,11 @@
 </svelte:head>
 
 <div class="search">
-  <SearchInput />
+  {#if $clients.length > 0}
+    <SearchInput />
+  {:else }
+    <div />
+  {/if}
   <div>
     <Button isAnimated={true} onClick={openAddClientPanel}>+ Client</Button>
   </div>
@@ -42,7 +47,7 @@
   {#if $clients === null}
     Loading...
     {:else if $clients.length === 0}
-      Blanc state
+      <BlankState />
     {:else }
   <ClientRowHeader />
     {#each $clients as client}
