@@ -27,6 +27,11 @@
     isClientFormShowing = false;
   };
 
+  const createNewClient = () => {
+    isEditingCurrentClient = false;
+    isClientFormShowing = true;
+  };
+
   onMount(() => {
     loadInvoices();
   });
@@ -48,7 +53,7 @@
     <div />
   {/if}
   <div>
-    <Button isAnimated={true} onClick={() => (isClientFormShowing = true)}>+ Client</Button>
+    <Button isAnimated={true} onClick={createNewClient}>+ Client</Button>
   </div>
 </div>
 

@@ -14,7 +14,7 @@ export default {
         circle: "url('/images/circle.svg')",
         chevronDown: "url('/images/chevron-down.svg')",
         thankYou: "url('/images/bg-thank-you.svg')",
-        bg404: "url('/images/bg-404.svg')",
+        bg404: "url('/images/bg-404.svg')"
       },
       backgroundPosition: {
         'right-center': '90% 40%'

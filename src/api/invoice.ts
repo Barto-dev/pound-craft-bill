@@ -30,13 +30,11 @@ export const loadInvoiceById = async (id: string) => {
 };
 
 export const insertInvoice = async (invoice: InvoiceType, userId: string) => {
-  const {lineItems, client, ...newInvoice} = invoice;
+  const { lineItems, client, ...newInvoice } = invoice;
   // add invoice to supabase
   const invoiceResults = await supabase
     .from('invoice')
-    .insert([
-      {...newInvoice, clientId: client?.id, userId}
-    ])
+    .insert([{ ...newInvoice, clientId: client?.id, userId }])
     .select();
 
   if (invoiceResults.error) {
@@ -46,18 +44,15 @@ export const insertInvoice = async (invoice: InvoiceType, userId: string) => {
   // get id of invoice
   const invoiceId = invoiceResults.data?.[0].id;
   // loop over all line items and add to them invoice id
-   if (lineItems && lineItems.length) {
-     const newLineItems = lineItems.map(lineItem => {
-       return {...lineItem, invoiceId, userId}
-     })
-     const lineItemResults = await supabase
-       .from('lineItems')
-       .insert(newLineItems)
-       .select();
-      if (lineItemResults.error) {
-        displayError(lineItemResults.error);
-        return;
-      }
-   }
+  if (lineItems && lineItems.length) {
+    const newLineItems = lineItems.map((lineItem) => {
+      return { ...lineItem, invoiceId, userId };
+    });
+    const lineItemResults = await supabase.from('lineItems').insert(newLineItems).select();
+    if (lineItemResults.error) {
+      displayError(lineItemResults.error);
+      return;
+    }
+  }
   snackBar.send({ message: 'Your invoice was successfully created', type: 'success' });
-}
+};

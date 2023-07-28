@@ -10,12 +10,22 @@
   import type { ClientType } from '../../../types/DTM';
   import type { ClientStatus } from '../../../enums';
   import { formatToPoundCurrency, sumInvoices } from '$lib/utils/money';
+  import ClientForm from './ClientForm.svelte';
+  import SlidePanel from '$lib/components/SlidePanel.svelte';
 
+  const emptyClient = {} as ClientType;
+  let isAddClientFormOpen = false;
+  let isEditingCurrentClient = false;
   export let isAdditionalOptionsOpen = false;
   export let client: ClientType;
 
+  const handleEditClient = () => {
+    isEditingCurrentClient = true;
+    openAddClientPanel();
+  }
+
   const options = [
-    { label: 'Edit', icon: Edit, onClick: () => {}, disabled: false },
+    { label: 'Edit', icon: Edit, onClick: handleEditClient, disabled: false },
     { label: 'Delete', icon: Trash, onClick: () => {}, disabled: false },
     { label: 'Archive', icon: Archive, onClick: () => {}, disabled: client.clientStatus === 'archived' },
     { label: 'Activate', icon: Activate, onClick: () => {}, disabled: client.clientStatus === 'active' },
@@ -43,6 +53,14 @@
     }
     const unpaidInvoices = client.invoice.filter(invoice => invoice.invoiceStatus !== 'paid');
     return sumInvoices(unpaidInvoices);
+  }
+
+  const closeAddClientPanel = () => {
+    isAddClientFormOpen = false;
+  }
+
+  const openAddClientPanel = () => {
+    isAddClientFormOpen = true;
   }
 
 </script>
@@ -75,6 +93,16 @@
     {/if}
   </div>
 </div>
+
+{#if isAddClientFormOpen}
+  <SlidePanel on:closePanel={closeAddClientPanel}>
+    <ClientForm
+      formStatus={isEditingCurrentClient ? 'edit' : 'create'}
+      {closeAddClientPanel}
+      client={isEditingCurrentClient ? client : emptyClient}
+    />
+  </SlidePanel>
+{/if}
 
 <style lang="postcss">
   .client-row {

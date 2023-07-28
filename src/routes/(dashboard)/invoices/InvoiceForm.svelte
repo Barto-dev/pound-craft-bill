@@ -1,6 +1,6 @@
 <script lang="ts">
   import { nanoid } from 'nanoid';
-  import { addClient, clients, loadClients } from '$lib/stores/clientStore';
+  import { createClient, clients, loadClients } from '$lib/stores/clientStore';
   import { slide } from 'svelte/transition';
   import Button from '$lib/components/Button.svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
@@ -62,7 +62,7 @@
     // add client if it is not empty object
     if (isNewClient && Object.keys(newClient).length !== 0) {
       invoice.client = newClient as ClientType;
-      await addClient(newClient as ClientType);
+      await createClient(newClient as ClientType);
     }
     if (formState === 'edit') {
       await updateInvoice(invoice);

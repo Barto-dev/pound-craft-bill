@@ -61,7 +61,7 @@
     <ClientForm
       formStatus={isEditingCurrentClient ? 'edit' : 'create'}
       {closeAddClientPanel}
-      client={isEditingCurrentClient ? $clients[0] : emptyClient}
+      client={emptyClient}
     />
   </SlidePanel>
 {/if}
