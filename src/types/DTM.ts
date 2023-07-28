@@ -9,11 +9,17 @@ export type UpdateDto<T extends keyof Database['public']['Tables']> =
 
 type ClientInvoice = Row<'invoice'> & {
   lineItems: Row<'lineItems'>[];
-  client: Pick<Row<'client'>, 'name' | 'id'> | null;
+  client: Pick<
+    Row<'client'>,
+    'name' | 'email' | 'id' | 'street' | 'city' | 'county' | 'postCode'
+  > | null;
 };
 
 export type InvoiceType = Row<'invoice'> & {
-  client: Pick<Row<'client'>, 'name' | 'id'> | null;
+  client: Pick<
+    Row<'client'>,
+    'name' | 'email' | 'id' | 'street' | 'city' | 'county' | 'postCode'
+  > | null;
   lineItems: Row<'lineItems'>[];
 };
 

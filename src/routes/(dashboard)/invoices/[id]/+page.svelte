@@ -75,12 +75,28 @@
   <div class="sm:col-span-3 col-span-6 print:col-span-3">
     <p class="label">Bill To:</p>
     <p>
-      <strong>{invoice?.client?.name}</strong> <br />
- <!--     {invoice.client.email}<br />
-      {invoice.client.street}<br />
-      {invoice.client.city}
-      {invoice.client.state}
-      {invoice.client.zip}-->
+      {#if data?.invoice?.client?.name}
+        <strong>{data.invoice.client?.name}</strong> <br />
+      {/if}
+      {#if data?.invoice?.client?.email}
+        {data.invoice.client.email}<br />
+      {/if}
+
+      {#if data?.invoice?.client?.street}
+        {data.invoice.client.street}<br />
+      {/if}
+
+      {#if data?.invoice?.client?.city}
+        {data.invoice.client.city}<br />
+      {/if}
+
+      {#if data?.invoice?.client?.county}
+        {data.invoice.client.county}<br />
+      {/if}
+
+      {#if data?.invoice?.client?.postCode}
+        {data.invoice.client.postCode}<br />
+      {/if}
     </p>
   </div>
 

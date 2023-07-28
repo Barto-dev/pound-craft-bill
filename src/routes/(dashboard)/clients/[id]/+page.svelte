@@ -12,6 +12,7 @@
   import { formatToPoundCurrency, sumInvoices } from '$lib/utils/money';
   import ClientForm from '../ClientForm.svelte';
   import SlidePanel from '$lib/components/SlidePanel.svelte';
+  import { isLate } from '$lib/utils/date';
 
   export let data: {client: ClientType};
 
@@ -156,10 +157,6 @@
 
   .summary-block {
     @apply text-center;
-  }
-
-  .summary-block sup {
-    @apply relative -top-[3px];
   }
 
   .label {

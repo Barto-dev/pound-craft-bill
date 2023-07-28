@@ -11,8 +11,9 @@ export const loadClients = async () => {
 };
 
 export const createClient = async (client: ClientType) => {
-  await createClientInDatabase(client);
+  const data = await createClientInDatabase(client);
   await loadClients();
+  return data?.[0];
 };
 
 export const updateClient = async (client: ClientType) => {

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { nanoid } from 'nanoid';
   import { createClient, clients, loadClients } from '$lib/stores/clientStore';
   import { slide } from 'svelte/transition';
   import Button from '$lib/components/Button.svelte';
@@ -11,7 +10,6 @@
   import { today } from '$lib/utils/date';
   import { addInvoice, updateInvoice } from '$lib/stores/invoiceStore';
   import ConfirmDelete from './ConfirmDelete.svelte';
-  import { snackBar } from '$lib/stores/snackBarStore';
   import type { ClientType, InvoiceType, LineItemType } from '../../../types/DTM';
 
   export let closePanel: () => void;
@@ -25,13 +23,13 @@
     client: {} as Client,
     lineItems: [{ ...blankLineItem}],
   } as unknown as InvoiceType;
-  let newClient: Partial<Client> = {};
+  let newClient: Partial<ClientType> = {};
 
   export let formState: 'create' | 'edit' = 'create';
   const initialDiscount = invoice.discount || '0';
 
   const addLineItem = () => {
-    invoice.lineItems = [...(invoice?.lineItems as LineItemType[]), { ...blankLineItem, id: nanoid() } as LineItemType];
+    invoice.lineItems = [...(invoice?.lineItems as LineItemType[]), { ...blankLineItem } as LineItemType];
   };
 
   const removeLineItem = (event: CustomEvent) => {
@@ -62,11 +60,14 @@
     // add client if it is not empty object
     if (isNewClient && Object.keys(newClient).length !== 0) {
       invoice.client = newClient as ClientType;
-      await createClient(newClient as ClientType);
+      const addedClient = await createClient(newClient as ClientType);
+      console.log(addedClient);
+      if (addedClient?.id) {
+        invoice.client.id = addedClient.id;
+      }
     }
     if (formState === 'edit') {
       await updateInvoice(invoice);
-      snackBar.send({ message: 'Your invoice was successfully updated', type: 'success' });
     } else {
       await addInvoice(invoice);
     }
@@ -80,7 +81,7 @@
 
   const handleAddExistingClient = () => {
     isNewClient = false;
-    invoice.client = {} as Client;
+    invoice.client = {} as ClientType;
   };
 
   onMount(() => {
@@ -109,7 +110,7 @@
         >
           <option value="">Select a client</option>
           {#each $clients as client}
-            <option value={client.id}>{client.name}</option>
+            <option selected={invoice.client?.name === client.name} value={client.id}>{client.name}</option>
           {/each}
         </select>
         <div class="text-base font-bold leading-[2.5rem] text-monsoon lg:leading-[3.5rem]">or</div>
@@ -185,7 +186,7 @@
 
       <div class="field col-span-2">
         <label for="county">County</label>
-        <select class="select" name="county" id="county" bind:value={newClient.state}>
+        <select class="select" name="county" id="county" bind:value={newClient.county}>
           <option value="">Select a county</option>
           {#each counties as county}
             <option value={county.value}>{county.label}</option>
@@ -201,7 +202,7 @@
           type="text"
           name="postcode"
           id="postcode"
-          bind:value={newClient.zip}
+          bind:value={newClient.postCode}
         />
       </div>
     </div>
