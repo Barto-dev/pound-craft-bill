@@ -32,6 +32,44 @@
     isClientFormShowing = true;
   };
 
+  const getDraftAmount = () => {
+    if (!data?.client?.invoice?.length) {
+      return 0;
+    }
+    const draftInvoices = data?.client?.invoice.filter((invoice) => invoice.invoiceStatus === 'draft');
+    const totalDraftAmount = sumInvoices(draftInvoices);
+    return formatToPoundCurrency(totalDraftAmount);
+  };
+
+  const getPaidAmount = () => {
+    if (!data?.client?.invoice?.length) {
+      return 0;
+    }
+    const paidInvoices = data?.client?.invoice.filter((invoice) => invoice.invoiceStatus === 'paid');
+    const totalPaidAmount = sumInvoices(paidInvoices);
+    return formatToPoundCurrency(totalPaidAmount);
+  };
+
+  const getOverdueAmount = () => {
+    if (!data?.client?.invoice?.length) {
+      return 0;
+    }
+    const overdueInvoices = data?.client?.invoice
+      .filter((invoice) => invoice.invoiceStatus === 'sent' && isLate(invoice.dueDate));
+    const totalOverdueAmount = sumInvoices(overdueInvoices);
+    return formatToPoundCurrency(totalOverdueAmount);
+  };
+
+  const getOutstandingAmount = () => {
+    if (!data?.client?.invoice?.length) {
+      return 0;
+    }
+    const outstandingInvoices = data?.client?.invoice
+      .filter((invoice) => invoice.invoiceStatus === 'sent' && !isLate(invoice.dueDate));
+    const totalOutstandingAmount = sumInvoices(outstandingInvoices);
+    return formatToPoundCurrency(totalOutstandingAmount);
+  };
+
   onMount(() => {
     loadInvoices();
   });
@@ -65,19 +103,19 @@
 <div class="mb-10 flex justify-between flex-wrap lg:grid lg:grid-cols-4 gap-4 rounded-lg bg-gallery py-7 px-10">
   <div class="summary-block">
     <p class="label">Total Overdue</p>
-    <p class="number"><sup>£</sup>300</p>
+    <p class="number">{getOverdueAmount()}</p>
   </div>
   <div class="summary-block">
     <p class="label">Total Outstanding</p>
-    <p class="number"><sup>£</sup>300</p>
+    <p class="number">{getOutstandingAmount()}</p>
   </div>
   <div class="summary-block">
     <p class="label">Total Draft</p>
-    <p class="number"><sup>£</sup>300</p>
+    <p class="number">{getDraftAmount()}</p>
   </div>
   <div class="summary-block">
     <p class="label">Total Pay</p>
-    <p class="number"><sup>£</sup>300</p>
+    <p class="number">{getPaidAmount()}</p>
   </div>
 </div>
 
