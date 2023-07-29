@@ -26,6 +26,7 @@
   class:primaryText={color === 'primary'}
   class:small={size === 'small'}
   class:medium={size === 'medium'}
+  class:green={color === 'green'}
   on:click={onClick}
 >
   {#if iconLeft}
@@ -84,6 +85,10 @@
 
   .text.primaryText {
     @apply text-lavenderIndigo;
+  }
+
+  .primary.green {
+    @apply bg-robinEggBlue text-daisyBush;
   }
 
   .medium {
