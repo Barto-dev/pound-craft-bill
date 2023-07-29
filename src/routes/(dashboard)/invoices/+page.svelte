@@ -10,11 +10,32 @@
   import Button from '$lib/components/Button.svelte';
   import SlidePanel from '$lib/components/SlidePanel.svelte';
   import InvoiceForm from './InvoiceForm.svelte';
+  import NoSearchResult from './NoSearchResult.svelte';
+  import type { InvoiceType } from '../../../types/DTM';
 
   let isInvoiceCreateShowing = false;
+  let initialInvoiceList: InvoiceType[] = [];
 
-  onMount(() => {
-    loadInvoices();
+  const handleSearchInvoices = (event: CustomEvent) => {
+    const keywords = event.detail.searchTerms;
+    initialInvoiceList = $invoices.filter((invoice) => {
+      return (
+        invoice?.client?.name?.toLowerCase().includes(keywords.toLowerCase()) ||
+        invoice?.client?.email?.toLowerCase().includes(keywords.toLowerCase()) ||
+        invoice?.invoiceStatus?.toLowerCase().includes(keywords.toLowerCase())
+      );
+    });
+  };
+
+  const handleClearSearch = (event: CustomEvent) => {
+    if (event.detail.searchTerms === '') {
+      initialInvoiceList = $invoices;
+    }
+  };
+
+  onMount(async () => {
+    await loadInvoices();
+    initialInvoiceList = $invoices;
   });
 
   $: totalAmount = sumInvoices($invoices);
@@ -27,8 +48,11 @@
 
 <div class="search">
   {#if $invoices.length > 0}
-    <SearchInput />
-  {:else}
+    <SearchInput
+      on:search={handleSearchInvoices}
+      on:clear={handleClearSearch}
+    />
+  {:else }
     <div />
   {/if}
   <!--  new invoice button-->
@@ -41,9 +65,11 @@
   Loading...
 {:else if $invoices.length === 0}
   <BlankState />
+{:else if initialInvoiceList.length === 0}
+  <NoSearchResult />
 {:else}
   <InvoiceRowHeader className="text-daisyBush" />
-  {#each $invoices as invoice}
+  {#each initialInvoiceList as invoice}
     <InvoiceRow {invoice} />
   {/each}
   <CircledAmount label="Total:" amount={formattedTotalAmount} />

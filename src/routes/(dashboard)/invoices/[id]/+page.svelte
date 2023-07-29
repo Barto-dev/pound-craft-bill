@@ -67,7 +67,7 @@
       </p>
     {:else}
       <div class="center min-h-[68px] rounded bg-gallery">
-        <a href="#" class="text-stone-600 underline hover:no-underline">Add your contact information</a>
+        <a href="/settings" class="text-stone-600 underline hover:no-underline">Add your contact information</a>
       </div>
     {/if}
   </div>

@@ -12,16 +12,16 @@
 <form>
   <Alert message={alertMessage} />
   <div class="field">
-    <label class="label text-goldenFizz">Email</label>
-    <input class="input" type="email" placeholder="Enter your email" bind:value={email}>
+    <label for="email" class="label text-goldenFizz">Email</label>
+    <input class="input" id="email" type="email" placeholder="Enter your email" bind:value={email}>
   </div>
 
   <div class="field">
     <div class="flex justify-between">
-      <label class="label text-goldenFizz">Password</label>
+      <label for="password" class="label text-goldenFizz">Password</label>
       <a href="/forgot-password" class="text-sm text-white underline hover:no-underline">Forgot?</a>
     </div>
-    <input class="input" type="password" placeholder="Enter your password" bind:value={password}>
+    <input class="input" id="password" type="password" placeholder="Enter your password" bind:value={password}>
   </div>
 
   <div class="field mt-10">
