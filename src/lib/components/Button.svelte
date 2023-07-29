@@ -6,7 +6,7 @@
   export let className = '';
   export let type: 'button' | 'submit' | 'reset' = 'button';
   export let variant: 'primary' | 'secondary' | 'danger' | 'outline' | 'text' = 'primary';
-  export let color: 'error' | 'primary' = 'primary';
+  export let color: 'error' | 'primary' | 'green' = 'primary';
   export let size: 'small' | 'medium' = 'medium';
   export let isAnimated = false;
   export let iconLeft: (new (...args: any[]) => SvelteComponent) | null = null;

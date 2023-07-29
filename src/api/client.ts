@@ -6,7 +6,7 @@ import { displayError } from '$lib/utils/handleError';
 export const loadAllClients = async () => {
   const { data, error } = await supabase
     .from('client')
-    .select('*, invoice(id,invoiceStatus,lineItems(*))');
+    .select('*, invoice(id,discount,invoiceStatus,lineItems(*))');
   if (error) {
     console.error(error);
     return;
@@ -61,6 +61,18 @@ export const updateClientInDatabase = async (client: ClientType) => {
   }
   snackBar.send({
     message: 'Your  client was upated successfully',
+    type: 'success'
+  });
+};
+
+export const deleteClientFromDatabase = async (id: string) => {
+  const { error } = await supabase.from('client').delete().eq('id', id);
+  if (error) {
+    displayError(error);
+    return;
+  }
+  snackBar.send({
+    message: 'Client was deleted successfully',
     type: 'success'
   });
 };

@@ -12,10 +12,12 @@
   import { formatToPoundCurrency, sumInvoices } from '$lib/utils/money';
   import ClientForm from './ClientForm.svelte';
   import SlidePanel from '$lib/components/SlidePanel.svelte';
+  import ConfirmDeleteClient from './ConfirmDeleteClient.svelte';
 
   const emptyClient = {} as ClientType;
   let isAddClientFormOpen = false;
   let isEditingCurrentClient = false;
+  let isDeleteClientModalOpen = false;
   export let isAdditionalOptionsOpen = false;
   export let client: ClientType;
 
@@ -24,9 +26,14 @@
     openAddClientPanel();
   }
 
+  const handleDelete = () => {
+    isDeleteClientModalOpen = true;
+    isAdditionalOptionsOpen = false;
+  };
+
   const options = [
     { label: 'Edit', icon: Edit, onClick: handleEditClient, disabled: false },
-    { label: 'Delete', icon: Trash, onClick: () => {}, disabled: false },
+    { label: 'Delete', icon: Trash, onClick: handleDelete, disabled: false },
     { label: 'Archive', icon: Archive, onClick: () => {}, disabled: client.clientStatus === 'archived' },
     { label: 'Activate', icon: Activate, onClick: () => {}, disabled: client.clientStatus === 'active' },
   ];
@@ -102,6 +109,14 @@
       client={isEditingCurrentClient ? client : emptyClient}
     />
   </SlidePanel>
+{/if}
+
+{#if isDeleteClientModalOpen}
+  <ConfirmDeleteClient
+    {client}
+    isModalShowing={isDeleteClientModalOpen}
+    on:close={() => isDeleteClientModalOpen = false}
+  />
 {/if}
 
 <style lang="postcss">

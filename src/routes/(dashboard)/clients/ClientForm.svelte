@@ -5,10 +5,11 @@ import Trash from '$lib/components/Icon/Trash.svelte';
 import Check from '$lib/components/Icon/Check.svelte';
 import type { ClientType } from '../../../types/DTM';
 import { createClient, updateClient } from '$lib/stores/clientStore';
+import ConfirmDeleteClient from './ConfirmDeleteClient.svelte';
 
   export let client: ClientType = {} as ClientType;
   let clientCountyCode = counties.find((county) => county.label === client.county)?.value || '';
-console.log(client);
+  let isDeleteClientModalOpen = false;
 
   export let closeAddClientPanel: () => void;
   export let formStatus: 'edit' | 'create' = 'create';
@@ -112,11 +113,19 @@ console.log(client);
     >
   </div>
 
+  {#if formStatus === 'edit'}
   <div class="field col-span-3">
-    <Button className="!px-0" iconLeft={Trash} onClick={() => {}} variant="text" color="error">
+    <Button
+      className="!px-0"
+      iconLeft={Trash}
+      onClick={() => isDeleteClientModalOpen = true}
+      variant="text"
+      color="error"
+    >
       Delete
     </Button>
   </div>
+    {/if}
 
   <div class="field col-span-3 flex justify-end gap-x-5">
     <Button onClick={closeAddClientPanel} type="button" variant="secondary">
@@ -125,3 +134,9 @@ console.log(client);
     <Button isAnimated iconRight={Check} type="submit">Save</Button>
   </div>
 </form>
+
+<ConfirmDeleteClient
+  client={client}
+  isModalShowing={isDeleteClientModalOpen}
+  on:close={() => isDeleteClientModalOpen = false}
+/>

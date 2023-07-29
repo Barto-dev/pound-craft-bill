@@ -22,7 +22,7 @@
   </div>
 
   <div class="field mt-10">
-    <Button color="green" className="w-full text-center justify-center" isAnimated="true">Login</Button>
+    <Button color="green" className="w-full text-center justify-center" isAnimated={true}>Login</Button>
     <p class="mt-4 text-center text-sm text-white">
       <a href="/signup" class="underline hover:no-underline">Don't have an account yet?</a>
     </p>

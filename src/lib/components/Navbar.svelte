@@ -42,8 +42,8 @@
   <nav aria-label="Main navigation" class="nav">
     <ul class="list-none text-2xl font-bold">
       <!--      TODO add aria current-->
-      <li><a class:active={$page.url.pathname === '/invoices'} href="/invoices">Invoices</a></li>
-      <li><a class:active={$page.url.pathname === '/clients'} href="/clients">Clients</a></li>
+      <li><a class:active={$page.url.pathname.includes('/invoices')} href="/invoices">Invoices</a></li>
+      <li><a class:active={$page.url.pathname.includes('/clients')} href="/clients">Clients</a></li>
       <li><a class:active={$page.url.pathname === '/settings'} href="/settings">Settings</a></li>
       <li><a href="/logout">Logout</a></li>
     </ul>
