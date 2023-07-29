@@ -26,7 +26,7 @@
 
 {#if isVisible}
   <Portal>
-    <Overlay className="z-modalOverlay" onClick={() => dispatch('close')} />
+    <Overlay className="!z-modalOverlay" onClick={() => dispatch('close')} />
     <div class="center pointer-events-none fixed inset-0 z-modal">
       <div class="modal">
         <button

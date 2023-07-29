@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
 import {
+  deleteInvoiceFromDatabase,
   insertInvoice,
   loadAllInvoices,
   loadInvoiceById,
@@ -32,17 +33,13 @@ export const updateInvoice = async (
   await loadInvoices();
 };
 
-export const deleteInvoice = (invoiceToDelete: InvoiceType) => {
-  invoices.update((prev) => {
-    return prev.filter((invoice) => invoice.id !== invoiceToDelete.id);
-  });
-  // to use this data after successful delete
-  return invoiceToDelete;
-};
-
 export const getInvoiceById = async (id: string) => {
   const data = await loadInvoiceById(id);
   if (data) {
     return data;
   }
+};
+export const deleteInvoice = async (invoiceId: string) => {
+  await deleteInvoiceFromDatabase(invoiceId);
+  await loadInvoices();
 };

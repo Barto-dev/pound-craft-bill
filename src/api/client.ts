@@ -32,7 +32,11 @@ export const loadClient = async (id: string) => {
 export const createClientInDatabase = async (client: InsertClientType) => {
   const { data, error } = await supabase
     .from('client')
-    .insert([{...client, userId: '7c6166b5-6d09-4545-b8fb-8c606c98a6ea'} as InsertClientType & {userId: string}])
+    .insert([
+      { ...client, userId: '7c6166b5-6d09-4545-b8fb-8c606c98a6ea' } as InsertClientType & {
+        userId: string;
+      }
+    ])
     .select();
   if (error) {
     displayError(error);

@@ -46,13 +46,10 @@ const addLineItemsToDatabase = async (
   if (lineItems && lineItems.length) {
     const newLineItems = lineItems.map((lineItem) => {
       const newLineItem = { ...lineItem, invoiceId, userId };
-      const {id, ...lineItemWithoutId} = newLineItem;
+      const { id, ...lineItemWithoutId } = newLineItem;
       return { ...lineItemWithoutId };
     });
-    const lineItemResults = await supabase
-      .from('lineItems')
-      .insert(newLineItems)
-      .select();
+    const lineItemResults = await supabase.from('lineItems').insert(newLineItems).select();
     if (lineItemResults.error) {
       displayError(lineItemResults.error);
       return false;
@@ -109,4 +106,17 @@ export const updateInvoiceInDatabase = async (invoice: InvoiceType, userId: stri
   }
   // display success message
   snackBar.send({ message: 'Your invoice was successfully updated', type: 'success' });
+};
+
+export const deleteInvoiceFromDatabase = async (invoiceId: string) => {
+  // delete invoice from supabase
+  const { error } = await supabase.from('invoice').delete().eq('id', invoiceId);
+  if (error) {
+    displayError(error);
+    return;
+  }
+  snackBar.send({
+    message: 'Your invoice was successfully deleted',
+    type: 'success'
+  });
 };
