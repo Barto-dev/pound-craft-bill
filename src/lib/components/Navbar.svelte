@@ -44,7 +44,7 @@
       <!--      TODO add aria current-->
       <li><a class:active={$page.url.pathname === '/invoices'} href="/invoices">Invoices</a></li>
       <li><a class:active={$page.url.pathname === '/clients'} href="/clients">Clients</a></li>
-      <li><a href="/settings">Settings</a></li>
+      <li><a class:active={$page.url.pathname === '/settings'} href="/settings">Settings</a></li>
       <li><a href="/logout">Logout</a></li>
     </ul>
   </nav>

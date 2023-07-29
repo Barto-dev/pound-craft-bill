@@ -29,3 +29,5 @@ export type ClientType = Row<'client'> & {
 };
 
 export type InsertClientType = Omit<InsertDto<'client'>, 'id' | 'clientStatus'>;
+
+export type SettingsType = Row<'settings'>;
