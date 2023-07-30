@@ -1,4 +1,5 @@
 <script>
+  import { fly } from 'svelte/transition';
   import Portal from '$lib/components/Portal.svelte';
   import Overlay from '$lib/components/Overlay.svelte';
   import ArrowLeft from '$lib/components/Icon/ArrowLeft.svelte';
@@ -17,7 +18,7 @@
 
 <Portal>
   <Overlay onClick={() => dispatch('closePanel')} />
-  <div class="container">
+  <div transition:fly={{x: 1000, duration: 300}} class="container">
     <button
       on:click={() => dispatch('closePanel')}
       class="absolute left-5 top-7 text-pastelPurple hover:text-daisyBush"
