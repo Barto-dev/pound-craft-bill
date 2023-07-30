@@ -7,7 +7,6 @@ import {
   updateInvoiceInDatabase
 } from '../../api/invoice';
 import type { InvoiceType } from '../../types/DTM';
-import { snackBar } from '$lib/stores/snackBarStore';
 
 export const invoices = writable<InvoiceType[]>([]);
 

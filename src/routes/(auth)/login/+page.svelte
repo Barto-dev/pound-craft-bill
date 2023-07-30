@@ -7,7 +7,7 @@
   let alertMessage = '';
 </script>
 
-<h1 class="mb-4 text-[2.5rem] font-black text-goldenFizz">Login</h1>
+<h1 class="auth-title">Login</h1>
 
 <form>
   <Alert message={alertMessage} />

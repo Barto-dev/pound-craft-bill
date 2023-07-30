@@ -112,6 +112,10 @@
   .textarea:focus {
     @apply border-2 border-lavenderIndigo outline-none;
   }
+
+  .auth-title {
+    @apply mb-4 text-[2.5rem] font-black text-goldenFizz;
+  }
 }
 
 @layer utilities {
