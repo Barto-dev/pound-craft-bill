@@ -28,7 +28,11 @@
     on:input={handleClear}
     bind:value={searchTerms}
   />
-  <button type="submit" class="font-sansSerif text-lg font-black text-pastelPurple lg:text-xl">Search</button>
+  <button
+    type="submit"
+    class="search-button">
+    Search
+  </button>
 </form>
 
 <style lang="postcss">
@@ -41,11 +45,50 @@
     font-sansSerif
     text-base
     text-black
+    pr-[70px]
+    md:pr-0
     outline-none
     focus-visible:border-solid
     focus-visible:border-b-lavenderIndigo
     md:w-[14rem]
     lg:w-72
     lg:text-xl;
+  }
+
+  .search-input::placeholder {
+    @apply text-transparent;
+  }
+
+  .search-button {
+    @apply
+      absolute
+      pointer-events-none
+      left-8
+      font-sansSerif
+      text-lg
+      font-black
+      text-pastelPurple
+      lg:text-xl;
+  }
+
+  .search-input:not(:placeholder-shown) + .search-button,
+  .search-input:focus + .search-button {
+    @apply
+      translate-x-[calc(100%-65px)]
+      pointer-events-auto
+      md:translate-x-[16rem]
+      lg:translate-x-80
+      left-auto
+      text-right
+      right-0
+      md:right-auto
+      md:left-0
+      text-lavenderIndigo
+    ;
+  }
+
+  .search-input + .search-button:hover,
+  .search-input:focus + .search-button:focus {
+    @apply text-daisyBush outline-none;
   }
 </style>
