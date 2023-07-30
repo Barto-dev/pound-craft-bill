@@ -18,3 +18,17 @@ export const signUp = async (signUpData: SignUpData) => {
 
   return data;
 };
+
+export const signIn = async (signInData: SignUpData) => {
+  const { data, error } = await supabase.auth.
+  signInWithPassword({
+    email: signInData.email,
+    password: signInData.password
+  });
+  if (error) {
+    displayError(error);
+    return;
+  }
+
+  return data;
+}
