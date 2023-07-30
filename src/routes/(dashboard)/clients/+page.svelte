@@ -9,11 +9,13 @@
   import ClientForm from './ClientForm.svelte';
   import type { ClientType } from '../../../types/DTM';
   import BlankState from './BlankState.svelte';
+  import NoSearchResult from './NoSearchResult.svelte';
 
   const emptyClient = {} as ClientType;
 
   let isAddClientFormOpen = false;
   let isEditingCurrentClient = false;
+  let clientList: ClientType[] = [];
 
   const closeAddClientPanel = () => {
     isAddClientFormOpen = false;
@@ -23,8 +25,25 @@
     isAddClientFormOpen = true;
   }
 
-  onMount(() => {
-    loadClients();
+  const handleSearchClients = (event: CustomEvent) => {
+    const searchTerm = event.detail.searchTerms;
+    clientList = $clients.filter((client) => {
+      return(
+        client?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        client?.email?.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    });
+  }
+
+  const handleClearSearch = (event: CustomEvent) => {
+    if (event.detail.searchTerms === '') {
+      clientList = $clients;
+    }
+  }
+
+  onMount(async () => {
+    await loadClients();
+    clientList = $clients;
   });
 </script>
 
@@ -34,7 +53,10 @@
 
 <div class="search">
   {#if $clients.length > 0}
-    <SearchInput />
+    <SearchInput
+      on:search={handleSearchClients}
+      on:clear={handleClearSearch}
+    />
   {:else }
     <div />
   {/if}
@@ -46,14 +68,16 @@
 <div>
   {#if $clients === null}
     Loading...
-    {:else if $clients.length === 0}
-      <BlankState />
-    {:else }
+  {:else if $clients.length === 0}
+    <BlankState />
+  {:else if clientList.length === 0}
+    <NoSearchResult />
+  {:else}
   <ClientRowHeader />
-    {#each $clients as client}
+    {#each clientList as client}
       <ClientRow {client} />
-      {/each}
-    {/if}
+    {/each}
+  {/if}
 </div>
 
 {#if isAddClientFormOpen}
