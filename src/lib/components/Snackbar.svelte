@@ -19,7 +19,7 @@
           class:error={content.type === 'error'}
         >
           <div class="flex gap-4">
-            <SnackbarMessage>{content.message}</SnackbarMessage>
+            <SnackbarMessage autoHide={content.autoHide}>{content.message}</SnackbarMessage>
             <button on:click={() => snackBar.remove(content.id)}>
               <Cancel />
             </button>

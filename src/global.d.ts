@@ -23,6 +23,7 @@ interface ISettings {
 type NotificationType = 'success' | 'error' | 'warning' | 'info';
 
 interface ISnackbar {
+  autoHide?: boolean;
   id: string;
   message: string;
   type: NotificationType;

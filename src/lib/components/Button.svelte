@@ -3,6 +3,7 @@
   import type { SvelteComponent } from 'svelte';
 
   export let onClick: () => void = () => {};
+  export let disabled = false;
   export let className = '';
   export let type: 'button' | 'submit' | 'reset' = 'button';
   export let variant: 'primary' | 'secondary' | 'danger' | 'outline' | 'text' = 'primary';
@@ -27,6 +28,7 @@
   class:small={size === 'small'}
   class:medium={size === 'medium'}
   class:green={color === 'green'}
+  disabled={disabled}
   on:click={onClick}
 >
   {#if iconLeft}
@@ -53,6 +55,10 @@
     font-black
     shadow-colored
     transition-all;
+  }
+
+  .btn:disabled {
+    @apply opacity-50 cursor-not-allowed;
   }
 
   .isAnimated {

@@ -5,8 +5,8 @@ import { nanoid } from 'nanoid';
 const newSnackBar = () => {
   const { subscribe, update } = writable<ISnackbar[]>([]);
 
-  function send(content: { message: string; type: NotificationType }) {
-    const newSnackBar = { id: nanoid(), ...content };
+  function send(content: { message: string; type: NotificationType; autoHide?: boolean }) {
+    const newSnackBar = { id: nanoid(), autoHide: true, ...content };
     update((snackBars) => [...snackBars, newSnackBar]);
   }
 

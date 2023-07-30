@@ -56,13 +56,13 @@
   </div>
 
   <div class="sm:col-span-2 sm:col-start-5 pt-4 col-span-6 print:col-span-3">
-    {#if $settings && $settings.myName}
+    {#if $settings && $settings.name}
       <p class="label">From</p>
       <p>
-        {$settings.myName}<br />
+        {$settings.name}<br />
         {$settings.street}<br />
-        {#if $settings.city && $settings.county && $settings.zip}
-          {$settings.city}, {$settings.county} {$settings.zip}
+        {#if $settings.city && $settings.county && $settings.postCode}
+          {$settings.city}, {$settings.county} {$settings.postCode}
         {/if}
       </p>
     {:else}
