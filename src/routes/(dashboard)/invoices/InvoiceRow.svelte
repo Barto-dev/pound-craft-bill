@@ -1,5 +1,6 @@
 <script lang="ts">
   import {clickOutside} from '$lib/actions/clickOutside';
+  import {swipe} from '$lib/actions/swipe';
   import Tag from '$lib/components/Tag.svelte';
   import ThreeDots from '$lib/components/Icon/ThreeDots.svelte';
   import View from '$lib/components/Icon/View.svelte';
@@ -53,7 +54,10 @@
   ];
 </script>
 
-<div class="invoice-item invoice-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6">
+<div
+  use:swipe={() => console.log('swipe')}
+  class="invoice-item invoice-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
+>
   <div class="status">
     <Tag className="ml-auto lg:ml-0" label={invoiceLabel} />
   </div>
