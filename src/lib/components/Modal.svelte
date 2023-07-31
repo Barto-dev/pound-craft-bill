@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+  import {clickOutside} from '$lib/actions/clickOutside';
   import Portal from '$lib/components/Portal.svelte';
   import Overlay from '$lib/components/Overlay.svelte';
   import Cancel from '$lib/components/Icon/Cancel.svelte';
@@ -26,9 +27,9 @@
 
 {#if isVisible}
   <Portal>
-    <Overlay className="!z-modalOverlay" onClick={() => dispatch('close')} />
+    <Overlay className="!z-modalOverlay" />
     <div class="center pointer-events-none fixed inset-0 z-modal">
-      <div class="modal">
+      <div class="modal" use:clickOutside={() => dispatch('close')}>
         <button
           on:click={() => dispatch('close')}
           class="absolute right-4 top-4 text-pastelPurple hover:text-daisyBush"

@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+  import {clickOutside} from '$lib/actions/clickOutside';
   import { fly } from 'svelte/transition';
   import Portal from '$lib/components/Portal.svelte';
   import Overlay from '$lib/components/Overlay.svelte';
@@ -17,8 +18,12 @@
 />
 
 <Portal>
-  <Overlay onClick={() => dispatch('closePanel')} />
-  <div transition:fly={{x: 1000, duration: 300}} class="container">
+  <Overlay />
+  <div
+    transition:fly={{x: 1000, duration: 300}}
+    class="container"
+    use:clickOutside={() => dispatch('closePanel')}
+  >
     <button
       on:click={() => dispatch('closePanel')}
       class="absolute left-5 top-7 text-pastelPurple hover:text-daisyBush"

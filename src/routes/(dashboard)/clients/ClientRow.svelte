@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {clickOutside} from '$lib/actions/clickOutside';
   import Tag from '$lib/components/Tag.svelte';
   import View from '$lib/components/Icon/View.svelte';
   import ThreeDots from '$lib/components/Icon/ThreeDots.svelte';
@@ -91,7 +92,7 @@
       <View />
     </a>
   </div>
-  <div class="relative hidden lg:center three-dots">
+  <div class="relative hidden lg:center three-dots" use:clickOutside={() => isAdditionalOptionsOpen = false}>
     <button on:click={onOptionsClick} class="text-pastelPurple hover:text-daisyBush">
       <ThreeDots />
     </button>

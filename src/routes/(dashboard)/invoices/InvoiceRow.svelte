@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {clickOutside} from '$lib/actions/clickOutside';
   import Tag from '$lib/components/Tag.svelte';
   import ThreeDots from '$lib/components/Icon/ThreeDots.svelte';
   import View from '$lib/components/Icon/View.svelte';
@@ -70,7 +71,7 @@
       <View />
     </a>
   </div>
-  <div class="lg:center more-button relative hidden lg:block">
+  <div class="lg:center more-button relative hidden lg:block" use:clickOutside={() => isAdditionalMenuShowing = false}>
     <button
       on:click={() => (isAdditionalMenuShowing = !isAdditionalMenuShowing)}
       class="text-pastelPurple transition-all hover:text-daisyBush"
