@@ -33,8 +33,8 @@
     console.log('send invoice');
   };
 
-  onMount(() => {
-    loadSettings();
+  onMount(async () => {
+    await loadSettings();
   });
 </script>
 
