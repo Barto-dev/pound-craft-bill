@@ -32,3 +32,11 @@ export const signIn = async (signInData: SignUpData) => {
 
   return data;
 }
+
+export const signOut = async () => {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    displayError(error);
+    return;
+  }
+}
