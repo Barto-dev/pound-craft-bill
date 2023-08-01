@@ -13,4 +13,10 @@ declare global {
     // interface Error {}
     // interface Platform {}
   }
+
+  namespace svelteHtml {
+    interface HTMLAttributes<T> {
+      'on:outofview'?: (event) => void;
+    }
+  }
 }

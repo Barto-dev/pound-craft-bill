@@ -1,19 +1,24 @@
-import type { Action } from 'svelte/action';
+import type { Action, ActionReturn } from 'svelte/action';
 import { spring } from 'svelte/motion';
 
 const THRESHOLD = 20;
 
-interface SwipeOptions {
+interface Attributes {
+  'on:outofview'?: (event: CustomEvent) => void;
+}
 
+interface SwipeOptions {
+  triggerReset?: boolean,
 }
 export const swipe: Action<HTMLElement, SwipeOptions> = (
   node,
   params
-) => {
+): ActionReturn<SwipeOptions, Attributes> => {
 
   let x: number;
   let startingX: number;
   let endingX: number;
+  let triggerReset = params?.triggerReset ?? false;
   const elementWidth = node.clientWidth;
   const coordinates = spring(
     { x: 0, y: 0 },
@@ -23,6 +28,24 @@ export const swipe: Action<HTMLElement, SwipeOptions> = (
   coordinates.subscribe(($prevCoords) => {
     node.style.transform = `translate3d(${$prevCoords.x}px, 0, 0)`;
   });
+
+  const resetCard = () => {
+    coordinates.update(() => {
+      return { x: 0, y: 0 }
+    });
+  }
+
+  const outOfView = () => {
+    node.dispatchEvent(
+      new CustomEvent('outOfView')
+    )
+  }
+
+  const backInView = () => {
+    node.dispatchEvent(
+      new CustomEvent('backInView')
+    )
+  }
 
   const updateCoordinates = (x: number) => {
     coordinates.update(() => {
@@ -38,6 +61,7 @@ export const swipe: Action<HTMLElement, SwipeOptions> = (
     if (movement > THRESHOLD) {
       x = leftSnapX;
       updateCoordinates(x);
+      outOfView();
     }
 
     // swiped right
@@ -73,8 +97,13 @@ export const swipe: Action<HTMLElement, SwipeOptions> = (
   node.addEventListener('mousedown', handleMouseDown);
 
   return {
-    update(options) {
-
+    // this code will run any time when params of action change
+    // in this particular case it will run when params object change
+    update(newParams) {
+      if (newParams.triggerReset) {
+        resetCard();
+      }
+      triggerReset = false;
     },
 
     destroy() {

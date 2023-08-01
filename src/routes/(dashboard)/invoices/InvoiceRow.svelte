@@ -35,6 +35,7 @@
 
   let isModalShowing = false;
   let isInvoiceEditShowing = false;
+  let triggerReset = false;
   const handleDelete = () => {
     isModalShowing = true;
     isAdditionalMenuShowing = false;
@@ -57,7 +58,8 @@
 
 <div class="relative">
   <div
-    use:swipe
+    use:swipe={{triggerReset}}
+    on:outofview={() => (triggerReset = false)}
     class="z-row invoice-item relative invoice-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
   >
     <div class="status">
@@ -93,7 +95,7 @@
 
 <!--  swipe to reveal-->
   <div class="flex w-full items-center justify-around absolute inset-0 h-full z-rowActions">
-    <button class="action-button">
+    <button class="action-button" on:click={() => triggerReset = true}>
       <Cancel width={32} height={32} />
       Cancel
     </button>
