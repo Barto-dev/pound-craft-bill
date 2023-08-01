@@ -4,7 +4,7 @@
   import Tag from '$lib/components/Tag.svelte';
   import ThreeDots from '$lib/components/Icon/ThreeDots.svelte';
   import View from '$lib/components/Icon/View.svelte';
-  import { sumLineItems, formatToPoundCurrency } from '$lib/utils/money';
+  import { formatToPoundCurrency } from '$lib/utils/money';
   import { convertDate } from '$lib/utils/date';
   import { getInvoiceLabel } from '$lib/utils/invoice';
   import AdditionalOptions from '$lib/components/AdditionalOptions/AdditionalOptions.svelte';
@@ -16,6 +16,7 @@
   import ConfirmDelete from './ConfirmDelete.svelte';
   import { invoiceTotal } from '$lib/utils/money.js';
   import type { InvoiceType } from '../../../types/DTM';
+  import Cancel from '$lib/components/Icon/Cancel.svelte';
 
   export let invoice: InvoiceType;
   let isAdditionalMenuShowing = false;
@@ -54,37 +55,72 @@
   ];
 </script>
 
-<div
-  use:swipe={() => console.log('swipe')}
-  class="invoice-item invoice-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
->
-  <div class="status">
-    <Tag className="ml-auto lg:ml-0" label={invoiceLabel} />
+<div class="relative">
+  <div
+    use:swipe
+    class="z-row invoice-item relative invoice-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
+  >
+    <div class="status">
+      <Tag className="ml-auto lg:ml-0" label={invoiceLabel} />
+    </div>
+    <div class="due-date text-sm lg:text-lg">{convertedDate}</div>
+    <div class="invoice-number text-sm lg:text-lg">{invoice.invoiceNumber}</div>
+    <div class="client-name truncate whitespace-nowrap text-base font-bold lg:text-xl">
+      {invoice?.client?.name}
+    </div>
+    <div class="amount text-right font-mono text-sm font-bold lg:text-lg">{formattedAmount}</div>
+    <div class="lg:center view-button hidden">
+      <a
+        href={`/invoices/${invoice.id}`}
+        class="text-pastelPurple transition-all hover:text-daisyBush"
+      >
+        <View />
+      </a>
+    </div>
+    <div class="lg:center more-button relative hidden lg:block"
+         use:clickOutside={() => isAdditionalMenuShowing = false}>
+      <button
+        on:click={() => (isAdditionalMenuShowing = !isAdditionalMenuShowing)}
+        class="text-pastelPurple transition-all hover:text-daisyBush"
+      >
+        <ThreeDots />
+      </button>
+      {#if isAdditionalMenuShowing}
+        <AdditionalOptions {options} />
+      {/if}
+    </div>
   </div>
-  <div class="due-date text-sm lg:text-lg">{convertedDate}</div>
-  <div class="invoice-number text-sm lg:text-lg">{invoice.invoiceNumber}</div>
-  <div class="client-name truncate whitespace-nowrap text-base font-bold lg:text-xl">
-    {invoice?.client?.name}
-  </div>
-  <div class="amount text-right font-mono text-sm font-bold lg:text-lg">{formattedAmount}</div>
-  <div class="lg:center view-button hidden">
-    <a
-      href={`/invoices/${invoice.id}`}
-      class="text-pastelPurple transition-all hover:text-daisyBush"
-    >
-      <View />
-    </a>
-  </div>
-  <div class="lg:center more-button relative hidden lg:block" use:clickOutside={() => isAdditionalMenuShowing = false}>
-    <button
-      on:click={() => (isAdditionalMenuShowing = !isAdditionalMenuShowing)}
-      class="text-pastelPurple transition-all hover:text-daisyBush"
-    >
-      <ThreeDots />
+
+<!--  swipe to reveal-->
+  <div class="flex w-full items-center justify-around absolute inset-0 h-full z-rowActions">
+    <button class="action-button">
+      <Cancel width={32} height={32} />
+      Cancel
     </button>
-    {#if isAdditionalMenuShowing}
-      <AdditionalOptions {options} />
+
+    {#if isEditDisabled}
+      <button class="action-button" on:click={handleEdit}>
+        <Edit width={32} height={32} />
+        Edit
+      </button>
     {/if}
+
+    {#if isSendDisabled}
+      <button class="action-button" on:click={handleSendInvoice}>
+        <Send width={32} height={32} />
+        Send
+      </button>
+    {/if}
+
+    <button class="action-button" on:click={handleDelete}>
+      <Trash width={32} height={32} />
+      Delete
+    </button>
+
+    <a href={`/invoices/${invoice.id}`} class="action-button">
+      <View width={32} height={32} />
+      View
+    </a>
   </div>
 </div>
 
@@ -141,5 +177,9 @@
 
   .more-button {
     grid-area: moreButton;
+  }
+
+  .action-button {
+    @apply flex flex-col items-center justify-center font-bold text-daisyBush cursor-pointer;
   }
 </style>
