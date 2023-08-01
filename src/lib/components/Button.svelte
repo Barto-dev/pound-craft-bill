@@ -1,9 +1,11 @@
 <script lang="ts">
   import cn from 'classnames';
   import type { SvelteComponent } from 'svelte';
+  import Loader from '$lib/components/Loader.svelte';
 
   export let onClick: () => void = () => {};
   export let disabled = false;
+  export let loading = false;
   export let className = '';
   export let type: 'button' | 'submit' | 'reset' = 'button';
   export let variant: 'primary' | 'secondary' | 'danger' | 'outline' | 'text' = 'primary';
@@ -36,7 +38,13 @@
       <svelte:component this={iconLeft} />
     </span>
   {/if}
-  <slot />
+
+  {#if loading}
+    <Loader />
+  {:else}
+    <slot />
+  {/if}
+
   {#if iconRight}
     <span class="ml-2">
       <svelte:component this={iconRight} />
