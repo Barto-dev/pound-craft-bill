@@ -19,7 +19,8 @@ export const swipe: Action<HTMLElement, SwipeOptions> = (
   let startingX: number;
   let endingX: number;
   let triggerReset = params?.triggerReset ?? false;
-  const elementWidth = node.clientWidth;
+  let elementWidth = node.clientWidth;
+  const mobileMediaQueryListener = window.matchMedia('(max-width: 1024px)');
   const coordinates = spring(
     { x: 0, y: 0 },
     { stiffness: 0.2, damping: 0.4 }
@@ -94,7 +95,18 @@ export const swipe: Action<HTMLElement, SwipeOptions> = (
     window.addEventListener('mouseup', handleMouseUp);
   }
 
-  node.addEventListener('mousedown', handleMouseDown);
+  if (mobileMediaQueryListener.matches) {
+    node.addEventListener('mousedown', handleMouseDown);
+  }
+
+  mobileMediaQueryListener.onchange = (evt) => {
+    if (evt.matches) {
+      node.addEventListener('mousedown', handleMouseDown);
+    } else {
+      node.removeEventListener('mousedown', handleMouseDown);
+    }
+    elementWidth = node.clientWidth;
+  }
 
   return {
     // this code will run any time when params of action change
