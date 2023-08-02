@@ -58,12 +58,12 @@ const addLineItemsToDatabase = async (
   return true;
 };
 
-export const insertInvoice = async (invoice: InvoiceType, userId: string) => {
+export const insertInvoice = async (invoice: InvoiceType) => {
   const { lineItems, client, ...newInvoice } = invoice;
   // add invoice to supabase
   const invoiceResults = await supabase
     .from('invoice')
-    .insert([{ ...newInvoice, clientId: client?.id, userId }])
+    .insert([{ ...newInvoice, clientId: client?.id }])
     .select();
 
   if (invoiceResults.error) {

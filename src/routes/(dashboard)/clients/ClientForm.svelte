@@ -20,7 +20,6 @@ import ConfirmDeleteClient from './ConfirmDeleteClient.svelte';
     } else {
       const countyName = counties.find((county) => county.value === clientCountyCode)?.label || '';
       const newClient = {
-        userId: '7c6166b5-6d09-4545-b8fb-8c606c98a6ea',
         city: client.city,
         county: countyName,
         email: client.email,
