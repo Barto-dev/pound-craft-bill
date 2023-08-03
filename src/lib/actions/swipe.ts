@@ -81,31 +81,42 @@ export const swipe: Action<HTMLElement, SwipeOptions> = (
     });
   }
 
-  const handleMouseUp = (event: MouseEvent) => {
-    endingX = event.clientX;
+  const handleTouchMove = (event: TouchEvent) => {
+    // delta x = difference where we clicked and where we are now
+    const dx = event.touches[0].clientX - x;
+    x = event.touches[0].clientX;
+    coordinates.update(($prevCoords) => {
+      return { x: $prevCoords.x + dx, y: 0 }
+    });
+  }
+
+  const handleTouchEnd = (event: TouchEvent) => {
+    endingX = event.changedTouches[0].clientX;
     moveCardOver(endingX);
-    window.removeEventListener('mousemove', handleMouseMove);
-    window.removeEventListener('mouseup', handleMouseUp);
+    window.removeEventListener('touchmove', handleTouchMove);
+    window.removeEventListener('touchend', handleTouchEnd);
   }
 
-  const handleMouseDown = (event: MouseEvent) => {
-    x = event.clientX;
-    startingX = event.clientX;
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
+  const handleTouchStart = (event: TouchEvent) => {
+    x = event.touches[0].clientX;
+    startingX = event.touches[0].clientX;
+    window.addEventListener('touchmove', handleTouchMove);
+    window.addEventListener('touchend', handleTouchEnd);
   }
 
-  if (mobileMediaQueryListener.matches) {
-    node.addEventListener('mousedown', handleMouseDown);
-  }
-
-  mobileMediaQueryListener.onchange = (evt) => {
-    if (evt.matches) {
-      node.addEventListener('mousedown', handleMouseDown);
+  const setupEventListeners = (matches: boolean) => {
+    if (matches) {
+      node.addEventListener('touchstart', handleTouchStart);
     } else {
-      node.removeEventListener('mousedown', handleMouseDown);
+      node.removeEventListener('touchstart', handleTouchStart);
     }
     elementWidth = node.clientWidth;
+  }
+
+  setupEventListeners(mobileMediaQueryListener.matches);
+
+  mobileMediaQueryListener.onchange = (evt) => {
+    setupEventListeners(evt.matches);
   }
 
   return {
@@ -119,7 +130,7 @@ export const swipe: Action<HTMLElement, SwipeOptions> = (
     },
 
     destroy() {
-      node.removeEventListener('mousedown', handleMouseDown);
+      node.removeEventListener('touchstart', handleTouchStart);
     }
   }
 }
