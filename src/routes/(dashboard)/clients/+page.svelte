@@ -45,6 +45,8 @@
     await loadClients();
     clientList = $clients;
   });
+
+  $: clientList = $clients;
 </script>
 
 <svelte:head>
