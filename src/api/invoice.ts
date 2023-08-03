@@ -41,11 +41,10 @@ const deleteLineItemsFromDatabase = async (invoiceId: string) => {
 const addLineItemsToDatabase = async (
   lineItems: InvoiceType['lineItems'],
   invoiceId: string,
-  userId: string
 ) => {
   if (lineItems && lineItems.length) {
     const newLineItems = lineItems.map((lineItem) => {
-      const newLineItem = { ...lineItem, invoiceId, userId };
+      const newLineItem = { ...lineItem, invoiceId };
       const { id, ...lineItemWithoutId } = newLineItem;
       return { ...lineItemWithoutId };
     });
@@ -73,14 +72,14 @@ export const insertInvoice = async (invoice: InvoiceType) => {
   // get id of invoice
   const invoiceId = invoiceResults.data?.[0].id;
   // loop over all line items and add to them invoice id
-  const isSuccessful = await addLineItemsToDatabase(lineItems, invoiceId, userId);
+  const isSuccessful = await addLineItemsToDatabase(lineItems, invoiceId);
   if (!isSuccessful) {
     return;
   }
   snackBar.send({ message: 'Your invoice was successfully created', type: 'success' });
 };
 
-export const updateInvoiceInDatabase = async (invoice: InvoiceType, userId: string) => {
+export const updateInvoiceInDatabase = async (invoice: InvoiceType) => {
   const { client, lineItems, ...updateInvoice } = invoice;
   const isSuccessful = await deleteLineItemsFromDatabase(updateInvoice.id);
   if (!isSuccessful) {
@@ -90,7 +89,6 @@ export const updateInvoiceInDatabase = async (invoice: InvoiceType, userId: stri
   const isLineItemsAddedSuccessful = await addLineItemsToDatabase(
     lineItems,
     updateInvoice.id,
-    userId
   );
   if (!isLineItemsAddedSuccessful) {
     return;
@@ -98,7 +96,7 @@ export const updateInvoiceInDatabase = async (invoice: InvoiceType, userId: stri
   // update the invoice in supabase
   const { error } = await supabase
     .from('invoice')
-    .update({ ...updateInvoice, userId, clientId: client?.id })
+    .update({ ...updateInvoice, clientId: client?.id })
     .eq('id', updateInvoice.id);
   if (error) {
     displayError(error);

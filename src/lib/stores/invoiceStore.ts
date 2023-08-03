@@ -26,9 +26,8 @@ export const addInvoice = async (
 
 export const updateInvoice = async (
   invoiceToUpdate: InvoiceType,
-  userId: string = '7c6166b5-6d09-4545-b8fb-8c606c98a6ea'
 ) => {
-  await updateInvoiceInDatabase(invoiceToUpdate, userId);
+  await updateInvoiceInDatabase(invoiceToUpdate);
   await loadInvoices();
 };
 
