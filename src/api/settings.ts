@@ -6,7 +6,6 @@ export const getSettingsFromDatabase = async () => {
   const { data, error } = await supabase
     .from('settings')
     .select('*')
-    .eq('userId', '7c6166b5-6d09-4545-b8fb-8c606c98a6ea')
     .single();
   if (error) {
     displayError(error);

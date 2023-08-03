@@ -8,12 +8,18 @@
   import { loadSettings, settings } from '$lib/stores/settingsStore';
   import type { SettingsType } from '../../types/DTM';
   import Authenticated from '$lib/components/Authenticated.svelte';
+  import { supabase } from '../../api/supabase';
 
   let mySettings: SettingsType = {} as SettingsType;
+  let accountEmail = '';
 
-  onMount(() => {
-    loadSettings();
+  onMount(async () => {
+    await loadSettings();
     mySettings = { ...$settings };
+
+    // get logged in user
+    const { data } = await supabase.auth.getUser();
+    accountEmail = data?.user?.email || '';
   })
 </script>
 
@@ -34,6 +40,18 @@
             name="myName"
             placeholder="Your name"
             bind:value={mySettings.name}
+          />
+        </div>
+
+        <div class="field col-span-6">
+          <label for="invoiceEmail">Send invoices from this Email</label>
+          <input
+            class="input"
+            type="email"
+            id="invoiceEmail"
+            name="invoiceEmail"
+            placeholder="Your email"
+            bind:value={mySettings.email}
           />
         </div>
 
@@ -94,11 +112,18 @@
 
       <div class="col-span-6">
         <h2 class="title">Update Account information</h2>
-        <p class="mb-8">This information is used to access your account</p>
+        <p class="mb-8">This information is used to login to your account</p>
         <form class="grid grid-cols-6 gap-x-5">
           <div class="field col-span-6 md:col-span-3">
             <label for="email">Email</label>
-            <input class="input" type="email" id="email" name="email" placeholder="Your email" />
+            <input
+              class="input"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Your email"
+              bind:value={accountEmail}
+            />
           </div>
 
           <div class="field col-span-6 md:col-span-3">
