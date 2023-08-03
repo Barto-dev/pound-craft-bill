@@ -60,7 +60,9 @@
       <p class="label">From</p>
       <p>
         {$settings.name}<br />
-        {$settings.street}<br />
+        {#if $settings.street}
+          {$settings.street}<br />
+        {/if}
         {#if $settings.city && $settings.county && $settings.postCode}
           {$settings.city}, {$settings.county} {$settings.postCode}
         {/if}

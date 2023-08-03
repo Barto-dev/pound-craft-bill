@@ -13,8 +13,8 @@
   import ClientForm from '../ClientForm.svelte';
   import SlidePanel from '$lib/components/SlidePanel.svelte';
   import { isLate } from '$lib/utils/date';
-
-  export let data: {client: ClientType};
+  import { page } from '$app/stores';
+  import { singleClient, getClientById } from '$lib/stores/clientStore';
 
   let isEditingCurrentClient = false;
   let isClientFormShowing = false;
@@ -33,60 +33,62 @@
     isClientFormShowing = true;
   };
 
-  const getDraftAmount = () => {
-    if (!data?.client?.invoice?.length) {
+  const getDraftAmount = (client: ClientType | undefined) => {
+    if (!client?.invoice?.length) {
       return 0;
     }
-    const draftInvoices = data?.client?.invoice.filter((invoice) => invoice.invoiceStatus === 'draft');
+    const draftInvoices = client?.invoice.filter((invoice) => invoice.invoiceStatus === 'draft');
     const totalDraftAmount = sumInvoices(draftInvoices);
     return formatToPoundCurrency(totalDraftAmount);
   };
 
-  const getPaidAmount = () => {
-    if (!data?.client?.invoice?.length) {
+  const getPaidAmount = (client: ClientType | undefined) => {
+    if (!client?.invoice?.length) {
       return 0;
     }
-    const paidInvoices = data?.client?.invoice.filter((invoice) => invoice.invoiceStatus === 'paid');
+    const paidInvoices = client?.invoice.filter((invoice) => invoice.invoiceStatus === 'paid');
     const totalPaidAmount = sumInvoices(paidInvoices);
     return formatToPoundCurrency(totalPaidAmount);
   };
 
-  const getOverdueAmount = () => {
-    if (!data?.client?.invoice?.length) {
+  const getOverdueAmount = (client: ClientType | undefined) => {
+    if (!client?.invoice?.length) {
       return 0;
     }
-    const overdueInvoices = data?.client?.invoice
+    const overdueInvoices = client?.invoice
       .filter((invoice) => invoice.invoiceStatus === 'sent' && isLate(invoice.dueDate));
     const totalOverdueAmount = sumInvoices(overdueInvoices);
     return formatToPoundCurrency(totalOverdueAmount);
   };
 
-  const getOutstandingAmount = () => {
-    if (!data?.client?.invoice?.length) {
+  const getOutstandingAmount = (client: ClientType | undefined) => {
+    if (!client?.invoice?.length) {
       return 0;
     }
-    const outstandingInvoices = data?.client?.invoice
+    const outstandingInvoices = client?.invoice
       .filter((invoice) => invoice.invoiceStatus === 'sent' && !isLate(invoice.dueDate));
     const totalOutstandingAmount = sumInvoices(outstandingInvoices);
     return formatToPoundCurrency(totalOutstandingAmount);
   };
 
-  onMount(() => {
-    loadInvoices();
+  onMount(async () => {
+    await loadInvoices();
+    const clientId = $page.params.id;
+    await getClientById(clientId);
   });
 
-  $: totalAmount = sumInvoices(data?.client.invoice);
+  $: totalAmount = sumInvoices($singleClient?.invoice);
   $: formattedTotalAmount = formatToPoundCurrency(totalAmount);
 
   const emptyClient = {} as ClientType;
 </script>
 
 <svelte:head>
-  <title>{data?.client?.name} | Pound Bill Craft</title>
+  <title>{$singleClient?.name} | Pound Bill Craft</title>
 </svelte:head>
 
 <div class="search">
-  {#if data?.client?.invoice?.length > 0}
+  {#if Number($singleClient?.invoice?.length) > 0}
     <SearchInput />
   {:else}
     <div />
@@ -97,36 +99,36 @@
 </div>
 
 <div class="flex justify-between items-center w-full mb-7">
-  <h1 class="font-sansSerif text-3xl font-bold text-daisyBush">{data?.client?.name}</h1>
+  <h1 class="font-sansSerif text-3xl font-bold text-daisyBush">{$singleClient?.name}</h1>
   <Button variant="text" iconLeft={Edit} onClick={editClient}>Edit</Button>
 </div>
 
 <div class="mb-10 flex justify-between flex-wrap lg:grid lg:grid-cols-4 gap-4 rounded-lg bg-gallery py-7 px-10">
   <div class="summary-block">
     <p class="label">Total Overdue</p>
-    <p class="number">{getOverdueAmount()}</p>
+    <p class="number">{getOverdueAmount($singleClient)}</p>
   </div>
   <div class="summary-block">
     <p class="label">Total Outstanding</p>
-    <p class="number">{getOutstandingAmount()}</p>
+    <p class="number">{getOutstandingAmount($singleClient)}</p>
   </div>
   <div class="summary-block">
     <p class="label">Total Draft</p>
-    <p class="number">{getDraftAmount()}</p>
+    <p class="number">{getDraftAmount($singleClient)}</p>
   </div>
   <div class="summary-block">
     <p class="label">Total Pay</p>
-    <p class="number">{getPaidAmount()}</p>
+    <p class="number">{getPaidAmount($singleClient)}</p>
   </div>
 </div>
 
-{#if data?.client?.invoice === null}
+{#if $singleClient?.invoice === null}
   Loading...
-{:else if data?.client?.invoice.length === 0}
+{:else if $singleClient?.invoice?.length === 0}
   <BlankState />
 {:else}
   <InvoiceRowHeader className="text-daisyBush" />
-  {#each data?.client?.invoice as invoice}
+  {#each $singleClient?.invoice || [] as invoice}
     <InvoiceRow {invoice} />
   {/each}
   <CircledAmount label="Total:" amount={formattedTotalAmount} />
@@ -137,7 +139,7 @@
     <ClientForm
       closeAddClientPanel={closePanel}
       formStatus={isEditingCurrentClient ? 'edit' : 'create'}
-      client={isEditingCurrentClient ? data?.client : emptyClient}
+      client={isEditingCurrentClient ? $singleClient : emptyClient}
     />
   </SlidePanel>
 {/if}

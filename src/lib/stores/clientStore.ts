@@ -3,11 +3,12 @@ import {
   loadAllClients,
   createClientInDatabase,
   updateClientInDatabase,
-  deleteClientFromDatabase
+  deleteClientFromDatabase, loadClient
 } from '../../api/client';
 import type { ClientType } from '../../types/DTM';
 
 export const clients = writable<ClientType[]>([]);
+export const singleClient = writable<ClientType | undefined>(undefined)
 export const loadClients = async () => {
   const data = await loadAllClients();
   if (data) {
@@ -30,3 +31,10 @@ export const deleteClient = async (id: string) => {
   await deleteClientFromDatabase(id);
   await loadClients();
 };
+
+export const getClientById = async (id: string) => {
+  const response = await loadClient(id);
+  if (response) {
+    singleClient.set(response as ClientType);
+  }
+}
