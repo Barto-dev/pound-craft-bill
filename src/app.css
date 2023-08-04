@@ -116,6 +116,14 @@
   .auth-title {
     @apply mb-4 text-[2.5rem] font-black text-goldenFizz;
   }
+
+  .swipe-revealed-actions {
+    @apply flex w-full items-center justify-around absolute inset-0 h-full z-rowActions;
+  }
+
+  .swipe-revealed-button {
+    @apply flex flex-col items-center justify-center font-bold text-daisyBush cursor-pointer;
+  }
 }
 
 @layer utilities {

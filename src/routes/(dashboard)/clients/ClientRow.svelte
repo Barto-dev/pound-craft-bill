@@ -1,5 +1,6 @@
 <script lang="ts">
   import {clickOutside} from '$lib/actions/clickOutside';
+  import { swipe } from '$lib/actions/swipe';
   import Tag from '$lib/components/Tag.svelte';
   import View from '$lib/components/Icon/View.svelte';
   import ThreeDots from '$lib/components/Icon/ThreeDots.svelte';
@@ -14,8 +15,11 @@
   import ClientForm from './ClientForm.svelte';
   import SlidePanel from '$lib/components/SlidePanel.svelte';
   import ConfirmDeleteClient from './ConfirmDeleteClient.svelte';
+  import Cancel from '$lib/components/Icon/Cancel.svelte';
+  import Send from '$lib/components/Icon/Send.svelte';
 
   const emptyClient = {} as ClientType;
+  let triggerReset = false;
   let isAddClientFormOpen = false;
   let isEditingCurrentClient = false;
   let isDeleteClientModalOpen = false;
@@ -32,11 +36,21 @@
     isAdditionalOptionsOpen = false;
   };
 
+  const handleArchive = () => {
+    client.clientStatus = 'archived';
+    isAdditionalOptionsOpen = false;
+  }
+
+  const handleActivate = () => {
+    client.clientStatus = 'active';
+    isAdditionalOptionsOpen = false;
+  }
+
   const options = [
     { label: 'Edit', icon: Edit, onClick: handleEditClient, disabled: false },
     { label: 'Delete', icon: Trash, onClick: handleDelete, disabled: false },
-    { label: 'Archive', icon: Archive, onClick: () => {}, disabled: client.clientStatus === 'archived' },
-    { label: 'Activate', icon: Activate, onClick: () => {}, disabled: client.clientStatus === 'active' },
+    { label: 'Archive', icon: Archive, onClick: handleArchive, disabled: client.clientStatus === 'archived' },
+    { label: 'Activate', icon: Activate, onClick: handleActivate, disabled: client.clientStatus === 'active' },
   ];
 
   const onOptionsClick = () => {
@@ -73,32 +87,75 @@
 
 </script>
 
-<div class="client-table client-row rounded-lg bg-white py-3 shadow-tableRow lg:py-6">
-  <div class="client-status">
-    <Tag
-      className="mr-auto"
-      label={clientStatus}
-    />
+<div class="relative">
+  <div
+    use:swipe={{ triggerReset }}
+    on:outOfView={() => {triggerReset = false}}
+    class="client-table client-row rounded-lg bg-white py-3 shadow-tableRow lg:py-6 z-row relative"
+  >
+    <div class="client-status">
+      <Tag
+        className="mr-auto"
+        label={clientStatus}
+      />
+    </div>
+    <div class="client-name truncate whitespace-nowrap text-base lg:text-xl font-bold">{client.name}</div>
+    <div class="client-received">
+      {formatToPoundCurrency(receivedInvoices())}
+    </div>
+    <div class="client-balance text-center font-mono text-sm lg:text-lg font-bold text-scarlet">
+      {formatToPoundCurrency(balanceInvoices())}
+    </div>
+    <div class="view relative hidden lg:center">
+      <a href={`/clients/${client.id}`} class="text-pastelPurple hover:text-daisyBush">
+        <View />
+      </a>
+    </div>
+    <div class="relative hidden lg:center three-dots" use:clickOutside={() => isAdditionalOptionsOpen = false}>
+      <button on:click={onOptionsClick} class="text-pastelPurple hover:text-daisyBush">
+        <ThreeDots />
+      </button>
+      {#if isAdditionalOptionsOpen}
+        <AdditionalOptions {options} />
+      {/if}
+    </div>
   </div>
-  <div class="client-name truncate whitespace-nowrap text-base lg:text-xl font-bold">{client.name}</div>
-  <div class="client-received">
-    {formatToPoundCurrency(receivedInvoices())}
-  </div>
-  <div class="client-balance text-center font-mono text-sm lg:text-lg font-bold text-scarlet">
-    {formatToPoundCurrency(balanceInvoices())}
-  </div>
-  <div class="view relative hidden lg:center">
-    <a href={`/clients/${client.id}`} class="text-pastelPurple hover:text-daisyBush">
-      <View />
-    </a>
-  </div>
-  <div class="relative hidden lg:center three-dots" use:clickOutside={() => isAdditionalOptionsOpen = false}>
-    <button on:click={onOptionsClick} class="text-pastelPurple hover:text-daisyBush">
-      <ThreeDots />
+
+  <!--  swipe to reveal-->
+  <div class="swipe-revealed-actions">
+    <button class="swipe-revealed-button" on:click={() => triggerReset = true}>
+      <Cancel width={32} height={32} />
+      Cancel
     </button>
-    {#if isAdditionalOptionsOpen}
-    <AdditionalOptions {options} />
+
+    <button class="swipe-revealed-button" on:click={handleDelete}>
+      <Trash width={32} height={32} />
+      Delete
+    </button>
+
+    <button class="swipe-revealed-button" on:click={handleEditClient}>
+      <Edit width={32} height={32} />
+      Edit
+    </button>
+
+    {#if client.clientStatus === 'active'}
+      <button class="swipe-revealed-button" on:click={handleArchive}>
+        <Archive width={32} height={32} />
+        Archive
+      </button>
     {/if}
+
+    {#if client.clientStatus !== 'active'}
+      <button class="swipe-revealed-button" on:click={handleActivate}>
+        <Activate width={32} height={32} />
+        Activate
+      </button>
+    {/if}
+
+    <a href={`/clients/${client.id}`} class="swipe-revealed-button">
+      <View width={32} height={32} />
+      View
+    </a>
   </div>
 </div>
 
@@ -160,6 +217,4 @@
     @apply block lg:hidden font-bold text-xs;
     content: 'Balance';
   }
-
-
 </style>

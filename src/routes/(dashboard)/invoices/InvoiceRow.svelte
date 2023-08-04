@@ -94,32 +94,32 @@
   </div>
 
 <!--  swipe to reveal-->
-  <div class="flex w-full items-center justify-around absolute inset-0 h-full z-rowActions">
-    <button class="action-button" on:click={() => triggerReset = true}>
+  <div class="swipe-revealed-actions">
+    <button class="swipe-revealed-button" on:click={() => triggerReset = true}>
       <Cancel width={32} height={32} />
       Cancel
     </button>
 
     {#if isEditDisabled}
-      <button class="action-button" on:click={handleEdit}>
+      <button class="swipe-revealed-button" on:click={handleEdit}>
         <Edit width={32} height={32} />
         Edit
       </button>
     {/if}
 
     {#if isSendDisabled}
-      <button class="action-button" on:click={handleSendInvoice}>
+      <button class="swipe-revealed-button" on:click={handleSendInvoice}>
         <Send width={32} height={32} />
         Send
       </button>
     {/if}
 
-    <button class="action-button" on:click={handleDelete}>
+    <button class="swipe-revealed-button" on:click={handleDelete}>
       <Trash width={32} height={32} />
       Delete
     </button>
 
-    <a href={`/invoices/${invoice.id}`} class="action-button">
+    <a href={`/invoices/${invoice.id}`} class="swipe-revealed-button">
       <View width={32} height={32} />
       View
     </a>
@@ -179,9 +179,5 @@
 
   .more-button {
     grid-area: moreButton;
-  }
-
-  .action-button {
-    @apply flex flex-col items-center justify-center font-bold text-daisyBush cursor-pointer;
   }
 </style>
