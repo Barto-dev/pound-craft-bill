@@ -35,7 +35,8 @@
   class:translate-x-0={isNavShowing}
 >
   <div class="mb-10 mt-10 md:mb-24">
-    <a href="/invoices">
+    <a href="/invoices" class="relative">
+      <div class="logo-text">Pound Bill Craft</div>
       <img src="/images/logo.svg" alt="Pound Bill Craft" class="mx-auto" />
     </a>
   </div>
@@ -67,5 +68,19 @@
 
   .nav a.active:hover {
     @apply px-9;
+  }
+
+  .logo-text {
+    word-spacing: 1000px;
+    @apply
+    text-goldenFizz
+    text-7xl
+    md:text-4xl
+    lg:text-5xl
+    xl:text-7xl
+    font-black
+    absolute
+    top-[50%]
+    -translate-y-[50%];
   }
 </style>
