@@ -9,11 +9,18 @@
   import type { SettingsType } from '../../types/DTM';
   import Authenticated from '$lib/components/Authenticated.svelte';
   import { supabase } from '../../api/supabase';
+  import { snackBar } from '$lib/stores/snackBarStore';
 
   let invoiceDetailsLoading = false;
   let accountInfoLoading = false;
-  let mySettings: SettingsType = {} as SettingsType;
+
+  let newPassword = '';
+  let confirmPassword = '';
+
+  let originalAccountEmail = '';
   let accountEmail = '';
+
+  let mySettings: SettingsType = {} as SettingsType;
 
   onMount(async () => {
     await loadSettings();
@@ -22,6 +29,7 @@
     // get logged in user
     const { data } = await supabase.auth.getUser();
     accountEmail = data?.user?.email || '';
+    originalAccountEmail = data?.user?.email || '';
   })
 
   const handleInvoiceDetailsSubmit = async () => {
@@ -31,7 +39,16 @@
   }
 
   const handleUpdateAccountSubmit = () => {
-    console.log('submitting account details');
+    accountInfoLoading = true;
+    // if the email address hasn't changed, or password fields are empty, don't update
+    if (originalAccountEmail === accountEmail && !newPassword && !confirmPassword) {
+      accountInfoLoading = false;
+      snackBar.send({
+        message: 'Please update your email address or password',
+        type: 'warning'
+      })
+      return;
+    }
   }
 </script>
 
@@ -167,6 +184,7 @@
                 name="newPassword"
                 placeholder="New password"
                 autocomplete="new-password"
+                bind:value={newPassword}
               />
             </div>
 
@@ -179,6 +197,7 @@
                 name="confirmPassword"
                 placeholder="Confirm password"
                 autocomplete="new-password"
+                bind:value={confirmPassword}
               />
             </div>
 
