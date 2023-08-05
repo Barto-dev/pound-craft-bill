@@ -33,7 +33,7 @@
   disabled={disabled}
   on:click={onClick}
 >
-  {#if iconLeft}
+  {#if iconLeft && !loading}
     <span class="mr-2">
       <svelte:component this={iconLeft} />
     </span>
@@ -45,7 +45,7 @@
     <slot />
   {/if}
 
-  {#if iconRight}
+  {#if iconRight && !loading}
     <span class="ml-2">
       <svelte:component this={iconRight} />
     </span>

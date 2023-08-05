@@ -85,6 +85,10 @@
     @apply appearance-none bg-transparent;
   }
 
+  .select:disabled {
+    @apply bg-whisper border-silver opacity-100;
+  }
+
   .select {
     @apply h-10
     w-full
