@@ -7,10 +7,10 @@
   import SvelteMarkdown from 'svelte-markdown';
   import { page } from '$app/stores';
   import type { InvoiceType } from '../../../../types/DTM';
+  import { getInvoiceById } from '$lib/stores/invoiceStore';
 
-  export let data: { invoice: InvoiceType };
   let copyLinkLabel = 'Copy link';
-  const invoice = data.invoice;
+  let invoice = {} as InvoiceType;
 
   const printInvoice = () => {
     window.print();
@@ -35,6 +35,8 @@
 
   onMount(async () => {
     await loadSettings();
+    const invoiceId = $page.params.id;
+    invoice = await getInvoiceById(invoiceId);
   });
 </script>
 
@@ -77,27 +79,27 @@
   <div class="sm:col-span-3 col-span-6 print:col-span-3">
     <p class="label">Bill To:</p>
     <p>
-      {#if data?.invoice?.client?.name}
-        <strong>{data.invoice.client?.name}</strong> <br />
+      {#if invoice?.client?.name}
+        <strong>{invoice.client?.name}</strong> <br />
       {/if}
-      {#if data?.invoice?.client?.email}
-        {data.invoice.client.email}<br />
-      {/if}
-
-      {#if data?.invoice?.client?.street}
-        {data.invoice.client.street}<br />
+      {#if invoice?.client?.email}
+        {invoice.client.email}<br />
       {/if}
 
-      {#if data?.invoice?.client?.city}
-        {data.invoice.client.city}<br />
+      {#if invoice?.client?.street}
+        {invoice.client.street}<br />
       {/if}
 
-      {#if data?.invoice?.client?.county}
-        {data.invoice.client.county}<br />
+      {#if invoice?.client?.city}
+        {invoice.client.city}<br />
       {/if}
 
-      {#if data?.invoice?.client?.postCode}
-        {data.invoice.client.postCode}<br />
+      {#if invoice?.client?.county}
+        {invoice.client.county}<br />
+      {/if}
+
+      {#if invoice?.client?.postCode}
+        {invoice.client.postCode}<br />
       {/if}
     </p>
   </div>
