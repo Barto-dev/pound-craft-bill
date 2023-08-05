@@ -63,6 +63,7 @@ export default {
         navBarToggle: 91,
         navBar: 90,
         additionalOptions: 89,
+        backBtn: 6,
         row: 5,
         rowActions:1,
       }

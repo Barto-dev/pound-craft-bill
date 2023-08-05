@@ -13,7 +13,7 @@
   <main transition:fade={{duration: 300}} class="mx-auto min-h-screen max-w-screen-lg">
     <a
       href={previousPage ? previousPage : '/invoices '}
-      class="fixed left-7 top-7 text-pastelPurple print:hidden"><ArrowLeft /></a
+      class="z-backBtn fixed left-7 top-7 text-pastelPurple print:hidden"><ArrowLeft /></a
     >
     <slot />
   </main>
