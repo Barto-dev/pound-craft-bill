@@ -1,5 +1,4 @@
-import format from 'date-fns/format';
-import isBefore from 'date-fns/isBefore';
+import { format, isBefore } from 'date-fns';
 
 // Takes a date yyyy-mm-dd and returns d-m-yyyy
 export const convertDate = (date: string | null): string => {

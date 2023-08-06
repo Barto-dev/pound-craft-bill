@@ -1,48 +1,48 @@
 <script lang="ts">
-  // import { invoices, loadInvoices } from '$lib/stores/invoiceStore';
-  // import { onMount } from 'svelte';
-  // import SearchInput from '$lib/components/SearchInput.svelte';
-  // import CircledAmount from '$lib/components/CircledAmount.svelte';
-  // import InvoiceRow from './InvoiceRow.svelte';
-  // import { formatToPoundCurrency, sumInvoices } from '$lib/utils/money';
-  // import BlankState from './BlankState.svelte';
-  // import InvoiceRowHeader from './InvoiceRowHeader.svelte';
-  // import Button from '$lib/components/Button.svelte';
-  // import SlidePanel from '$lib/components/SlidePanel.svelte';
-  // import InvoiceForm from './InvoiceForm.svelte';
-  // import NoSearchResult from './NoSearchResult.svelte';
-  // import type { InvoiceType } from '../../../types/DTM';
+  import { invoices, loadInvoices } from '$lib/stores/invoiceStore';
+  import { onMount } from 'svelte';
+  import SearchInput from '$lib/components/SearchInput.svelte';
+  import CircledAmount from '$lib/components/CircledAmount.svelte';
+  import InvoiceRow from './InvoiceRow.svelte';
+  import { formatToPoundCurrency, sumInvoices } from '$lib/utils/money';
+  import BlankState from './BlankState.svelte';
+  import InvoiceRowHeader from './InvoiceRowHeader.svelte';
+  import Button from '$lib/components/Button.svelte';
+  import SlidePanel from '$lib/components/SlidePanel.svelte';
+  import InvoiceForm from './InvoiceForm.svelte';
+  import NoSearchResult from './NoSearchResult.svelte';
+  import type { InvoiceType } from '../../../types/DTM';
 
   let isInvoiceCreateShowing = false;
-  // let initialInvoiceList: InvoiceType[] = [];
+  let initialInvoiceList: InvoiceType[] = [];
 
-  // const handleSearchInvoices = (event: CustomEvent) => {
-  //   const keywords = event.detail.searchTerms;
-  //   initialInvoiceList = $invoices.filter((invoice) => {
-  //     return (
-  //       invoice?.client?.name?.toLowerCase().includes(keywords.toLowerCase()) ||
-  //       invoice?.client?.email?.toLowerCase().includes(keywords.toLowerCase()) ||
-  //       invoice?.invoiceStatus?.toLowerCase().includes(keywords.toLowerCase())
-  //     );
-  //   });
-  // };
-  //
-  // const handleClearSearch = (event: CustomEvent) => {
-  //   if (event.detail.searchTerms === '') {
-  //     initialInvoiceList = $invoices;
-  //   }
-  // };
+  const handleSearchInvoices = (event: CustomEvent) => {
+    const keywords = event.detail.searchTerms;
+    initialInvoiceList = $invoices.filter((invoice) => {
+      return (
+        invoice?.client?.name?.toLowerCase().includes(keywords.toLowerCase()) ||
+        invoice?.client?.email?.toLowerCase().includes(keywords.toLowerCase()) ||
+        invoice?.invoiceStatus?.toLowerCase().includes(keywords.toLowerCase())
+      );
+    });
+  };
 
-/*  onMount(async () => {
-    // await loadInvoices();
+  const handleClearSearch = (event: CustomEvent) => {
+    if (event.detail.searchTerms === '') {
+      initialInvoiceList = $invoices;
+    }
+  };
+
+  onMount(async () => {
+    await loadInvoices();
     initialInvoiceList = $invoices;
-  });*/
+  });
 
-  // $: totalAmount = sumInvoices($invoices);
-  // $: formattedTotalAmount = formatToPoundCurrency(totalAmount);
+  $: totalAmount = sumInvoices($invoices);
+  $: formattedTotalAmount = formatToPoundCurrency(totalAmount);
 </script>
 
-<!--<svelte:head>
+<svelte:head>
   <title>Invoices | Pound Bill Craft</title>
 </svelte:head>
 
@@ -55,13 +55,13 @@
   {:else }
     <div />
   {/if}
-  &lt;!&ndash;  new invoice button&ndash;&gt;
+  <!--  new invoice button-->
   <div>
     <Button isAnimated={true} onClick={() => (isInvoiceCreateShowing = true)}>+ Invoice</Button>
   </div>
-</div>-->
+</div>
 
-<!--{#if $invoices === null}
+{#if $invoices === null}
   Loading...
 {:else if $invoices.length === 0}
   <BlankState />
@@ -73,15 +73,13 @@
     <InvoiceRow {invoice} />
   {/each}
   <CircledAmount label="Total:" amount={formattedTotalAmount} />
-{/if}-->
+{/if}
 
-<!--
 {#if isInvoiceCreateShowing}
   <SlidePanel on:closePanel={() => (isInvoiceCreateShowing = false)}>
     <InvoiceForm closePanel={() => (isInvoiceCreateShowing = false)} />
   </SlidePanel>
 {/if}
--->
 
 <style lang="postcss">
   .search {
