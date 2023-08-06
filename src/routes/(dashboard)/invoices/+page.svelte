@@ -61,7 +61,7 @@
   </div>
 </div>
 
-{#if $invoices === null}
+<!--{#if $invoices === null}
   Loading...
 {:else if $invoices.length === 0}
   <BlankState />
@@ -73,7 +73,7 @@
     <InvoiceRow {invoice} />
   {/each}
   <CircledAmount label="Total:" amount={formattedTotalAmount} />
-{/if}
+{/if}-->
 
 {#if isInvoiceCreateShowing}
   <SlidePanel on:closePanel={() => (isInvoiceCreateShowing = false)}>
