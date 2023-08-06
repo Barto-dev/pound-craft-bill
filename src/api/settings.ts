@@ -42,3 +42,35 @@ export const updateSettingsInDatabase = async (settings: SettingsType) => {
 
   return data;
 }
+
+export const updatePasswordInDatabase = async (password: string) => {
+  const { data, error } = await supabase.auth.updateUser({
+    password
+  });
+  if (error) {
+    displayError(error);
+    return;
+  }
+  snackBar.send({
+    message: 'Password was successfully updated',
+    type: 'success'
+  })
+
+  return data;
+}
+
+export const updateEmailInDatabase = async (email: string) => {
+  const { data, error } = await supabase.auth.updateUser({
+    email
+  });
+  if (error) {
+    displayError(error);
+    return;
+  }
+  snackBar.send({
+    message: 'Check your email for the confirmation link',
+    type: 'success'
+  })
+
+  return data;
+}

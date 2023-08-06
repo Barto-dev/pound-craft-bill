@@ -10,6 +10,7 @@
   import Authenticated from '$lib/components/Authenticated.svelte';
   import { supabase } from '../../api/supabase';
   import { snackBar } from '$lib/stores/snackBarStore';
+  import { updateEmailInDatabase, updatePasswordInDatabase } from '../../api/settings';
 
   let invoiceDetailsLoading = false;
   let accountInfoLoading = false;
@@ -38,7 +39,7 @@
     invoiceDetailsLoading = false;
   }
 
-  const handleUpdateAccountSubmit = () => {
+  const handleUpdateAccountSubmit = async () => {
     accountInfoLoading = true;
     // if the email address hasn't changed, or password fields are empty, don't update
     if (originalAccountEmail === accountEmail && !newPassword && !confirmPassword) {
@@ -48,6 +49,26 @@
         type: 'warning'
       })
       return;
+    }
+
+    // if the user wants to update their email
+    if (accountEmail !== originalAccountEmail) {
+      await updateEmailInDatabase(accountEmail);
+      originalAccountEmail = accountEmail;
+    }
+
+    if (newPassword || confirmPassword) {
+      if (newPassword !== confirmPassword) {
+        snackBar.send({
+          message: 'Passwords do not match',
+          type: 'error',
+          autoHide: false,
+        });
+        accountInfoLoading = false;
+        return;
+      }
+      await updatePasswordInDatabase(newPassword);
+      accountInfoLoading = false;
     }
   }
 </script>
@@ -151,27 +172,16 @@
         <p class="mb-8">This information is used to login to your account</p>
         <form on:submit|preventDefault={handleUpdateAccountSubmit}>
           <fieldset disabled={accountInfoLoading || invoiceDetailsLoading} class="grid grid-cols-6 gap-x-5">
-            <div class="field col-span-6 md:col-span-3">
+            <div class="field col-span-6">
               <label for="email">Email</label>
               <input
                 class="input"
                 type="email"
                 id="email"
+                disabled
                 name="email"
                 placeholder="Your email"
                 bind:value={accountEmail}
-              />
-            </div>
-
-            <div class="field col-span-6 md:col-span-3">
-              <label for="currentPassword">Current Password</label>
-              <input
-                class="input"
-                type="password"
-                id="currentPassword"
-                name="currentPassword"
-                placeholder="Current password"
-                autocomplete="current-password"
               />
             </div>
 
