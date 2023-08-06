@@ -34,7 +34,7 @@
   };
 
   onMount(async () => {
-    await loadInvoices();
+    // await loadInvoices();
     initialInvoiceList = $invoices;
   });
 
