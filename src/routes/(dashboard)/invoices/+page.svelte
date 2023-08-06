@@ -8,12 +8,12 @@
   // import BlankState from './BlankState.svelte';
   // import InvoiceRowHeader from './InvoiceRowHeader.svelte';
   // import Button from '$lib/components/Button.svelte';
-  // import SlidePanel from '$lib/components/SlidePanel.svelte';
-  // import InvoiceForm from './InvoiceForm.svelte';
+  import SlidePanel from '$lib/components/SlidePanel.svelte';
+  import InvoiceForm from './InvoiceForm.svelte';
   // import NoSearchResult from './NoSearchResult.svelte';
   // import type { InvoiceType } from '../../../types/DTM';
 
-  // let isInvoiceCreateShowing = false;
+  let isInvoiceCreateShowing = false;
   // let initialInvoiceList: InvoiceType[] = [];
 
   // const handleSearchInvoices = (event: CustomEvent) => {
@@ -75,14 +75,14 @@
   <CircledAmount label="Total:" amount={formattedTotalAmount} />
 {/if}-->
 
-<!--{#if isInvoiceCreateShowing}-->
-<!--  <SlidePanel on:closePanel={() => (isInvoiceCreateShowing = false)}>-->
-<!--    <InvoiceForm closePanel={() => (isInvoiceCreateShowing = false)} />-->
-<!--  </SlidePanel>-->
-<!--{/if}-->
+{#if isInvoiceCreateShowing}
+  <SlidePanel on:closePanel={() => (isInvoiceCreateShowing = false)}>
+    <InvoiceForm closePanel={() => (isInvoiceCreateShowing = false)} />
+  </SlidePanel>
+{/if}
 
 <style lang="postcss">
-/*  .search {
+  .search {
     @apply mb-7
     flex
     flex-col-reverse
@@ -92,5 +92,5 @@
     md:items-center
     lg:mb-16
     lg:gap-y-4;
-  }*/
+  }
 </style>
