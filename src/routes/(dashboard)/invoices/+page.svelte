@@ -33,16 +33,16 @@
     }
   };
 
-  onMount(async () => {
+/*  onMount(async () => {
     // await loadInvoices();
     initialInvoiceList = $invoices;
-  });
+  });*/
 
   $: totalAmount = sumInvoices($invoices);
   $: formattedTotalAmount = formatToPoundCurrency(totalAmount);
 </script>
 
-<svelte:head>
+<!--<svelte:head>
   <title>Invoices | Pound Bill Craft</title>
 </svelte:head>
 
@@ -55,11 +55,11 @@
   {:else }
     <div />
   {/if}
-  <!--  new invoice button-->
+  &lt;!&ndash;  new invoice button&ndash;&gt;
   <div>
     <Button isAnimated={true} onClick={() => (isInvoiceCreateShowing = true)}>+ Invoice</Button>
   </div>
-</div>
+</div>-->
 
 <!--{#if $invoices === null}
   Loading...
