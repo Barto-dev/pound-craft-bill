@@ -16,30 +16,30 @@
   let isInvoiceCreateShowing = false;
   let initialInvoiceList: InvoiceType[] = [];
 
-  const handleSearchInvoices = (event: CustomEvent) => {
-    const keywords = event.detail.searchTerms;
-    initialInvoiceList = $invoices.filter((invoice) => {
-      return (
-        invoice?.client?.name?.toLowerCase().includes(keywords.toLowerCase()) ||
-        invoice?.client?.email?.toLowerCase().includes(keywords.toLowerCase()) ||
-        invoice?.invoiceStatus?.toLowerCase().includes(keywords.toLowerCase())
-      );
-    });
-  };
-
-  const handleClearSearch = (event: CustomEvent) => {
-    if (event.detail.searchTerms === '') {
-      initialInvoiceList = $invoices;
-    }
-  };
+  // const handleSearchInvoices = (event: CustomEvent) => {
+  //   const keywords = event.detail.searchTerms;
+  //   initialInvoiceList = $invoices.filter((invoice) => {
+  //     return (
+  //       invoice?.client?.name?.toLowerCase().includes(keywords.toLowerCase()) ||
+  //       invoice?.client?.email?.toLowerCase().includes(keywords.toLowerCase()) ||
+  //       invoice?.invoiceStatus?.toLowerCase().includes(keywords.toLowerCase())
+  //     );
+  //   });
+  // };
+  //
+  // const handleClearSearch = (event: CustomEvent) => {
+  //   if (event.detail.searchTerms === '') {
+  //     initialInvoiceList = $invoices;
+  //   }
+  // };
 
 /*  onMount(async () => {
     // await loadInvoices();
     initialInvoiceList = $invoices;
   });*/
 
-  $: totalAmount = sumInvoices($invoices);
-  $: formattedTotalAmount = formatToPoundCurrency(totalAmount);
+  // $: totalAmount = sumInvoices($invoices);
+  // $: formattedTotalAmount = formatToPoundCurrency(totalAmount);
 </script>
 
 <!--<svelte:head>
@@ -75,11 +75,11 @@
   <CircledAmount label="Total:" amount={formattedTotalAmount} />
 {/if}-->
 
-{#if isInvoiceCreateShowing}
-  <SlidePanel on:closePanel={() => (isInvoiceCreateShowing = false)}>
-    <InvoiceForm closePanel={() => (isInvoiceCreateShowing = false)} />
-  </SlidePanel>
-{/if}
+<!--{#if isInvoiceCreateShowing}-->
+<!--  <SlidePanel on:closePanel={() => (isInvoiceCreateShowing = false)}>-->
+<!--    <InvoiceForm closePanel={() => (isInvoiceCreateShowing = false)} />-->
+<!--  </SlidePanel>-->
+<!--{/if}-->
 
 <style lang="postcss">
   .search {
