@@ -128,6 +128,20 @@
   .swipe-revealed-button {
     @apply flex flex-col items-center justify-center font-bold text-daisyBush cursor-pointer;
   }
+
+  .logo-text {
+    word-spacing: 1000px;
+    @apply
+    text-goldenFizz
+    text-7xl
+    md:text-4xl
+    lg:text-5xl
+    xl:text-7xl
+    font-black
+    absolute
+    top-[50%]
+    -translate-y-[50%];
+  }
 }
 
 @layer utilities {

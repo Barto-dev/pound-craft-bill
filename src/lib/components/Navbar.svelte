@@ -69,18 +69,4 @@
   .nav a.active:hover {
     @apply px-9;
   }
-
-  .logo-text {
-    word-spacing: 1000px;
-    @apply
-    text-goldenFizz
-    text-7xl
-    md:text-4xl
-    lg:text-5xl
-    xl:text-7xl
-    font-black
-    absolute
-    top-[50%]
-    -translate-y-[50%];
-  }
 </style>
