@@ -1,20 +1,20 @@
 <script lang="ts">
-  import { invoices, loadInvoices } from '$lib/stores/invoiceStore';
-  import { onMount } from 'svelte';
-  import SearchInput from '$lib/components/SearchInput.svelte';
-  import CircledAmount from '$lib/components/CircledAmount.svelte';
-  import InvoiceRow from './InvoiceRow.svelte';
-  import { formatToPoundCurrency, sumInvoices } from '$lib/utils/money';
-  import BlankState from './BlankState.svelte';
-  import InvoiceRowHeader from './InvoiceRowHeader.svelte';
-  import Button from '$lib/components/Button.svelte';
-  import SlidePanel from '$lib/components/SlidePanel.svelte';
-  import InvoiceForm from './InvoiceForm.svelte';
-  import NoSearchResult from './NoSearchResult.svelte';
-  import type { InvoiceType } from '../../../types/DTM';
+  // import { invoices, loadInvoices } from '$lib/stores/invoiceStore';
+  // import { onMount } from 'svelte';
+  // import SearchInput from '$lib/components/SearchInput.svelte';
+  // import CircledAmount from '$lib/components/CircledAmount.svelte';
+  // import InvoiceRow from './InvoiceRow.svelte';
+  // import { formatToPoundCurrency, sumInvoices } from '$lib/utils/money';
+  // import BlankState from './BlankState.svelte';
+  // import InvoiceRowHeader from './InvoiceRowHeader.svelte';
+  // import Button from '$lib/components/Button.svelte';
+  // import SlidePanel from '$lib/components/SlidePanel.svelte';
+  // import InvoiceForm from './InvoiceForm.svelte';
+  // import NoSearchResult from './NoSearchResult.svelte';
+  // import type { InvoiceType } from '../../../types/DTM';
 
-  let isInvoiceCreateShowing = false;
-  let initialInvoiceList: InvoiceType[] = [];
+  // let isInvoiceCreateShowing = false;
+  // let initialInvoiceList: InvoiceType[] = [];
 
   // const handleSearchInvoices = (event: CustomEvent) => {
   //   const keywords = event.detail.searchTerms;
@@ -82,7 +82,7 @@
 <!--{/if}-->
 
 <style lang="postcss">
-  .search {
+/*  .search {
     @apply mb-7
     flex
     flex-col-reverse
@@ -92,5 +92,5 @@
     md:items-center
     lg:mb-16
     lg:gap-y-4;
-  }
+  }*/
 </style>
