@@ -8,8 +8,8 @@
   // import BlankState from './BlankState.svelte';
   // import InvoiceRowHeader from './InvoiceRowHeader.svelte';
   // import Button from '$lib/components/Button.svelte';
-  import SlidePanel from '$lib/components/SlidePanel.svelte';
-  import InvoiceForm from './InvoiceForm.svelte';
+  // import SlidePanel from '$lib/components/SlidePanel.svelte';
+  // import InvoiceForm from './InvoiceForm.svelte';
   // import NoSearchResult from './NoSearchResult.svelte';
   // import type { InvoiceType } from '../../../types/DTM';
 
@@ -75,11 +75,13 @@
   <CircledAmount label="Total:" amount={formattedTotalAmount} />
 {/if}-->
 
+<!--
 {#if isInvoiceCreateShowing}
   <SlidePanel on:closePanel={() => (isInvoiceCreateShowing = false)}>
     <InvoiceForm closePanel={() => (isInvoiceCreateShowing = false)} />
   </SlidePanel>
 {/if}
+-->
 
 <style lang="postcss">
   .search {
