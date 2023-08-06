@@ -73,6 +73,7 @@
     <div class="amount text-right font-mono text-sm font-bold lg:text-lg">{formattedAmount}</div>
     <div class="lg:center view-button hidden">
       <a
+        aria-label="View individual invoice"
         href={`/invoices/${invoice.id}`}
         class="text-pastelPurple transition-all hover:text-daisyBush"
       >
@@ -82,6 +83,7 @@
     <div class="lg:center more-button relative hidden lg:block"
          use:clickOutside={() => isAdditionalMenuShowing = false}>
       <button
+        aria-label="Open more options"
         on:click={() => (isAdditionalMenuShowing = !isAdditionalMenuShowing)}
         class="text-pastelPurple transition-all hover:text-daisyBush"
       >
