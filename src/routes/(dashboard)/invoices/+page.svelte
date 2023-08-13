@@ -38,6 +38,7 @@
     initialInvoiceList = $invoices;
   });
 
+  $: initialInvoiceList = $invoices;
   $: totalAmount = sumInvoices($invoices);
   $: formattedTotalAmount = formatToPoundCurrency(totalAmount);
 </script>
@@ -69,7 +70,7 @@
   <NoSearchResult />
 {:else}
   <InvoiceRowHeader className="text-daisyBush" />
-  <div class="flex flex-col">
+  <div class="flex flex-col-reverse">
     {#each initialInvoiceList as invoice}
       <InvoiceRow {invoice} />
     {/each}

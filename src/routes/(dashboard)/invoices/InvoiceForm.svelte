@@ -71,6 +71,7 @@
     } else {
       await addInvoice(invoice);
     }
+    invoice = {};
     closePanel();
   };
 
