@@ -36,7 +36,7 @@
   onMount(async () => {
     await loadSettings();
     const invoiceId = $page.params.id;
-    invoice = await getInvoiceById(invoiceId);
+    invoice = await getInvoiceById(invoiceId) as InvoiceType;
   });
 </script>
 
