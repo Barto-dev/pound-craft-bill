@@ -128,9 +128,11 @@
   <BlankState />
 {:else}
   <InvoiceRowHeader className="text-daisyBush" />
-  {#each $singleClient?.invoice || [] as invoice}
-    <InvoiceRow {invoice} />
-  {/each}
+  <div class="flex flex-col-reverse">
+    {#each $singleClient?.invoice || [] as invoice}
+      <InvoiceRow {invoice} />
+    {/each}
+  </div>
   <CircledAmount label="Total:" amount={formattedTotalAmount} />
 {/if}
 

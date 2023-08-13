@@ -69,9 +69,11 @@
   <NoSearchResult />
 {:else}
   <InvoiceRowHeader className="text-daisyBush" />
-  {#each initialInvoiceList as invoice}
-    <InvoiceRow {invoice} />
-  {/each}
+  <div class="flex flex-col">
+    {#each initialInvoiceList as invoice}
+      <InvoiceRow {invoice} />
+    {/each}
+  </div>
   <CircledAmount label="Total:" amount={formattedTotalAmount} />
 {/if}
 

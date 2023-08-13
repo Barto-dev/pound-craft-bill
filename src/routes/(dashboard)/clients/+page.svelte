@@ -3,7 +3,7 @@
   import SearchInput from '$lib/components/SearchInput.svelte';
   import ClientRowHeader from './ClientRowHeader.svelte';
   import ClientRow from './ClientRow.svelte';
-  import {clients, loadClients} from '$lib/stores/clientStore';
+  import { clients, loadClients } from '$lib/stores/clientStore';
   import { onMount } from 'svelte';
   import SlidePanel from '$lib/components/SlidePanel.svelte';
   import ClientForm from './ClientForm.svelte';
@@ -19,27 +19,27 @@
 
   const closeAddClientPanel = () => {
     isAddClientFormOpen = false;
-  }
+  };
 
   const openAddClientPanel = () => {
     isAddClientFormOpen = true;
-  }
+  };
 
   const handleSearchClients = (event: CustomEvent) => {
     const searchTerm = event.detail.searchTerms;
     clientList = $clients.filter((client) => {
-      return(
+      return (
         client?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         client?.email?.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      );
     });
-  }
+  };
 
   const handleClearSearch = (event: CustomEvent) => {
     if (event.detail.searchTerms === '') {
       clientList = $clients;
     }
-  }
+  };
 
   onMount(async () => {
     await loadClients();
@@ -75,10 +75,12 @@
   {:else if clientList.length === 0}
     <NoSearchResult />
   {:else}
-  <ClientRowHeader />
-    {#each clientList as client}
-      <ClientRow {client} />
-    {/each}
+    <ClientRowHeader />
+    <div class="flex flex-col-reverse">
+      {#each clientList as client}
+        <ClientRow {client} />
+      {/each}
+    </div>
   {/if}
 </div>
 
