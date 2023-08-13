@@ -71,7 +71,10 @@
     } else {
       await addInvoice(invoice);
     }
-    invoice = {};
+    invoice = {
+      client: {} as Client,
+      lineItems: [{ ...blankLineItem}],
+    } as unknown as InvoiceType;
     closePanel();
   };
 
